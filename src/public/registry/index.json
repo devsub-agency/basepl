@@ -1,0 +1,21 @@
+[
+  {
+    "name": "link",
+    "registryDependencies": [
+      "label"
+    ],
+    "files": [
+      "config.ts"
+    ],
+    "type": "component:field"
+  },
+  {
+    "name": "label",
+    "dependencies": [
+    ],
+    "files": [
+      "config.ts"
+    ],
+    "type": "component:field"
+  }
+]
