@@ -8,7 +8,7 @@ import {
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { Github } from '../Socials/Github'
+import { Github } from '../Marks/Github'
 import { useState } from 'react'
 import { Logo } from '../Logo/Componet'
 import { cn } from '@/lib/utils'
@@ -33,7 +33,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex flex-col justify-between w-full gap-4 backdrop-blur-sm bg-background/70 md:rounded-lg md:flex-row md:px-4 md:py-2',
+        'flex flex-col justify-between w-full gap-4 backdrop-blur-md bg-background/50 md:rounded-lg md:flex-row md:px-4 md:py-2',
         { 'bg-background': showMenu },
       ])}
     >
