@@ -5,15 +5,15 @@ import Link from 'next/link'
 const Home = () => {
   return (
     <div className="flex flex-col justify-center mx-auto max-w-screen-xl sm:px-8 h-screen">
-      <div className="flex flex-col z-10 gap-6 w-3/5 px-4 sm:px-10 sm:text-center mx-auto pb-40">
-        <h1 className="text-6xl font-medium leading-[1.125] tracking-tight">
+      <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 sm:w-3/5 sm:px-10">
+        <h1 className="text-4xl font-medium leading-[1.125] tracking-tight sm:text-6xl">
           Create applications in seconds with ease
         </h1>
         <p className="text-lg text-muted-foreground">
           Awesome out of the box fields, blocks, components and plugins for payload cms. Bootstrap
           your next project in seconds with ease.
         </p>
-        <div className="flex gap-4 mx-auto">
+        <div className="flex gap-4 sm:mx-auto">
           <Link href="/blog">
             <Button variant="outline" className="bg-transparent border-muted-foreground">
               Learn more
@@ -29,7 +29,7 @@ const Home = () => {
         alt="logo"
         width={1000}
         height={1000}
-        className="absolute left-0 top-0 h-full w-full object-cover opacity-80 dark:opacity-20 z-0"
+        className="absolute left-0 top-0 h-full w-full object-cover opacity-80 dark:opacity-20 z-0 pointer-events-none"
       />
     </div>
   )

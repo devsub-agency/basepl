@@ -1,24 +1,12 @@
 import * as React from 'react'
-import HeaderClient from './Component.client'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Logo } from '../Logo/Componet'
+import { HeaderClient } from './Component.client'
 
 const mockDate = ['Templates', 'Modules', 'Plugins', 'Blog']
-const mockCta = 'Get started'
 
 const Header = () => {
   return (
-    <header className="fixed left-0 right-0 mx-auto w-full max-w-screen-xl sm:px-8 sm:top-4 z-50">
-      <div className="flex items-center gap-4 px-4 py-2 bg-accent/20 backdrop-blur-sm rounded-lg">
-        <Logo />
-        <HeaderClient menuItems={mockDate} />
-        <Link href="/">
-          <Button variant="default" className="h-8 rounded-lg">
-            {mockCta}
-          </Button>
-        </Link>
-      </div>
+    <header className="fixed left-0 right-0 mx-auto w-full max-w-screen-xl sm:px-8 md:top-4 z-50">
+      <HeaderClient menuItems={mockDate} />
     </header>
   )
 }
