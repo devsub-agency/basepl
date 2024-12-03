@@ -57,13 +57,16 @@ export default function Page() {
   return (
     <div className="bg-background">
       <main className="mx-auto max-w-screen-xl px-5 md:px-8 pt-20 pb-10 md:pt-40 md:pb-16">
-        <Link href={`/blog/${featuredArticle.slug}`} className="mb-16 grid gap-8 lg:grid-cols-2">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
+        <Link
+          href={`/blog/${featuredArticle.slug}`}
+          className="mb-16 grid gap-8 md:gap-12 md:grid-cols-2"
+        >
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl md:aspect-[16/9]">
             <Image
               src={featuredArticle.image}
               alt={featuredArticle.title}
               fill
-              className="object-cover md:h-64"
+              className="object-cover rounded-xl"
               priority
             />
             <div className="absolute left-4 top-4">
@@ -77,7 +80,7 @@ export default function Page() {
               <div className="text-sm text-muted-foreground mb-4">
                 {featuredArticle.date} • {featuredArticle.readTime}
               </div>
-              <h1 className="text-2xl font-medium lg:text-3xl">{featuredArticle.title}</h1>
+              <h1 className="text-2xl font-medium md:text-3xl">{featuredArticle.title}</h1>
               <p className="text-muted-foreground">{featuredArticle.description}</p>
             </div>
             <div className="flex items-center space-x-3">
@@ -99,7 +102,7 @@ export default function Page() {
         </Link>
 
         {/* Articles Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
           {articles.map((article, index) => (
             <Link key={index} href={`/blog/${article.slug}`} className="group space-y-6 ">
               <div className="space-y-4">
