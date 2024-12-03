@@ -35,7 +35,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex flex-col justify-between w-full gap-4 backdrop-blur-md bg-background/50 md:rounded-lg md:flex-row md:px-4 md:py-2',
+        'flex flex-col justify-between w-full gap-4 backdrop-blur-md bg-accent/50 md:rounded-lg md:flex-row md:px-4 md:py-2',
         { 'bg-background': showMenu },
       ])}
     >
@@ -49,12 +49,17 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
         <NavigationMenuList className="flex flex-col md:flex-row items-start">
           {menuItems.map((item, index) => (
             <NavigationMenuItem key={index}>
-              <Link href="/">
+              <Link href={index !== 3 ? '/' : '/blog'}>
                 <Button
                   variant="ghost"
-                  className="hover:bg-transparent text-gray-500 dark:text-gray-400 dark:hover:text-foreground"
+                  className="hover:bg-transparent text-muted-foreground dark:hover:text-foreground"
                 >
                   {item}
+                  {index !== 3 && (
+                    <div className="flex items-center space-x-2 rounded-full py-0.5 px-2 bg-emerald-500/20">
+                      <span className="text-xs text-emerald-500">Soon</span>
+                    </div>
+                  )}
                 </Button>
               </Link>
             </NavigationMenuItem>

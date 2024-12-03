@@ -26,28 +26,30 @@ interface Article {
 
 export default function Page() {
   const featuredArticle = {
-    title: 'Introducing AI Assistant',
-    description: 'Ask AI to make context-aware changes to your docs.',
-    image: '/bg-pattern.png',
+    title: 'The vision behind basepl',
+    description:
+      'Get a quick overview of our vision for the open-source library basepl and how it can help you building applications with payload cms faster.',
+    image: '/article-thumbnail.png',
     date: 'November 25, 2024',
     readTime: '1 min read',
     author: {
-      name: 'Han Wang',
+      name: 'Maurice Ihl',
       role: 'Co-founder',
-      image: '/bg-pattern.png',
+      image: '/pb-maurice.png',
     },
     slug: 'introducing-ai-assistant',
   }
 
   const articles: Article[] = [
     {
-      title: 'Simplifying docs for AI with /llms.txt',
-      description: "Why we're providing a better way for LLMs to process documentation.",
-      image: '/bg-pattern.png',
+      title: 'Strapi vs Payload - A comprehensive comparison',
+      description:
+        'All the relevant information you need to know to help you choose the right one.',
+      image: '/strapi-vs-payload.png',
       author: {
-        name: 'Tiffany Chen',
-        image: '/bg-pattern.png',
-        role: '',
+        name: 'Maurice Ihl',
+        image: '/pb-maurice.png',
+        role: 'Co-Founder',
         date: 'November 20, 2024',
       },
       slug: 'simplifying-docs-for-ai',
@@ -61,7 +63,7 @@ export default function Page() {
           href={`/blog/${featuredArticle.slug}`}
           className="mb-16 grid gap-8 md:gap-12 md:grid-cols-2"
         >
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl md:aspect-[16/9]">
+          <div className="relative overflow-hidden rounded-xl aspect-[16/9]">
             <Image
               src={featuredArticle.image}
               alt={featuredArticle.title}
@@ -89,7 +91,7 @@ export default function Page() {
                 alt={featuredArticle.author.name}
                 width={40}
                 height={40}
-                className="rounded-full"
+                className="rounded-full h-10 w-10 object-cover"
               />
               <div>
                 <div className="text-sm font-semibold text-muted-foreground">
@@ -101,28 +103,23 @@ export default function Page() {
           </div>
         </Link>
 
-        {/* Articles Grid */}
         <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
           {articles.map((article, index) => (
-            <Link key={index} href={`/blog/${article.slug}`} className="group space-y-6 ">
+            <div key={index} className="group space-y-6">
               <div className="space-y-4">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
                   <Image
                     src={article.image}
                     alt={article.title}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  {article.badge && (
-                    <div className="absolute left-4 top-4">
-                      <Badge
-                        variant="secondary"
-                        className="bg-white/10 text-white backdrop-blur-sm"
-                      >
-                        {article.badge}
-                      </Badge>
-                    </div>
-                  )}
+
+                  <div className="absolute left-4 top-4">
+                    <Badge variant="secondary" className="bg-white/10 text-white backdrop-blur-sm">
+                      {'Coming soon'}
+                    </Badge>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-xl font-medium">{article.title}</h2>
@@ -135,7 +132,7 @@ export default function Page() {
                   alt={article.author.name}
                   width={24}
                   height={24}
-                  className="rounded-full"
+                  className="rounded-full h-10 w-10 object-cover"
                 />
                 <div className="text-sm">
                   <span className="text-sm font-semibold text-muted-foreground">
@@ -144,7 +141,7 @@ export default function Page() {
                   <span className="text-muted-foreground"> • {article.author.date}</span>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </main>

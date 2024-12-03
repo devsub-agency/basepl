@@ -28,7 +28,7 @@ export default async function Page() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/blog/seo">General SEO</BreadcrumbLink>
+              <BreadcrumbLink href="/blog/seo">Introducing basepl</BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -37,8 +37,8 @@ export default async function Page() {
           <div className="lg:col-span-2">
             {/* Article Header */}
             <header className="mb-8">
-              <h1 className="mb-4 text-3xl font-medium tracking-tight">
-                November 2024 Google Core Update: 4 Step Recovery
+              <h1 className="mb-4 text-3xl font-medium tracking-tight w-3/4">
+                basepl - An open source library based on Payload CMS to build faster
               </h1>
               <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                 <time dateTime="2024-11-14">Nov 14, 2024</time>
@@ -52,7 +52,7 @@ export default async function Page() {
             {/* Featured Image */}
             <div className="mb-8 overflow-hidden rounded-lg">
               <Image
-                src="/bg-pattern.png"
+                src="/article-thumbnail.png"
                 alt="Google Core Update"
                 width={800}
                 height={400}
@@ -63,7 +63,7 @@ export default async function Page() {
               <h2 className="text-2xl font-semibold"> Test headline</h2>
               <br />
               <p className="text-muted-foreground">
-                We all suffer from documentation lagging behind product updates. It’s a particularly
+                We all suffer from documentation lagging behind product updates. Its a particularly
                 hard problem because developers should own documentation since they know the details
                 best, but they often hesitate to use tools outside their familiar git workflows or
                 IDEs.

@@ -77,7 +77,7 @@ export function Footer({ className, ...props }: FooterProps) {
               <span>In progress</span>
             </div>
             <span>Support us ❤</span>
-            <span>2024 plbase</span>
+            <span>2024 basepl</span>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
+import { Menu, TableOfContentsIcon } from 'lucide-react'
 import Link from 'next/link'
 
 interface TableOfContentsItem {
@@ -51,7 +51,7 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => (
   <nav className={`space-y-4 ${className}`}>
     {items.map((item) => (
       <div key={item.href}>
-        <Link href={item.href} className="block text-foreground hover:text-foreground pb-3">
+        <Link href={item.href} className="block text-foreground hover:text-foreground pb-3 pt-1">
           {item.title}
         </Link>
         {item.subitems && (
@@ -77,11 +77,18 @@ interface BlogSidebarProps {
 }
 
 export const BlogSidebar = () => {
+  const tableOfContentsHeadline = (
+    <div className="flex gap-2 items-center mb-4">
+      <TableOfContentsIcon />
+      <span className="text-lg font-semibold">table of contents</span>
+    </div>
+  )
+
   return (
     <>
       <div className="hidden lg:block">
         <div className="sticky top-8">
-          <h2 className="mb-4 text-lg font-semibold">INSIDE THIS ARTICLE</h2>
+          {tableOfContentsHeadline}
           <TableOfContents items={tableOfContents} />
         </div>
       </div>
@@ -99,7 +106,7 @@ export const BlogSidebar = () => {
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Content Overview</SheetTitle>
+              <SheetTitle>{tableOfContentsHeadline}</SheetTitle>
             </SheetHeader>
             <TableOfContents items={tableOfContents} className="mt-8" />
           </SheetContent>

@@ -15,13 +15,13 @@ const Home = () => {
   return (
     <div className="flex flex-col max-w-screen-xl sm:px-8 mx-auto">
       <div className="flex flex-col justify-center mx-auto h-screen ">
-        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 sm:w-3/5 sm:px-10">
-          <h1 className="text-4xl font-medium leading-[1.125] tracking-tight sm:text-6xl">
-            Create applications in seconds with ease
+        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 md:w-3/5 md:px-10">
+          <h1 className="text-4xl font-medium leading-[1.125] tracking-tight md:text-6xl">
+            Build Payload based applications in minutes
           </h1>
           <p className="text-lg text-muted-foreground">
-            Awesome out of the box fields, blocks, components and plugins for payload cms. Bootstrap
-            your next project in seconds with ease.
+            Awesome out-of-the-box templates, components and plugins for Payload CMS. Bootstrap your
+            next next project in seconds with ease.
           </p>
           <div className="flex gap-4 sm:mx-auto">
             <Link href="/blog">

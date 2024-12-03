@@ -2,14 +2,14 @@ import Link from 'next/link'
 
 export const Logo = () => {
   return (
-    <Link href={'/'} className="flex gap-3 items-center">
+    <Link href={'/'} className="flex gap-2 items-center">
       <svg
         width="107"
         height="196"
         viewBox="0 0 107 196"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-fit"
+        className="h-6 w-fit"
       >
         <path
           fillRule="evenodd"
@@ -25,8 +25,8 @@ export const Logo = () => {
         />
       </svg>
 
-      <span className="text-xl font-semibold text-foreground whitespace-nowrap tracking-tighter">
-        Payload base
+      <span className="text-2xl font-semibold text-foreground whitespace-nowrap tracking-tighter">
+        basepl
       </span>
     </Link>
   )
