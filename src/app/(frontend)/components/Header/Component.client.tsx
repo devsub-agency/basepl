@@ -8,10 +8,10 @@ import {
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { Github } from '../Marks/Github'
 import { useState } from 'react'
 import { Logo } from '../Logo/Componet'
 import { cn } from '@/lib/utils'
+import { GithubLogo } from '../Logos/GithubLogo'
 
 interface HeaderClientProps {
   // todo: needs to be replaced with payload data
@@ -21,6 +21,8 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   const { theme, setTheme } = useTheme()
   const [showMenu, setShowMenu] = useState(false)
   const mockCta = 'Get started'
+
+  console.log(theme)
 
   const onToggleTheme = () => {
     if (theme === 'light') {
@@ -72,7 +74,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
           </Button>
           <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
             <Button variant="ghost" size="icon">
-              <Github />
+              <GithubLogo />
             </Button>
           </Link>
         </div>

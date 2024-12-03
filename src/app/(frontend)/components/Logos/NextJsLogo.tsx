@@ -1,4 +1,4 @@
-export const NextjsMark = () => {
+export const NextjsLogo = () => {
   return (
     <svg
       width="186"

@@ -1,4 +1,4 @@
-export const Github = () => {
+export const GithubLogo = () => {
   return (
     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_910_44)">

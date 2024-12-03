@@ -1,4 +1,4 @@
-export const TailwindMark = () => {
+export const TailwindLogo = () => {
   return (
     <svg
       width="262"

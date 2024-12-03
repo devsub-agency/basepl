@@ -1,4 +1,4 @@
-export const PayloadMark = () => {
+export const PayloadLogo = () => {
   return (
     <svg
       width="194"

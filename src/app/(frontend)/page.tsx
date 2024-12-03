@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
-import { PayloadMark } from './components/Marks/PayloadMark'
-import { TailwindMark } from './components/Marks/TailwindMark'
-import { NextjsMark } from './components/Marks/NextJsMark'
-import { RadixMark } from './components/Marks/RadixMark'
+
 import { Separator } from '@/components/ui/separator'
 import { GitPullRequest, LayoutPanelTop, Package, Plug } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { SparklesCore } from '@/components/ui/sparkles'
+import { PayloadLogo } from './components/Logos/PayloadLogo'
+import { NextjsLogo } from './components/Logos/NextJsLogo'
+import { RadixLogo } from './components/Logos/RadixLogo'
+import { TailwindLogo } from './components/Logos/TailwindLogo'
 
 const Home = () => {
   return (
@@ -41,7 +42,7 @@ const Home = () => {
           className="absolute left-0 top-0 h-full w-full object-cover opacity-80 dark:opacity-20 z-0 pointer-events-none"
         />
       </div>
-      <div className="flex flex-col gap-4 px-5 mx-auto md:text-center md:w-3/5 md:px-10 md:pb-6">
+      <div className="flex flex-col gap-4 px-5 mx-auto md:text-center md:w-3/5 md:px-10 md:pb-12">
         <h1 className="text-3xl font-medium leading-[1.125] tracking-tight md:text-4xl">
           Reliable technologies
         </h1>
@@ -49,11 +50,11 @@ const Home = () => {
           An open source library for Payload CMS build on top of next-gen and established
           technologies you can trust on.
         </p>
-        <div className="grid items-center opacity-80 w-full grid-cols-4 gap-4 md:gap-8 md:mt-6">
-          <PayloadMark />
-          <NextjsMark />
-          <RadixMark />
-          <TailwindMark />
+        <div className="grid items-center opacity-80 w-full grid-cols-4 gap-4 md:gap-8 md:mt-6 md:px-6">
+          <PayloadLogo />
+          <NextjsLogo />
+          <RadixLogo />
+          <TailwindLogo />
         </div>
       </div>
       <div className="flex flex-col my-12 px-5 md:px-0">

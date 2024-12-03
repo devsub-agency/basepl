@@ -1,4 +1,4 @@
-export const RadixMark = () => {
+export const RadixLogo = () => {
   return (
     <svg
       width="117"
