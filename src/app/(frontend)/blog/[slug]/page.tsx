@@ -82,9 +82,9 @@ export default async function Page() {
                 We have fallen in love working with Payload CMS for both our own projects and those
                 of our customers. The freedom to create a highly customisable and individual CMS for
                 your projects combined with the flexibility of an open source tool is simply
-                fantastic. As an agency owner and developer, I can tell you that it's important to
-                be comfortable with the framework you're working with. But individualism always
-                comes with a trade-off...
+                fantastic. As an agency owner and developer, I can tell you that it&apos;s important
+                to be comfortable with the framework you&apos;re working with. But individualism
+                always comes with a trade-off...
               </p>
               <br />
               <br />
@@ -98,8 +98,8 @@ export default async function Page() {
                 Sure, if you have already built some projects, you can copy and paste code. But this
                 is by no means a standardised and scalable solution. So we asked our team how we
                 could keep the beauty of using a flexible CMS like Payload, but be more efficient
-                with it. A good, familiar library came to mind - shadcn. That's how the idea for
-                basepl was born.
+                with it. A good, familiar library came to mind - shadcn. That&apos;s how the idea
+                for basepl was born.
               </p>
               <br />
               <br />
@@ -117,10 +117,10 @@ export default async function Page() {
                 Scalable templates
               </h3>
               <p className="text-muted-foreground mt-2">
-                Yes, payload itself already provides them, but they don't meet our needs. So we want
-                to provide starterkits for simple landing pages, websites, blogs, e-commerce stores
-                and maybe in the future for apps and platforms. And best of all, the templates are
-                easy to combine with the components.
+                Yes, payload itself already provides them, but they don&apos;t meet our needs. So we
+                want to provide starterkits for simple landing pages, websites, blogs, e-commerce
+                stores and maybe in the future for apps and platforms. And best of all, the
+                templates are easy to combine with the components.
               </p>
               <br />
               <h3 className="text-lg font-semibold" id="components-via-CL-commands">
@@ -145,7 +145,7 @@ export default async function Page() {
               <br />
               <br />
               <h2 className="text-2xl font-semibold" id="establish-a-better-cms">
-                Let's establish a better CMS together
+                Let&apos;s establish a better CMS together
               </h2>
               <p className="text-muted-foreground mt-2">
                 You have probably read this far because you like the CMS Payload and are a bit

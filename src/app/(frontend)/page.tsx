@@ -104,7 +104,7 @@ const Home = () => {
         </h1>
         <p className="text-muted-foreground md:px-12">
           Join our discord server to share feedback, help, showcase your projects or get the latest
-          updates for basepl. Let's build something awesome together.
+          updates for basepl. Let&apos;s build something awesome together.
         </p>
         <Button type="submit" className="md:mx-auto mt-4" id="discord" asChild>
           <Link href="https://discord.gg/b99KZMW2">
@@ -142,7 +142,7 @@ export function generateMetadata(): Metadata {
       'Awesome out-of-the-box templates, components and plugins for Payload CMS. Bootstrap your next project in minutes with ease.',
     authors: [{ name: 'Maurice Ihl' }],
     openGraph: {
-      images: [{ url: '/article-thumbnail.png' }],
+      images: [{ url: '/basepl-logo.png' }],
     },
   }
 }
