@@ -28,6 +28,7 @@ export const BaseplLogo = () => {
       <span className="text-2xl font-semibold text-foreground whitespace-nowrap tracking-tighter">
         basepl
       </span>
+      <span className="ml-4 text-muted-foreground">v0.1 &alpha;lpha</span>
     </Link>
   )
 }

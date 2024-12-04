@@ -30,14 +30,14 @@ export default function Page() {
     description:
       'Get a quick overview of our vision for the open-source library basepl and how it can help you building applications with payload cms faster.',
     image: '/article-thumbnail.png',
-    date: 'November 25, 2024',
-    readTime: '1 min read',
+    date: '04 December, 2024',
+    readTime: '2 min read',
     author: {
-      name: 'Maurice Ihl',
+      name: 'Maurice',
       role: 'Co-founder',
       image: '/pb-maurice.png',
     },
-    slug: 'introducing-ai-assistant',
+    slug: 'what-is-basepl',
   }
 
   const articles: Article[] = [
@@ -47,12 +47,12 @@ export default function Page() {
         'All the relevant information you need to know to help you choose the right one.',
       image: '/strapi-vs-payload.png',
       author: {
-        name: 'Maurice Ihl',
+        name: 'Maurice',
         image: '/pb-maurice.png',
         role: 'Co-Founder',
-        date: 'November 20, 2024',
+        date: 'Coming soon',
       },
-      slug: 'simplifying-docs-for-ai',
+      slug: '/',
     },
   ]
 
@@ -151,6 +151,12 @@ export default function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `plbase Posts`,
+    title: `Latest articles on basepl and Payload CMS`,
+    description:
+      'Explore helpful articles such as comparisons, tutorials and more to help you build applications more efficiently.',
+    authors: [{ name: 'Maurice Ihl' }],
+    openGraph: {
+      images: [{ url: '/article-thumbnail.png' }],
+    },
   }
 }

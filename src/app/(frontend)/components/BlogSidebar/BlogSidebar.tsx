@@ -13,32 +13,34 @@ interface TableOfContentsItem {
 
 const tableOfContents: TableOfContentsItem[] = [
   {
-    href: '#introduction',
-    title: 'Introduction',
+    href: '#the-challenge-we-faced',
+    title: 'The challenge we faced',
+  },
+  {
+    href: '#keep-the-beauty',
+    title: 'Keep the beauty ',
+  },
+  {
+    href: '#what-is-basepl',
+    title: 'What is basepl?',
     subitems: [
       {
-        href: '#getting-started',
-        title: 'Getting Started',
+        href: '#scalable-templates',
+        title: 'Scalable templates',
       },
       {
-        href: '#prerequisites',
-        title: 'Prerequisites',
+        href: '#components-via-CL-commands',
+        title: 'Components via CL commands',
+      },
+      {
+        href: '#a-directory-for-plugins',
+        title: 'A directory for plugins',
       },
     ],
   },
   {
-    href: '#main-concepts',
-    title: 'Main Concepts',
-    subitems: [
-      {
-        href: '#basics',
-        title: 'Basics',
-      },
-      {
-        href: '#advanced',
-        title: 'Advanced',
-      },
-    ],
+    href: '#establish-a-better-cms',
+    title: 'establish a better CMS',
   },
 ]
 
@@ -48,14 +50,14 @@ interface TableOfContentsProps {
 }
 
 const TableOfContents = ({ items, className }: TableOfContentsProps) => (
-  <nav className={`space-y-4 ${className}`}>
+  <nav className={className}>
     {items.map((item) => (
       <div key={item.href}>
-        <Link href={item.href} className="block text-foreground hover:text-foreground pb-3 pt-1">
+        <Link href={item.href} className="block text-foreground hover:text-foreground pt-4">
           {item.title}
         </Link>
         {item.subitems && (
-          <div className="pl-4 space-y-3 border-l">
+          <div className="pl-4 space-y-3 border-l pt-3">
             {item.subitems.map((subitem) => (
               <Link
                 key={subitem.href}
@@ -80,7 +82,7 @@ export const BlogSidebar = () => {
   const tableOfContentsHeadline = (
     <div className="flex gap-2 items-center mb-4">
       <TableOfContentsIcon />
-      <span className="text-lg font-semibold">table of contents</span>
+      <span className="text-lg font-semibold">Table of contents</span>
     </div>
   )
 

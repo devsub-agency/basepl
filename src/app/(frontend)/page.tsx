@@ -4,13 +4,13 @@ import Link from 'next/link'
 
 import { Separator } from '@/components/ui/separator'
 import { GitPullRequest, LayoutPanelTop, Package, Plug } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import { SparklesCore } from '@/components/ui/sparkles'
 import { PayloadLogo } from './components/Logos/PayloadLogo'
 import { NextjsLogo } from './components/Logos/NextJsLogo'
 import { RadixLogo } from './components/Logos/RadixLogo'
 import { TailwindLogo } from './components/Logos/TailwindLogo'
 import { DiscordLogo } from './components/Logos/DiscordLogo'
+import { Metadata } from 'next'
 
 const Home = () => {
   return (
@@ -103,7 +103,7 @@ const Home = () => {
           Join the basepl community
         </h1>
         <p className="text-muted-foreground md:px-12">
-          Join our discrord server to share feedback, help, showcase your projects or get the latest
+          Join our discord server to share feedback, help, showcase your projects or get the latest
           updates for basepl. Let's build something awesome together.
         </p>
         <Button type="submit" className="md:mx-auto mt-4" id="discord" asChild>
@@ -134,3 +134,15 @@ const Home = () => {
 }
 
 export default Home
+
+export function generateMetadata(): Metadata {
+  return {
+    title: `basepl - Build your Payload applications in minutes`,
+    description:
+      'Awesome out-of-the-box templates, components and plugins for Payload CMS. Bootstrap your next project in minutes with ease.',
+    authors: [{ name: 'Maurice Ihl' }],
+    openGraph: {
+      images: [{ url: '/article-thumbnail.png' }],
+    },
+  }
+}
