@@ -107,7 +107,7 @@ export default function Page() {
           {articles.map((article, index) => (
             <div key={index} className="group space-y-6">
               <div className="space-y-4">
-                <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
                   <Image
                     src={article.image}
                     alt={article.title}

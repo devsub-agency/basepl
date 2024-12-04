@@ -9,9 +9,9 @@ import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Logo } from '../Logo/Componet'
 import { cn } from '@/lib/utils'
 import { GithubLogo } from '../Logos/GithubLogo'
+import { BaseplLogo } from '../Logos/BaseplLogo'
 
 interface HeaderClientProps {
   // todo: needs to be replaced with payload data
@@ -21,8 +21,6 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   const { theme, setTheme } = useTheme()
   const [showMenu, setShowMenu] = useState(false)
   const mockCta = 'Get started'
-
-  console.log(theme)
 
   const onToggleTheme = () => {
     if (theme === 'light') {
@@ -40,7 +38,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
       ])}
     >
       <div className="flex justify-between items-center w-full md:w-fit p-4 md:p-0">
-        <Logo />
+        <BaseplLogo />
         <div onClick={() => setShowMenu(!showMenu)} className="md:hidden">
           {showMenu ? <X /> : <Menu />}
         </div>

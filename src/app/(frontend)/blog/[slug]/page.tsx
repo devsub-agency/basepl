@@ -50,7 +50,7 @@ export default async function Page() {
             </header>
 
             {/* Featured Image */}
-            <div className="mb-8 overflow-hidden rounded-lg">
+            <div className="mb-8 overflow-hidden rounded-xl">
               <Image
                 src="/article-thumbnail.png"
                 alt="Google Core Update"

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export const Logo = () => {
+export const BaseplLogo = () => {
   return (
     <Link href={'/'} className="flex gap-2 items-center">
       <svg

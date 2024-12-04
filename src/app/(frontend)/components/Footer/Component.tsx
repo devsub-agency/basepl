@@ -7,7 +7,8 @@ import { YoutubeLogo } from '../Logos/YoutubeLogo'
 import { GithubLogo } from '../Logos/GithubLogo'
 import { LinkedinLogo } from '../Logos/LinkedInLogo'
 import { XLogo } from '../Logos/XLogo'
-import { Logo } from '../Logo/Componet'
+import { BaseplLogo } from '../Logos/BaseplLogo'
+import { DiscordLogo } from '../Logos/DiscordLogo'
 
 interface FooterProps extends React.HTMLAttributes<HTMLElement> {}
 
@@ -17,18 +18,18 @@ export function Footer({ className, ...props }: FooterProps) {
       <div className="mx-auto max-w-screen-xl md:px-5">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 px-5 py-10 md:border-x md:p-16">
           <div className="flex flex-col justify-between col-span-2 lg:col-span-1">
-            <Logo />
+            <BaseplLogo />
             <div className="flex mt-8">
               <Button variant="ghost" size="icon" asChild>
-                <Link href="https://twitter.com">
+                <Link href="https://x.com/maurice_build">
                   <XLogo />
-                  <span className="sr-only">Twitter</span>
+                  <span className="sr-only">X</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="https://linkedin.com">
-                  <LinkedinLogo />
-                  <span className="sr-only">LinkedIn</span>
+                <Link href="https://discord.gg/b99KZMW2">
+                  <DiscordLogo />
+                  <span className="sr-only">Discord</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
@@ -38,7 +39,7 @@ export function Footer({ className, ...props }: FooterProps) {
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="https://youtube.com">
+                <Link href="/">
                   <YoutubeLogo />
                   <span className="sr-only">Youtube</span>
                 </Link>
@@ -49,9 +50,9 @@ export function Footer({ className, ...props }: FooterProps) {
           <div className="flex flex-col space-y-4">
             <h3 className="text-sm font-medium">Resources</h3>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
-              <Link href="/templates">Templates</Link>
-              <Link href="/components">Components</Link>
-              <Link href="/plugins">Plugins</Link>
+              <Link href="/">Templates</Link>
+              <Link href="/">Components</Link>
+              <Link href="/">Plugins</Link>
             </nav>
           </div>
           <div className="flex flex-col space-y-4">
@@ -64,8 +65,8 @@ export function Footer({ className, ...props }: FooterProps) {
           <div className="flex flex-col space-y-4">
             <h3 className="text-sm font-medium">Legal</h3>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
-              <Link href="/privacy">Privacy Policy</Link>
-              <Link href="/terms">Terms of Service</Link>
+              <Link href="/">Privacy Policy</Link>
+              <Link href="/">Terms of Service</Link>
             </nav>
           </div>
 
