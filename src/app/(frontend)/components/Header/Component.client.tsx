@@ -47,7 +47,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
         <NavigationMenuList className="flex flex-col md:flex-row items-start">
           {menuItems.map((item, index) => (
             <NavigationMenuItem key={index}>
-              <Link href={index !== 3 ? '/' : '/blog'}>
+              <Link href={index !== 3 ? '/' : '/posts'}>
                 <Button
                   variant="ghost"
                   className="hover:bg-transparent text-muted-foreground dark:hover:text-foreground"
