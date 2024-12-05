@@ -60,7 +60,7 @@ export default function Page() {
     <div className="bg-background">
       <main className="mx-auto max-w-screen-xl px-5 md:px-8 pt-20 pb-10 md:pt-40 md:pb-16">
         <Link
-          href={`/blog/${featuredArticle.slug}`}
+          href={`/posts/${featuredArticle.slug}`}
           className="mb-16 grid gap-8 md:gap-12 md:grid-cols-2"
         >
           <div className="relative overflow-hidden rounded-xl aspect-[16/9]">
