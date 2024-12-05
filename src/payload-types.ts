@@ -144,7 +144,7 @@ export interface ButtonType {
  * via the `definition` "LinkType".
  */
 export interface LinkType {
-  textLabel: string;
+  label: string;
   targetType: 'page' | 'file' | 'external' | 'email';
   isOpenNewTab?: boolean | null;
   hasNoReferrer?: boolean | null;
@@ -270,7 +270,7 @@ export interface PostsSelect<T extends boolean = true> {
               link?:
                 | T
                 | {
-                    textLabel?: T;
+                    label?: T;
                     targetType?: T;
                     isOpenNewTab?: T;
                     hasNoReferrer?: T;

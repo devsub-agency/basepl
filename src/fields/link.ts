@@ -14,7 +14,7 @@ export const link = ({ fieldIsLocalized = false }) => {
         type: 'row',
         fields: [
           {
-            name: 'textLabel',
+            name: 'label',
             type: 'text',
             maxLength: 30,
             required: true,
