@@ -3,25 +3,9 @@ import path, { basename, dirname } from "path";
 import prompts from "prompts";
 import handleError from "../error/handle-error";
 import { logger, loggingColor } from "../logging/logger";
-import { RegistryFile, registryIndexFileItem, registryIndexSchema, RegistryItem, registryItemFileSchema, registryItemSchema } from "../registry/schema";
-import { spinner } from "../spinner";
 import { fetchRegistry } from "../registry/fetchRegistry";
-
-const getFileTargetDir = (file: RegistryFile, cwd: string) => {
-    let basePath = "";
-    switch (file.type) {
-        case "templates/fields":
-            basePath = "fields";
-            break;
-        case "templates/blocks":
-            basePath = "blocks";
-            break;
-        case "templates/components":
-            basePath = "components";
-            break;
-    }
-    return path.join(cwd, "src", basePath);
-};
+import { RegistryFile, RegistryItem, registryItemSchema } from "../registry/schema";
+import { spinner } from "../spinner";
 
 const getFileContent = async (file: RegistryFile): Promise<string> => {
     try {
@@ -47,16 +31,16 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
 
     try {
         for (const file of files) {
-            const targetDir = getFileTargetDir(file, options.cwd);
             const fileName = basename(file.path);
+            const targetDir = path.join(options.cwd, "src", file.path).replace(fileName, '');
             const targetPath = path.join(targetDir, fileName);
-
+            logger.warn(`\nAdding file ${loggingColor.info(fileName)} to ${loggingColor.info(targetDir)} resulting in path ${loggingColor.info(targetPath)}`);
             if (existsSync(targetPath) && !options.overwrite) {
                 addFileSpinner.stop();
                 const { overwrite } = await prompts({
                     type: "confirm",
                     name: "overwrite",
-                    message: `File ${loggingColor.info(fileName)} exists. Overwrite?`,
+                    message: `File ${loggingColor.info(basename(file.path))} exists. Overwrite?`,
                     initial: false,
                 });
 
@@ -73,6 +57,7 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
             await fs.writeFile(targetPath, content, 'utf-8');
 
             const relativePath = path.relative(options.cwd, targetPath);
+            logger.info(`File ${loggingColor.info(fileName)} added to ${loggingColor.info(dirname(relativePath))}`);
             existsSync(targetPath) ? filesUpdated.push(relativePath) : filesCreated.push(relativePath);
         }
 
