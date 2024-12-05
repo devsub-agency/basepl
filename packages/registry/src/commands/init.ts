@@ -1,26 +1,23 @@
 import { Command } from "commander";
-import { z } from "zod";
-import { logger, loggingColor } from "../utils/logging/logger";
-import handleError from "../utils/error/handle-error";
-import { get } from "http";
-import { checkProjectSetUp, checkShadcnPresents, getPayloadAppDetails } from "../utils/preflights/preflightInit";
-import { getPackageManager } from "../utils/getPackageManager";
-import prompts from "prompts";
-import { initShadcn } from "../utils/initShadcn";
-import { spinner } from "../utils/spinner";
-import { CONFIG_FILE, createConfig, defaultConfig } from "../utils/config/configHandler";
 import path from "path";
-import { write } from "fs";
+import prompts from "prompts";
+import { z } from "zod";
+import { CONFIG_FILE, createConfig, defaultConfig } from "../utils/config/configHandler";
+import handleError from "../utils/error/handle-error";
+import { getPackageManager } from "../utils/getPackageManager";
+import { initShadcn } from "../utils/initShadcn";
+import { logger, loggingColor } from "../utils/logging/logger";
+import { checkProjectSetUp, checkShadcnPresents, getPayloadAppDetails } from "../utils/preflights/preflightInit";
+import { spinner } from "../utils/spinner";
 
 export const initOptionSchema = z.object({
     cwd: z.string(),
     yes: z.boolean(),
     defaults: z.boolean(),
-    nodeps: z.boolean(),
-    npm: z.boolean(),
-    bun: z.boolean(),
-    yarn: z.boolean(),
-    pnpm: z.boolean(),
+    npm: z.boolean().optional(),
+    bun: z.boolean().optional(),
+    yarn: z.boolean().optional(),
+    pnpm: z.boolean().optional(),
 })
 
 
@@ -34,17 +31,22 @@ export const init = new Command()
     )
     .option("-y, --yes", "skip confirmation prompt.", true)
     .option("-d, --defaults,", "use default configuration.", false)
-    .option("--no-deps,", "do not install any dependencies", false)
-    .option("--use-npm,", "use npm to install dependencies", false)
+    .option("--npm,", "use npm to install dependencies", false)
+    .option("--bun,", "use npm to install dependencies", false)
+    .option("--yarn,", "use npm to install dependencies", false)
+    .option("--pnpm,", "use npm to install dependencies", false)
     .action(async (o) => {
         try {
             const options = initOptionSchema.parse(o);
+            const payloadCheckSpinner = spinner('Checking project setup.').start();
             const isPayloadPresents = await checkProjectSetUp(options.cwd);
             if (!isPayloadPresents) {
+                payloadCheckSpinner.fail();
                 logger.error('Payload is not present in the project.');
                 logger.warn(`Please init the project with payload first. Use ${loggingColor.success('\'npx create-payload-app\'')} or check out the official payload documentation.`);
                 process.exit(0);
             }
+            payloadCheckSpinner.succeed();
             const appDetails = await getPayloadAppDetails(options.cwd);
             if (!appDetails.isSupportedPayloadVersion) {
                 process.exit(0);
@@ -70,7 +72,7 @@ export const init = new Command()
                 await initShadcn({ cwd: options.cwd, packageManager });
             }
 
-            if(!options.yes) {
+            if (!options.yes) {
                 const { proceed } = await prompts({
                     type: "confirm",
                     name: "proceed",
@@ -78,24 +80,23 @@ export const init = new Command()
                         `${CONFIG_FILE}`
                     )}. Proceed?`,
                     initial: true,
-                  })
-              
-                  if (!proceed) {
+                })
+
+                if (!proceed) {
                     process.exit(0)
-                  }
+                }
             }
 
             const componentSpinner = spinner(`Writing ${CONFIG_FILE}.`).start();
-            const targetPath = path.resolve(options.cwd, CONFIG_FILE);
-            await createConfig(targetPath, { ...defaultConfig, shadcnInstalled: true });
+            await createConfig(options.cwd, { ...defaultConfig, shadcnInstalled: true });
             componentSpinner.succeed();
 
             logger.success('Project is ready to install components!')
-            logger.info(`Use ${loggingColor.success('\'npx payloadbase@latest add <component>\'')} to install components. For a list of available components and for further information check the documentation.`);
+            logger.info(`Use ${loggingColor.success('\'add <component>\'')} to install components. For a list of available components and for further information check the documentation.`);
         } catch (e) {
             logger.break();
             handleError(e);
         }
     }
-)
+    )
 

@@ -1,0 +1,11 @@
+{
+  "name": "label",
+  "type": "templates/fields",
+  "files": [
+    {
+      "path": "fields/label/config.ts",
+      "type": "templates/fields",
+      "content": "import { Field } from 'payload'\n\nexport const label: Field = {\n    name: 'label',\n    label: 'Label',\n    required: true,\n    localized: true,\n    type: 'text',\n    maxLength: 20,\n}"
+    }
+  ]
+}

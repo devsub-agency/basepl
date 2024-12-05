@@ -1,14 +1,14 @@
 import { initOptionSchema } from "@/src/commands/init";
-import fs from "fs";
-import fse from "fs-extra";
+import { existsSync } from 'fs';
+import fs from 'fs-extra';
 import path from "path";
 import { z } from "zod";
 import { logger } from "../logging/logger";
 
 export type PayloadAppDetails = {
-    isSrcDir: boolean;
-    isSupportedPayloadVersion: boolean;
-    payloadVersion: string | null;
+  isSrcDir: boolean;
+  isSupportedPayloadVersion: boolean;
+  payloadVersion: string | null;
 }
 
 const MINIMUM_MAJOR_VERSION = 3;
@@ -20,18 +20,18 @@ export async function preFlightInit(options: z.infer<typeof initOptionSchema>) {
 
 //Default check for project 
 export const checkProjectSetUp = async (projectDir: string) => {
-    const isPayloadPresents = fs.existsSync(path.resolve(projectDir, 'src/payload.config.ts'));
-    return isPayloadPresents;
+  const isPayloadPresents = existsSync(path.resolve(projectDir, 'src/payload.config.ts'));
+  return isPayloadPresents;
 }
 
 export const checkShadcnPresents = async (projectDir: string) => {
-    const isShadcnPresents = fs.existsSync(path.resolve(projectDir, 'components.json'))
-    return isShadcnPresents
+  const isShadcnPresents = existsSync(path.resolve(projectDir, 'components.json'))
+  return isShadcnPresents
 }
 
 export const getPayloadAppDetails = async (projectDir: string): Promise<PayloadAppDetails> => {
-  const isSrcDir = fs.existsSync(path.resolve(projectDir, 'src'));
-  const packageObj = await fse.readJson(path.resolve(projectDir, 'package.json'));
+  const isSrcDir = existsSync(path.resolve(projectDir, 'src'));
+  const packageObj = await fs.readJson(path.resolve(projectDir, 'package.json'));
   const payloadVersion = packageObj.dependencies?.payload ?? null;
 
   if (!payloadVersion) {
@@ -39,7 +39,7 @@ export const getPayloadAppDetails = async (projectDir: string): Promise<PayloadA
   }
 
   const versionMatch = payloadVersion.match(/^(?:(?<major>\d+)|(?<special>latest|beta))$/i);
-  
+
   if (!versionMatch) {
     logger.warn(`Could not determine payload version from ${payloadVersion}`);
     return createPayloadDetails(isSrcDir, false, payloadVersion);
@@ -63,11 +63,11 @@ const isVersionSupported = (special?: string, major?: string): boolean => {
 };
 
 const createPayloadDetails = (
-    isSrcDir: boolean,
-    isSupportedPayloadVersion: boolean,
-    payloadVersion: string | null
-  ): PayloadAppDetails => ({
-    isSrcDir,
-    isSupportedPayloadVersion,
-    payloadVersion
-  });
+  isSrcDir: boolean,
+  isSupportedPayloadVersion: boolean,
+  payloadVersion: string | null
+): PayloadAppDetails => ({
+  isSrcDir,
+  isSupportedPayloadVersion,
+  payloadVersion
+});

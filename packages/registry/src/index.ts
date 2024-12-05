@@ -5,11 +5,13 @@ import packageJson from '../package.json';
 import add from './commands/add';
 import { init } from './commands/init';
 
+process.on("SIGINT", () => process.exit(0))
+process.on("SIGTERM", () => process.exit(0))
+
 async function main() {
-  console.log(`Hello, world! This is ${packageJson.name} v${packageJson.version}`);
 
   const program = new Command()
-    .name("payloadbase")
+    .name("basepl")
     .description("add fields and blocks to your payload cms project")
     .version(
       packageJson.version || "1.0.0",
@@ -18,6 +20,8 @@ async function main() {
     );
 
   program.addCommand(add).addCommand(init);
+
+  program.parse();
 }
 
 main()

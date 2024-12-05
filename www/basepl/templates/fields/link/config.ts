@@ -1,5 +1,5 @@
 import { Field } from 'payload'
-import {label} from "@/registry/fields/label/config";
+import { label } from '../label/config'
 
 //TODO: 18n and target languages in initial config -> add to all fields
 

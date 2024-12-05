@@ -1,3 +1,4 @@
+import path from "path";
 import handleError from "../error/handle-error";
 import { logger } from "../logging/logger";
 import { registryIndexSchema } from "./schema";
@@ -14,7 +15,7 @@ export const getRegistryIndex = async () => {
     }
 }
 
-const fetchRegistry = async (path: string) => {
+export const fetchRegistry = async (path: string) => {
     try {
         const result = await fetch(getRegistryUrl(path));
         if (!result.ok) {
@@ -29,7 +30,21 @@ const fetchRegistry = async (path: string) => {
 
 }
 
-
 const getRegistryUrl = (path: string) => {
+    if (!path.endsWith('.json')) {
+        path = replaceExtensionWithJson(path);
+    }
     return `${REGISTRY_URL}/${path}`
 }
+
+const replaceExtensionWithJson = (filePath: string): string => {
+    if (filePath.endsWith('.json')) return filePath;
+    
+    const parsedPath = path.parse(filePath);
+    return path.format({
+      ...parsedPath,
+      base: undefined,
+      ext: '.json'
+    });
+  };
+  

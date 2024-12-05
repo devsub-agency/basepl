@@ -1,13 +1,10 @@
 import { Command } from "commander";
-import { logger } from "../utils/logging/logger";
-import fs from "fs-extra";
 import path from "path";
 import { z } from "zod";
-import { checkInitialized } from "../utils/config/configHandler";
-import { preFlightAdd } from "../utils/preflights/preflightAdd";
-import { getRegistryIndex } from "../utils/registry/fetchRegistry";
-import { filterRequestedComponents } from "../utils/registry/componentsFilter";
 import { addComponents } from "../utils/add/addComponents";
+import { checkInitialized } from "../utils/config/configHandler";
+import { logger } from "../utils/logging/logger";
+import { preFlightAdd } from "../utils/preflights/preflightAdd";
 
 //TODO: options for targetDir, options and check for overwrite, create folder if not exists
 //add index.json somewhere with name to path mapping and dependencies to other copmponents

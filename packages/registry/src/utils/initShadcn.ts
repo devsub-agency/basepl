@@ -10,7 +10,6 @@ interface InitShadcnProps {
 }
 
 export async function initShadcn({ cwd, packageManager }: InitShadcnProps){
-    const shadcnSpinner = spinner('Installing shadcn/ui...').start();
     try {
         const command = packageManager === 'npm'
             ? ['npx', 'shadcn@latest', 'init']
@@ -22,9 +21,7 @@ export async function initShadcn({ cwd, packageManager }: InitShadcnProps){
             shell: true
         });
 
-        shadcnSpinner.succeed('shadcn/ui installed successfully');
     } catch (error) {
-        shadcnSpinner.fail('Failed to install shadcn components');
         handleError(error);
     }
 }

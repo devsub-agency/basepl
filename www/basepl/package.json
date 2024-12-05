@@ -1,12 +1,14 @@
 {
-  "name": "basepl",
+  "name": "@basepl/www",
   "private": true,
   "version": "0.0.1",
   "description": "Website for basepl project",
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build:registry": "tsx scripts/build-registry.ts",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "clean": "rimraf dist node_modules",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
@@ -19,13 +21,17 @@
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@types/fs-extra": "^11.0.4",
     "cross-env": "^7.0.3",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
     "graphql": "^16.8.1",
     "next": "15.0.3",
     "payload": "latest",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "sharp": "0.32.6"
+    "sharp": "0.32.6",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.5.4",
@@ -33,6 +39,7 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "rimraf": "^5.0.0",
     "typescript": "5.7.2"
   },
   "engines": {

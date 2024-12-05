@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const registryFileSchemaType = z.enum([
     "templates/fields",
@@ -31,8 +31,5 @@ export const registryIndexItem = z.object({
     registryDependencies: z.array(z.string()).optional(),
     files: z.array(registryIndexFileItem)
 })
-export type RegistryFile = z.infer<typeof registryIndexFileItem>
-
-export type RegistryItem = z.infer<typeof registryIndexItem>
 
 export const registryIndexSchema = z.array(registryIndexItem);
