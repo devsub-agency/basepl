@@ -58,7 +58,7 @@ export function Footer({ className, ...props }: FooterProps) {
           <div className="flex flex-col space-y-4">
             <h3 className="text-sm font-medium">Company</h3>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
-              <Link href="/blog">Blog</Link>
+              <Link href="/posts">Blog</Link>
               <Link href="https://devsub.de">devsub</Link>
             </nav>
           </div>
