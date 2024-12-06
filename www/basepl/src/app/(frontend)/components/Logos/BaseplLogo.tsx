@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const BaseplLogo = () => {
   return (
-    <Link href={'/'} className="flex gap-2 items-center">
+    <Link href={'/'} className="flex gap-2 items-center w-fit">
       <svg
         width="107"
         height="196"
