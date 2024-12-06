@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    posts: Post;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -21,6 +22,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -95,6 +97,69 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  status: 'draft' | 'published';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  layout: ButtonType[];
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ButtonType".
+ */
+export interface ButtonType {
+  link: LinkType;
+  hasIcon?: boolean | null;
+  isIconStart?: boolean | null;
+  icon?: (string | null) | Media;
+  variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size: 'default' | 'sm' | 'lg' | 'icon';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'button';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkType".
+ */
+export interface LinkType {
+  label: string;
+  targetType: 'page' | 'file' | 'external' | 'email';
+  isOpenNewTab?: boolean | null;
+  hasNoReferrer?: boolean | null;
+  useSlug?: boolean | null;
+  externalUrl?: string | null;
+  emailAddress?: string | null;
+  slug?: string | null;
+  pageReference?: {
+    relationTo: 'posts';
+    value: string | Post;
+  } | null;
+  fileReference?: (string | null) | Media;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -107,6 +172,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -182,6 +251,48 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  content?: T;
+  layout?:
+    | T
+    | {
+        button?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    label?: T;
+                    targetType?: T;
+                    isOpenNewTab?: T;
+                    hasNoReferrer?: T;
+                    useSlug?: T;
+                    externalUrl?: T;
+                    emailAddress?: T;
+                    slug?: T;
+                    pageReference?: T;
+                    fileReference?: T;
+                  };
+              hasIcon?: T;
+              isIconStart?: T;
+              icon?: T;
+              variant?: T;
+              size?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
