@@ -11,8 +11,12 @@ const getFileContent = async (file: RegistryFile): Promise<string> => {
     try {
         logger.info(`\n Reading template: ${file.path}`);
         const result = await fetchRegistry(file.path);
-        const t = registryItemSchema.parse(result);
-        return t.files[0].content || "";
+        const content = registryItemSchema.parse(result).file.content;
+        if (!content) {
+            logger.error(`This should not happen. Template ${file.path} is empty. Please check the registry and open an issue.`);
+            process.exit(1);
+        }
+        return content;
     } catch (error) {
         logger.error(`Failed to read template: ${file.path}`);
         handleError(error);
@@ -34,7 +38,7 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
             const fileName = basename(file.path);
             const targetDir = path.join(options.cwd, "src", file.path).replace(fileName, '');
             const targetPath = path.join(targetDir, fileName);
-            logger.warn(`\nAdding file ${loggingColor.info(fileName)} to ${loggingColor.info(targetDir)} resulting in path ${loggingColor.info(targetPath)}`);
+            
             if (existsSync(targetPath) && !options.overwrite) {
                 addFileSpinner.stop();
                 const { overwrite } = await prompts({
@@ -57,7 +61,7 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
             await fs.writeFile(targetPath, content, 'utf-8');
 
             const relativePath = path.relative(options.cwd, targetPath);
-            logger.info(`File ${loggingColor.info(fileName)} added to ${loggingColor.info(dirname(relativePath))}`);
+
             existsSync(targetPath) ? filesUpdated.push(relativePath) : filesCreated.push(relativePath);
         }
 

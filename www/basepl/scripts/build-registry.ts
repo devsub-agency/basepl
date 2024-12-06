@@ -1,19 +1,25 @@
-// scripts/build-registry.ts
 import { z } from 'zod'
 import path from 'path'
 import fs from 'fs-extra'
 import glob from 'fast-glob'
-import { 
-  registryFileSchemaType, 
-  registryItemSchema,
-  registryIndexSchema, 
-  registryIndexItem 
-} from '../templates/schema'
+import { registryFileSchemaType } from 'templates/schema';
 
-type RegistryIndexType = z.infer<typeof registryIndexItem>
-type RegistryItemType = z.infer<typeof registryItemSchema>
+function parseRegistryDependencies(content: string): string[] {
+  const importRegex = /import\s*{([^}]+)}\s*from\s*['"]\.\.\/([^/'"\s]+)/g;
+  const deps = new Set<string>();
+  
+  let match;
+  while ((match = importRegex.exec(content)) !== null) {
+    const componentPath = match[2];
+    if (componentPath) {
+      deps.add(componentPath);
+    }
+  }
+  
+  return Array.from(deps);
+}
 
-//TODO automaticly parse dependencies from content
+//TODO notice external dependencies automatically
 async function buildRegistry() {
   const templatesDir = path.join(process.cwd(), 'templates')
   const publicDir = path.join(process.cwd(), 'public/registry')
@@ -24,65 +30,79 @@ async function buildRegistry() {
     cwd: templatesDir
   })
   
-  const registryIndex: RegistryIndexType[] = []
+  // Group files by component name
+  const components = new Map<string, {
+    name: string;
+    type: string;
+    files: any[];
+    registryDependencies: Set<string>;
+  }>();
   
   for (const file of files) {
-    if (file.includes('schema.ts')) continue
+    if (file.includes('schema.ts')) continue;
     
-    const [type, name, ...rest] = file.split('/')
-    const componentName = name
+    const [type, name, filename] = file.split('/')
     const filePath = path.join(templatesDir, file)
     const content = await fs.readFile(filePath, 'utf-8')
     const registryType = `templates/${type}` as z.infer<typeof registryFileSchemaType>
     
-    // Find or create registry index item
-    let indexItem = registryIndex.find(i => i.name === componentName)
-    if (!indexItem) {
-      indexItem = {
-        name: componentName,
+    // Get or create component group
+    let component = components.get(name);
+    if (!component) {
+      component = {
+        name,
         type: registryType,
-        dependencies: [], // TODO: Parse from content
-        registryDependencies: [], // TODO: Parse from content
-        files: []
-      }
-      registryIndex.push(indexItem)
+        files: [],
+        registryDependencies: new Set()
+      };
+      components.set(name, component);
     }
     
-    // Add file to index (without content)
-    indexItem.files.push({
+    // Add file to component
+    component.files.push({
       path: file,
       type: registryType
-    })
+    });
     
-    // Create individual file with content
-    const registryItem: RegistryItemType = {
-      name: componentName,
+    // Parse and add dependencies
+    const deps = parseRegistryDependencies(content);
+    deps.forEach(dep => component.registryDependencies.add(dep));
+    
+    // Write individual file
+    const registryItem = {
+      name: path.parse(filename).name,
       type: registryType,
-      files: [{
+      files: {
         path: file,
         type: registryType,
         content
-      }]
-    }
+      }
+    };
     
-    // Write individual JSON file
     const targetPath = path.join(
-      publicDir,
+      publicDir, 
       type,
       name,
-      `${path.parse(file).name}.json`
-    )
-    await fs.ensureDir(path.dirname(targetPath))
-    await fs.writeJson(targetPath, registryItem, { spaces: 2 })
+      `${path.parse(filename).name}.json`
+    );
+    
+    await fs.ensureDir(path.dirname(targetPath));
+    await fs.writeJson(targetPath, registryItem, { spaces: 2 });
   }
   
-  // Validate and write index.json
-  const validatedIndex = registryIndexSchema.parse(registryIndex)
+  // Create index with dependencies
+  const registryIndex = Array.from(components.values()).map(component => ({
+    name: component.name,
+    type: component.type,
+    files: component.files,
+    registryDependencies: Array.from(component.registryDependencies)
+  }));
+  
   await fs.writeJson(
     path.join(publicDir, 'index.json'),
-    validatedIndex,
+    registryIndex,
     { spaces: 2 }
-  )
+  );
 }
 
-buildRegistry().catch(console.error)
+buildRegistry().catch(console.error);

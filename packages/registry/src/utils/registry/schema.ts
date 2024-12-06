@@ -13,10 +13,14 @@ export const registryItemFileSchema = z.object({
   })
 
 
+  /**
+   * In the index.json we list every file contained in a folder. The representation of files is always a folder in the registry.
+   * When we fetch the content from the registry these files are all seperated as individual items. The structure is the same as later in the project. 
+   */
   export const registryItemSchema = z.object({
     name: z.string(),
     type: registryFileSchemaType,
-    files: z.array(registryItemFileSchema)
+    file: registryItemFileSchema
 })
 
 export const registryIndexFileItem = z.object({
