@@ -6,8 +6,6 @@ import { checkInitialized } from "../utils/config/configHandler";
 import { logger } from "../utils/logging/logger";
 import { preFlightAdd } from "../utils/preflights/preflightAdd";
 
-//TODO: options for targetDir, options and check for overwrite, create folder if not exists
-//add index.json somewhere with name to path mapping and dependencies to other copmponents
 export const addOptionsSchema = z.object({
     components: z.array(z.string()).optional(),
     yes: z.boolean(),

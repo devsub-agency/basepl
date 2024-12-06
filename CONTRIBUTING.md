@@ -18,15 +18,14 @@ This repository is a monorepo.
 This repository is structured as follows:
 
 ```
-apps
-└── www
-    ├── basepl
-    ├── components
-    ├── content
-    └── templates
-        ├── fields
-        ├── blocks
-        └── components
+www
+├── basepl
+├── components
+├── content
+└── templates
+    ├── fields
+    ├── blocks
+    └── components
 packages
 └── registry
 ```
@@ -138,18 +137,14 @@ Documentation is written using [MDX](https://mdxjs.com). You can find the docume
 
 ## Components
 
-We use a registry system for developing components. You can find the source code for the components under `apps/www/registry`. The components are organized by styles.
+We use a registry system for developing components. You can find the source code for the components under `www/templates`. The components are organized by styles.
 
 ```bash
-apps
-└── www
-    └── registry
-        ├── default
-        │   ├── example
-        │   └── ui
-        └── new-york
-            ├── example
-            └── ui
+www
+└── templates
+    ├── fields
+    ├── blocks
+    └── components
 ```
 
 When adding or modifying components, please ensure that:
@@ -167,7 +162,7 @@ When you create a commit we kindly ask you to follow the convention
 `category(scope or module): message` in your commit message while using one of
 the following categories:
 
-- `feat / feature`: all changes that introduce completely new code or new
+- `feature`: all changes that introduce completely new code or new
   features
 - `fix`: changes that fix a bug (ideally you will additionally reference an
   issue if present)
@@ -183,7 +178,7 @@ the following categories:
 - `chore`: all changes to the repository that do not fit into any of the above
   categories
 
-  e.g. `feat(components): add new prop to the avatar component`
+  e.g. `feature:(components): add new prop to the avatar component`
 
 If you are interested in the detailed specification you can visit
 https://www.conventionalcommits.org/ or check out the
@@ -195,9 +190,9 @@ If you have a request for a new component, please open a discussion on GitHub. W
 
 ## CLI
 
-The `shadcn-ui` package is a CLI for adding components to your project. You can find the documentation for the CLI [here](https://ui.shadcn.com/docs/cli).
+The `basepl/cli` package is a CLI for adding components to your project. You can find the documentation for the CLI [here]().
 
-Any changes to the CLI should be made in the `packages/cli` directory. If you can, it would be great if you could add tests for your changes.
+Any changes to the CLI should be made in the `packages/registry` directory. If you can, it would be great if you could add tests for your changes.
 
 ## Testing
 

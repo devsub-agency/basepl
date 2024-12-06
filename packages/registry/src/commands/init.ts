@@ -32,9 +32,9 @@ export const init = new Command()
     .option("-y, --yes", "skip confirmation prompt.", true)
     .option("-d, --defaults,", "use default configuration.", false)
     .option("--npm,", "use npm to install dependencies", false)
-    .option("--bun,", "use npm to install dependencies", false)
-    .option("--yarn,", "use npm to install dependencies", false)
-    .option("--pnpm,", "use npm to install dependencies", false)
+    .option("--bun,", "use bun to install dependencies", false)
+    .option("--yarn,", "use yarn to install dependencies", false)
+    .option("--pnpm,", "use pnpm to install dependencies", false)
     .action(async (o) => {
         try {
             const options = initOptionSchema.parse(o);
