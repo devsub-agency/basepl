@@ -18,7 +18,10 @@ export function Footer({ className, ...props }: FooterProps) {
       <div className="mx-auto max-w-screen-xl md:px-5">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 px-5 py-10 md:border-x md:p-16">
           <div className="flex flex-col justify-between col-span-2 lg:col-span-1">
-            <BaseplLogo />
+            <div className="flex items-center space-x-4">
+              <BaseplLogo />
+              <span className="text-muted-foreground">v0.1 &alpha;lpha</span>
+            </div>
             <div className="flex mt-8">
               <Button variant="ghost" size="icon" asChild>
                 <Link href="https://x.com/maurice_build">
