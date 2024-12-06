@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export const BaseplButton = (props: ButtonType) => {
+  const fallbackSlug = '/'
+  const fallbackIconSlug = '/'
   const { id, size, variant, isIconStart, hasIcon, icon, link } = props
   const {
     label,
@@ -16,34 +18,58 @@ export const BaseplButton = (props: ButtonType) => {
     hasNoReferrer,
   } = link
 
-  const target = externalUrl && isOpenNewTab ? '_blank' : undefined
-  const reffererPolicy = hasNoReferrer ? 'no-referrer' : undefined
-  const iconUrl = (icon as Media)?.url ?? '/'
-  const alt = (icon as Media)?.alt ?? label
+  const getNavigationTarget = () => {
+    if (externalUrl && isOpenNewTab) {
+      return '_blank'
+    }
+    return undefined
+  }
 
-  const getHref = () => {
-    if (slug && useSlug) {
+  const getReferrerPolicy = () => {
+    if (hasNoReferrer) {
+      return 'no-referrer'
+    }
+    return undefined
+  }
+
+  const getIconUrl = () => {
+    if ((icon as Media)?.url) {
+      return (icon as Media).url ?? fallbackIconSlug
+    }
+    return fallbackIconSlug
+  }
+
+  const getIconAlt = () => {
+    if ((icon as Media)?.alt) {
+      return (icon as Media).alt
+    }
+    return label
+  }
+
+  const getNavigationHref = () => {
+    if (useSlug && slug) {
       return slug
-    }
-    if (externalUrl) {
+    } else if (externalUrl) {
       return externalUrl
-    }
-    if (emailAddress) {
+    } else if (emailAddress) {
       return `mailto:${emailAddress}`
-    }
-    if (typeof pageReference?.value !== 'string') {
-      return pageReference?.value.slug as string
+    } else if (typeof pageReference?.value !== 'string') {
+      return pageReference?.value.slug ?? fallbackSlug
     }
     return '/'
   }
 
   return (
     <Button variant={variant} size={size} id={id ?? ''} asChild>
-      {hasIcon && isIconStart && <Image src={alt} alt={label} fill />}
-      <Link href={getHref()} target={target} referrerPolicy={reffererPolicy}>
+      <Link
+        href={getNavigationHref()}
+        target={getNavigationTarget()}
+        referrerPolicy={getReferrerPolicy()}
+      >
+        {hasIcon && isIconStart && <Image src={getIconUrl()} alt={getIconAlt()} fill />}
         {label}
+        {hasIcon && !isIconStart && <Image src={getIconUrl()} alt={getIconAlt()} fill />}
       </Link>
-      {hasIcon && <Image src={iconUrl} alt={alt} fill />}
     </Button>
   )
 }
