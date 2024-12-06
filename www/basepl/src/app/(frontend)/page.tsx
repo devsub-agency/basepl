@@ -26,7 +26,7 @@ const Home = () => {
           </p>
           <div className="flex gap-4 sm:mx-auto">
             <Button variant="outline" className="bg-transparent border-muted-foreground" asChild>
-              <Link href="/blog">Learn more</Link>
+              <Link href="/posts">Learn more</Link>
             </Button>
             <Button variant="default" asChild>
               <Link href="/#discord">Support us</Link>
@@ -38,7 +38,7 @@ const Home = () => {
           alt="logo"
           width={1000}
           height={1000}
-          className="absolute left-0 top-0 h-full w-full object-cover opacity-80 dark:opacity-20 z-0 pointer-events-none"
+          className="absolute left-0 top-0 h-full w-full object-cover object-bottom opacity-80 dark:opacity-20 z-0 pointer-events-none"
         />
       </div>
       <div className="flex flex-col gap-4 px-5 mx-auto md:text-center md:w-3/5 md:px-10 md:pb-12">
