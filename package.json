@@ -27,6 +27,7 @@
     "basepl": "pnpm --filter=@basepl/cli start:dev",
     "www:dev": "pnpm --filter=@basepl/www dev",
     "www:build": "pnpm --filter=@basepl/www build",
+    "www:start": "pnpm --filter=@basepl/www start",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint:fix",
     "preview": "pnpm -r preview",
