@@ -18,6 +18,7 @@ export const initOptionSchema = z.object({
     bun: z.boolean().optional(),
     yarn: z.boolean().optional(),
     pnpm: z.boolean().optional(),
+    config: z.boolean().optional(),
 })
 
 
@@ -35,11 +36,13 @@ export const init = new Command()
     .option("--bun,", "use bun to install dependencies", false)
     .option("--yarn,", "use yarn to install dependencies", false)
     .option("--pnpm,", "use pnpm to install dependencies", false)
+    .option("--config,", `initialice in config only mode, not components can be installed.`, false)
     .action(async (o) => {
         try {
             const options = initOptionSchema.parse(o);
             const payloadCheckSpinner = spinner('Checking project setup.').start();
             const isPayloadPresents = await checkProjectSetUp(options.cwd);
+            let isShadcnPresentInitialized = false;
             if (!isPayloadPresents) {
                 payloadCheckSpinner.fail();
                 logger.error('Payload is not present in the project.');
@@ -51,27 +54,34 @@ export const init = new Command()
             if (!appDetails.isSupportedPayloadVersion) {
                 process.exit(0);
             }
-            const packageManager = await getPackageManager({ options, projectDir: options.cwd });
-            const isShadcnPresents = await checkShadcnPresents(options.cwd);
-            if (isShadcnPresents) {
-                logger.info('Shadcn is already present in the project.');
-            } else {
-                logger.info('Shadcn is not present in the project.');
-                if (!options.yes) {
-                    const { proceed } = await prompts({
-                        type: 'confirm',
-                        name: 'proceed',
-                        message: 'Do you want to install shadcn/ui in the project?',
-                        initial: true
-                    })
-
-                    if (!proceed) {
-                        process.exit(0);
+            if (!options.config) {
+                const packageManager = await getPackageManager({ options, projectDir: options.cwd });
+                const isShadcnPresents = await checkShadcnPresents(options.cwd);
+                if (isShadcnPresents) {
+                    isShadcnPresentInitialized = true;
+                    logger.info('Shadcn is already present in the project.');
+                } else {
+                    logger.info('Shadcn is not present in the project.');
+                    if (!options.yes) {
+                        const { proceed } = await prompts({
+                            type: 'confirm',
+                            name: 'proceed',
+                            message: 'Do you want to install shadcn/ui in the project? If not, you wont be able to install components, only config files.',
+                            initial: true
+                        })
+    
+                        if (proceed) {
+                             await initShadcn({ cwd: options.cwd, packageManager });
+                             isShadcnPresentInitialized = true;
+                        } else {
+                            logger.info('Initialice in config only mode. No components will be installed.');
+                        }
                     }
                 }
-                await initShadcn({ cwd: options.cwd, packageManager });
+            } else {
+                logger.info('Initialice in config only mode. No components will be installed.');
             }
-
+        
             if (!options.yes) {
                 const { proceed } = await prompts({
                     type: "confirm",
@@ -88,7 +98,7 @@ export const init = new Command()
             }
 
             const componentSpinner = spinner(`Writing ${CONFIG_FILE}.`).start();
-            await createConfig(options.cwd, { ...defaultConfig, shadcnInstalled: true });
+            await createConfig(options.cwd, { ...defaultConfig, shadcnInstalled: isShadcnPresentInitialized });
             componentSpinner.succeed();
 
             logger.success('Project is ready to install components!')
