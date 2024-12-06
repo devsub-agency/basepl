@@ -1,0 +1,26 @@
+[
+  {
+    "name": "link",
+    "type": "templates/fields",
+    "files": [
+      {
+        "path": "fields/link/config.ts",
+        "type": "templates/fields"
+      }
+    ],
+    "registryDependencies": [
+      "label"
+    ]
+  },
+  {
+    "name": "label",
+    "type": "templates/fields",
+    "files": [
+      {
+        "path": "fields/label/config.ts",
+        "type": "templates/fields"
+      }
+    ],
+    "registryDependencies": []
+  }
+]
