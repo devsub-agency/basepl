@@ -1,17 +1,16 @@
 # Contributing
 
-Thanks for your interest in contributing to ui.shadcn.com. We're happy to have you here.
+Thanks for your interest in contributing to basepl.com. We're happy to have you here.
 
 Please take a moment to review this document before submitting your first pull request. We also strongly recommend that you check for open issues and pull requests to see if someone else is working on something similar.
 
-If you need any help, feel free to reach out to [@shadcn](https://twitter.com/shadcn).
+If you need any help, feel free to reach out to [@maurice_build](https://x.com/maurice_build) or [@clemens-code.bsky.social](https://bsky.app/profile/clemens-code.bsky.social).
 
 ## About this repository
 
 This repository is a monorepo.
 
 - We use [pnpm](https://pnpm.io) and [`workspaces`](https://pnpm.io/workspaces) for development.
-- We use [Turborepo](https://turbo.build/repo) as our build system.
 - We use [changesets](https://github.com/changesets/changesets) for managing releases.
 
 ## Structure
@@ -21,27 +20,22 @@ This repository is structured as follows:
 ```
 apps
 └── www
-    ├── app
+    ├── basepl
     ├── components
     ├── content
-    └── registry
-        ├── default
-        │   ├── example
-        │   └── ui
-        └── new-york
-            ├── example
-            └── ui
+    └── templates
+        ├── fields
+        ├── blocks
+        └── components
 packages
-└── cli
+└── registry
 ```
 
-| Path                  | Description                              |
-| --------------------- | ---------------------------------------- |
-| `apps/www/app`        | The Next.js application for the website. |
-| `apps/www/components` | The React components for the website.    |
-| `apps/www/content`    | The content for the website.             |
-| `apps/www/registry`   | The registry for the components.         |
-| `packages/cli`        | The `shadcn-ui` package.                 |
+| Path                  | Description                           |
+|-----------------------|---------------------------------------|
+| `apps/basepl/src`     | Payload CMS for the website.          |
+| `apps/www/templates`  | The registry content.                 |
+| `packages/registry`   | The `basepl` package.                 |
 
 ## Development
 
@@ -52,7 +46,7 @@ You can fork this repo by clicking the fork button in the top right corner of th
 ### Clone on your local machine
 
 ```bash
-git clone https://github.com/your-username/ui.git
+git clone https://github.com/devsub-agency/payloadbase.git
 ```
 
 ### Navigate to project directory
@@ -79,16 +73,20 @@ You can use the `pnpm --filter=[WORKSPACE]` command to start the development pro
 
 #### Examples
 
-1. To run the `ui.shadcn.com` website:
+1. To run the `basepl.com` website:
 
 ```bash
-pnpm --filter=www dev
+pnpm --filter=@basepl/www dev
+```
+or
+```bash
+pnpm www:dev
 ```
 
 2. To run the `shadcn-ui` package:
 
 ```bash
-pnpm --filter=shadcn-ui dev
+pnpm --filter=@basepl/cli dev
 ```
 
 ## Running the CLI Locally
@@ -104,29 +102,30 @@ To run the CLI locally, you can follow the workflow:
 2. Run the development script for the CLI:
 
    ```bash
-   pnpm shadcn:dev
+   pnpm cli:dev
    ```
 
 3. In another terminal tab, test the CLI by running:
 
    ```bash
-   pnpm shadcn
+   pnpm basepl
    ```
 
    To test the CLI in a specific app, use a command like:
 
    ```bash
-   pnpm shadcn <init | add | ...> -c ~/Desktop/my-app
+   pnpm basepl <init | add | ...> -c ~/Desktop/my-app
    ```
 
-4. To run the tests for the CLI:
+4. To run the tests for the CLI: (to be done)
 
    ```bash
-   pnpm --filter=shadcn test
+   pnpm --filter=basepl test
    ```
 
 This workflow ensures that you are running the most recent version of the registry and testing the CLI properly in your local environment.
 
+### to be done!
 ## Documentation
 
 The documentation for this project is located in the `www` workspace. You can run the documentation locally by running the following command:
@@ -135,7 +134,7 @@ The documentation for this project is located in the `www` workspace. You can ru
 pnpm --filter=www dev
 ```
 
-Documentation is written using [MDX](https://mdxjs.com). You can find the documentation files in the `apps/www/content/docs` directory.
+Documentation is written using [MDX](https://mdxjs.com). You can find the documentation files in the `www/basepl/content/docs` directory.
 
 ## Components
 
