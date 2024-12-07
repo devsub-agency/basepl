@@ -16,59 +16,45 @@ export const BaseplButton = (props: ButtonType) => {
     pageReference,
     isOpenNewTab,
     hasNoReferrer,
+    fileReference,
+    targetType,
   } = link
 
-  const getNavigationTarget = () => {
-    if (externalUrl && isOpenNewTab) {
-      return '_blank'
-    }
-    return undefined
-  }
+  const referrerPolicy = hasNoReferrer ? 'no-referrer' : undefined
+  const navigationTarget =
+    (externalUrl && isOpenNewTab) || targetType === 'file' ? '_blank' : undefined
 
-  const getReferrerPolicy = () => {
-    if (hasNoReferrer) {
-      return 'no-referrer'
-    }
-    return undefined
-  }
-
-  const getIconUrl = () => {
-    if ((icon as Media)?.url) {
-      return (icon as Media).url ?? fallbackIconSlug
-    }
-    return fallbackIconSlug
-  }
-
-  const getIconAlt = () => {
-    if ((icon as Media)?.alt) {
-      return (icon as Media).alt
-    }
-    return label
-  }
+  const iconUrl = (icon as Media)?.url ?? fallbackIconSlug
+  const iconWidth = (icon as Media)?.width ?? 24
+  const iconHeight = (icon as Media)?.height ?? 24
+  const iconAlt = (icon as Media)?.alt ?? label
+  const fileReferenceUrl = (fileReference as Media)?.url ?? fallbackSlug
 
   const getNavigationHref = () => {
-    if (useSlug && slug) {
+    if (targetType === 'page' && useSlug && slug) {
       return slug
-    } else if (externalUrl) {
-      return externalUrl
-    } else if (emailAddress) {
-      return `mailto:${emailAddress}`
-    } else if (typeof pageReference?.value !== 'string') {
+    } else if (targetType === 'page' && typeof pageReference?.value !== 'string') {
       return pageReference?.value.slug ?? fallbackSlug
+    } else if (targetType === 'external' && externalUrl) {
+      return externalUrl
+    } else if (targetType === 'email' && emailAddress) {
+      return `mailto:${emailAddress}`
+    } else if (targetType === 'file' && fileReference) {
+      return fileReferenceUrl
     }
-    return '/'
+    return fallbackSlug
   }
+
+  const IconComponent = (
+    <Image src={iconUrl} alt={iconAlt} width={iconWidth} height={iconHeight} className="w-4 h-4" />
+  )
 
   return (
     <Button variant={variant} size={size} id={id ?? ''} asChild>
-      <Link
-        href={getNavigationHref()}
-        target={getNavigationTarget()}
-        referrerPolicy={getReferrerPolicy()}
-      >
-        {hasIcon && isIconStart && <Image src={getIconUrl()} alt={getIconAlt()} fill />}
-        {label}
-        {hasIcon && !isIconStart && <Image src={getIconUrl()} alt={getIconAlt()} fill />}
+      <Link href={getNavigationHref()} target={navigationTarget} referrerPolicy={referrerPolicy}>
+        {hasIcon && isIconStart && IconComponent}
+        {size !== 'icon' && label}
+        {hasIcon && !isIconStart && IconComponent}
       </Link>
     </Button>
   )
