@@ -6,6 +6,7 @@ import { getRegistryIndex } from '../registry/fetchRegistry';
 import { resolveRegistryDependencies } from '../registry/resolveRegistryDependencies';
 import { addDependencies } from './addDependencies';
 import { addFiles } from './addFiles';
+import { getConfig } from '../config/configHandler';
 
 export const addComponents = async (components: string[], options: z.infer<typeof addOptionsSchema>) => {
     const registryInfo = await getRegistryIndex();
@@ -24,9 +25,13 @@ export const addComponents = async (components: string[], options: z.infer<typeo
             process.exit(1);
         }
     }
-
+    const config = await getConfig(options.cwd);
+    if (!config) {
+        logger.error('Failed to read config file');
+        process.exit(1);
+    }
     const itemsToRegister = await resolveRegistryDependencies(found, registryInfo);
 
     await addDependencies(options.cwd, itemsToRegister.flatMap(item => item.dependencies?.filter((dep): dep is string => dep !== undefined) ?? []));
-    await addFiles({ cwd: options.cwd, overwrite: options.overwrite }, itemsToRegister.flatMap(item => item.files));
+    await addFiles({ cwd: options.cwd, overwrite: options.overwrite }, itemsToRegister.flatMap(item => item.files), config);
 }
