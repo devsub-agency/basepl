@@ -38,7 +38,7 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
         for (const file of files) {
             const fileName = basename(file.path);
             if (fileName.includes('.tsx') && !config.shadcnInstalled) {
-                logger.warn(`File ${loggingColor.info(fileName)} is a component file. PThis project was initialized without shadcn/ui, so components are skipped.`);
+                logger.warn(`File ${loggingColor.info(fileName)} is a component file. This project was initialized without shadcn/ui, so components are skipped.`);
                 continue;
             }
             const targetDir = path.join(options.cwd, "src", file.path).replace(fileName, '');
