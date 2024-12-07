@@ -36,7 +36,7 @@ export const init = new Command()
     .option("--bun,", "use bun to install dependencies", false)
     .option("--yarn,", "use yarn to install dependencies", false)
     .option("--pnpm,", "use pnpm to install dependencies", false)
-    .option("--config,", `initialice in config only mode, not components can be installed.`, false)
+    .option("--config,", `initialize in config only mode, not components can be installed.`, false)
     .action(async (o) => {
         try {
             const options = initOptionSchema.parse(o);
@@ -74,12 +74,12 @@ export const init = new Command()
                              await initShadcn({ cwd: options.cwd, packageManager });
                              isShadcnPresentInitialized = true;
                         } else {
-                            logger.info('Initialice in config only mode. No components will be installed.');
+                            logger.info('Initialize in config only mode. No components will be installed.');
                         }
                     }
                 }
             } else {
-                logger.info('Initialice in config only mode. No components will be installed.');
+                logger.info('Initialize in config only mode. No components will be installed.');
             }
         
             if (!options.yes) {
