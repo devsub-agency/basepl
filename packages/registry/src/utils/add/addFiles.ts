@@ -6,6 +6,7 @@ import { logger, loggingColor } from "../logging/logger";
 import { fetchRegistry } from "../registry/fetchRegistry";
 import { RegistryFile, RegistryItem, registryItemSchema } from "../registry/schema";
 import { spinner } from "../spinner";
+import { ConfigFile } from "../config/configFile";
 
 const getFileContent = async (file: RegistryFile): Promise<string> => {
     try {
@@ -24,7 +25,7 @@ const getFileContent = async (file: RegistryFile): Promise<string> => {
     }
 };
 
-export const addFiles = async (options: { cwd: string, overwrite?: boolean }, files: RegistryItem["files"]) => {
+export const addFiles = async (options: { cwd: string, overwrite?: boolean }, files: RegistryItem["files"], config: ConfigFile) => {
     if (!files?.length) return;
 
     const filesCreated: string[] = [];
@@ -36,6 +37,10 @@ export const addFiles = async (options: { cwd: string, overwrite?: boolean }, fi
     try {
         for (const file of files) {
             const fileName = basename(file.path);
+            if (fileName.includes('.tsx') && !config.shadcnInstalled) {
+                logger.warn(`File ${loggingColor.info(fileName)} is a component file. This project was initialized without shadcn/ui, so components are skipped.`);
+                continue;
+            }
             const targetDir = path.join(options.cwd, "src", file.path).replace(fileName, '');
             const targetPath = path.join(targetDir, fileName);
             
