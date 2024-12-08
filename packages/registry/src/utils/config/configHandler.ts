@@ -2,15 +2,18 @@ import path from "path";
 import fs from "fs-extra";
 import { ConfigFile } from "./configFile";
 
-export const CONFIG_FILE = '.payloadbase.json';
+export const CONFIG_FILE = ".payloadbase.json";
 
-export const createConfig = async (cwd: string, config: Partial<ConfigFile>) => {
+export const createConfig = async (
+  cwd: string,
+  config: Partial<ConfigFile>,
+) => {
   const defaultConfig: ConfigFile = {
-    version: '1.0.0',
+    version: "1.0.0",
     initialized: true,
     timestamp: new Date().toISOString(),
     shadcnInstalled: false,
-    ...config
+    ...config,
   };
   await fs.writeJSON(path.join(cwd, CONFIG_FILE), defaultConfig, { spaces: 2 });
 };
@@ -29,8 +32,8 @@ export const checkInitialized = async (cwd: string): Promise<boolean> => {
 };
 
 export const defaultConfig: ConfigFile = {
-  version: '1.0.0',
+  version: "1.0.0",
   initialized: true,
   timestamp: new Date().toISOString(),
   shadcnInstalled: false,
-}
+};
