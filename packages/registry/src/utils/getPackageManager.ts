@@ -13,7 +13,6 @@ export async function getPackageManager(args: {
     const { options, projectDir } = args
 
     try {
-      // Check for flag or lockfile
       let detected: PackageManager = 'npm'
       if (options?.pnpm || fse.existsSync(`${projectDir}/pnpm-lock.yaml`)) {
         detected = 'pnpm'
