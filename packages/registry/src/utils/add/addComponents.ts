@@ -50,7 +50,7 @@ export const addComponents = async (
     ),
   );
   await addFiles(
-    { cwd: options.cwd, overwrite: options.overwrite },
+    { cwd: options.cwd, overwrite: options.overwrite , configOnly: options.config },
     itemsToRegister.flatMap((item) => item.files),
     config,
   );

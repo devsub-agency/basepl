@@ -32,7 +32,7 @@ const getFileContent = async (file: RegistryFile): Promise<string> => {
 };
 
 export const addFiles = async (
-  options: { cwd: string; overwrite?: boolean },
+  options: { cwd: string; overwrite?: boolean, configOnly?: boolean },
   files: RegistryItem["files"],
   config: ConfigFile,
 ) => {
@@ -50,6 +50,12 @@ export const addFiles = async (
       if (fileName.includes(".tsx") && !config.shadcnInstalled) {
         logger.warn(
           `File ${loggingColor.info(fileName)} is a component file. This project was initialized without shadcn/ui, so components are skipped.`,
+        );
+        continue;
+      }
+      if (fileName.includes(".tsx") && options.configOnly) {
+        logger.warn(
+          `File ${loggingColor.info(fileName)} is a component file. This command was called with --config flag, so components are skipped.`,
         );
         continue;
       }
