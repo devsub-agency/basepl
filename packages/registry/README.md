@@ -11,13 +11,13 @@ The project is currently in the alpha. If you encounter errors please let us kno
 
 to start run 
 ```bash
-npx basepl@latest init 
+npx @basepl/cli init 
 ```
 
 to add a component run 
 
 ```bash
-npx basepl@latest add <component>
+npx @basepl/cli add <component>
 ```
 
 Further docs will follow. 
