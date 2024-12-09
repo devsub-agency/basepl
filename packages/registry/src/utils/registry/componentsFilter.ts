@@ -1,33 +1,33 @@
-import { z } from 'zod'
-import { registryIndexSchema } from './schema'
+import { z } from "zod";
+import { registryIndexSchema } from "./schema";
 
 const filterComponentsResultSchema = z.object({
   found: z.array(registryIndexSchema.element),
-  notFound: z.array(z.string())
-})
+  notFound: z.array(z.string()),
+});
 
-type FilterComponentsResult = z.infer<typeof filterComponentsResultSchema>
+type FilterComponentsResult = z.infer<typeof filterComponentsResultSchema>;
 
 export const filterRequestedComponents = (
   registry: z.infer<typeof registryIndexSchema>,
-  requestedComponents: string[]
+  requestedComponents: string[],
 ): FilterComponentsResult => {
   const result = filterComponentsResultSchema.parse({
     found: [],
-    notFound: []
-  })
+    notFound: [],
+  });
 
-  requestedComponents.forEach(requested => {
-    const component = registry.find(item => 
-      item.name.toLowerCase() === requested.toLowerCase()
-    )
+  requestedComponents.forEach((requested) => {
+    const component = registry.find(
+      (item) => item.name.toLowerCase() === requested.toLowerCase(),
+    );
 
     if (component) {
-      result.found.push(component)
+      result.found.push(component);
     } else {
-      result.notFound.push(requested)
+      result.notFound.push(requested);
     }
-  })
+  });
 
-  return result
-}
+  return result;
+};

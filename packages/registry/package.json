@@ -1,6 +1,6 @@
 {
   "name": "@basepl/cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Add fields and blocks to your payload cms.",
   "publishConfig": {
     "access": "public"
@@ -16,7 +16,8 @@
     "directory": "templates"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "keywords": [
     "payload",
@@ -38,17 +39,16 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist node_modules",
-    "start:dev": "cross-env REGISTRY_URL=http://localhost:3333/r node dist/index.js",
-    "start:prod": "cross-env REGISTRY_URL=https://ui.shadcn.com/r node dist/index.js",
+    "start:dev": "cross-env REGISTRY_URL=http://localhost:3000/registry node dist/index.js",
+    "start:prod": "cross-env REGISTRY_URL=https://basepl.com/registry/ node dist/index.js",
     "start": "node dist/index.js",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "release": "changeset version",
     "pub:beta": "pnpm build && pnpm publish --no-git-checks --access public --tag beta",
     "pub:next": "pnpm build && pnpm publish --no-git-checks --access public --tag next",
     "pub:release": "pnpm build && pnpm publish --access public",
     "test": "vitest run",
-    "test:dev": "REGISTRY_URL=http://localhost:3333/r vitest run"
+    "test:dev": "REGISTRY_URL=http://localhost:3000/registry vitest run"
   },
   "dependencies": {
     "chalk": "^5.3.0",

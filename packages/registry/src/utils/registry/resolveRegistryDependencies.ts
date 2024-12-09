@@ -1,8 +1,8 @@
 import { RegistryItem } from "./schema";
 
 export const resolveRegistryDependencies = async (
-  items: RegistryItem[], 
-  registryIndex: RegistryItem[]
+  items: RegistryItem[],
+  registryIndex: RegistryItem[],
 ): Promise<RegistryItem[]> => {
   const resolved = new Set<string>(); // Track processed items
   const result: RegistryItem[] = []; // Store final list
@@ -13,8 +13,8 @@ export const resolveRegistryDependencies = async (
     }
     resolved.add(item.name);
     if (item.registryDependencies?.length) {
-      item.registryDependencies.forEach(depName => {
-        const dependency = registryIndex.find(reg => reg.name === depName);
+      item.registryDependencies.forEach((depName) => {
+        const dependency = registryIndex.find((reg) => reg.name === depName);
         if (dependency) {
           resolveDependencies(dependency);
         }
@@ -22,6 +22,6 @@ export const resolveRegistryDependencies = async (
     }
     result.push(item);
   };
-  items.forEach(item => resolveDependencies(item));
+  items.forEach((item) => resolveDependencies(item));
   return result;
 };

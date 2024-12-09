@@ -1,6 +1,6 @@
 export interface ConfigFile {
-    version: string;
-    initialized: boolean;
-    timestamp: string;
-    shadcnInstalled: boolean;
-    }
+  version: string;
+  initialized: boolean;
+  timestamp: string;
+  shadcnInstalled: boolean;
+}
