@@ -1,5 +1,5 @@
-import { Button } from '@/blocks/Button/config'
-import { MediaBlock } from '@/blocks/Media/config'
+import { Button } from '@/blocks/BaseplButton/config'
+import { Image } from '@/blocks/BaseplImage/config'
 import type { CollectionConfig } from 'payload'
 
 export const Posts: CollectionConfig = {
@@ -65,7 +65,7 @@ export const Posts: CollectionConfig = {
     {
       name: 'layout',
       type: 'blocks',
-      blocks: [Button, MediaBlock],
+      blocks: [Button, Image],
       required: true,
     },
     {

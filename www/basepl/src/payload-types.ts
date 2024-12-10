@@ -119,7 +119,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  layout: (ButtonType | MediaType)[];
+  layout: (ButtonType | ImageType)[];
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -160,11 +160,11 @@ export interface LinkType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaType".
+ * via the `definition` "ImageType".
  */
-export interface MediaType {
+export interface ImageType {
   media: string | Media;
-  isFullscreen?: boolean | null;
+  isScale?: boolean | null;
   isPriority?: boolean | null;
   width: number;
   height: number;
@@ -174,7 +174,7 @@ export interface MediaType {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'mediaBlock';
+  blockType: 'image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -307,11 +307,11 @@ export interface PostsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        mediaBlock?:
+        image?:
           | T
           | {
               media?: T;
-              isFullscreen?: T;
+              isScale?: T;
               isPriority?: T;
               width?: T;
               height?: T;

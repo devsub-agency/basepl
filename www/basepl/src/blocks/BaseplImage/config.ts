@@ -18,8 +18,8 @@ const fitOptions = [
   { label: 'Fill', value: 'fill' },
 ]
 
-export const MediaBlock: Block = {
-  slug: 'imageBlock',
+export const Image: Block = {
+  slug: 'image',
   interfaceName: 'ImageType',
   fields: [
     {

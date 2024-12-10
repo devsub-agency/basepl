@@ -10,13 +10,12 @@ import {
 } from '@/components/ui/breadcrumb'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { BaseplButton } from '@/blocks/Button/Component'
-import { MediaBlock } from '@/blocks/Media/Component'
-
+import { BaseplButton } from '@/blocks/BaseplButton/Component'
+import { BaseplImage } from '@/blocks/BaseplImage/Component'
 
 const blockComponents = {
   button: BaseplButton,
-  mediaBlock: MediaBlock,
+  image: BaseplImage,
 }
 
 const queryPostBySlug = async (slug: string) => {
