@@ -1,5 +1,16 @@
 [
   {
+    "name": "label",
+    "type": "templates/fields",
+    "files": [
+      {
+        "path": "fields/label/config.ts",
+        "type": "templates/fields"
+      }
+    ],
+    "registryDependencies": []
+  },
+  {
     "name": "link",
     "type": "templates/fields",
     "files": [
@@ -11,16 +22,5 @@
     "registryDependencies": [
       "label"
     ]
-  },
-  {
-    "name": "label",
-    "type": "templates/fields",
-    "files": [
-      {
-        "path": "fields/label/config.ts",
-        "type": "templates/fields"
-      }
-    ],
-    "registryDependencies": []
   }
 ]
