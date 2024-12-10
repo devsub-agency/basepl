@@ -11,10 +11,12 @@ import {
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { BaseplButton } from '@/blocks/Button/Component'
+import { MediaBlock } from '@/blocks/Media/Component'
 
 
 const blockComponents = {
   button: BaseplButton,
+  mediaBlock: MediaBlock,
 }
 
 const queryPostBySlug = async (slug: string) => {

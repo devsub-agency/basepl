@@ -119,7 +119,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  layout: ButtonType[];
+  layout: (ButtonType | MediaType)[];
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -157,6 +157,24 @@ export interface LinkType {
     value: string | Post;
   } | null;
   fileReference?: (string | null) | Media;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaType".
+ */
+export interface MediaType {
+  media: string | Media;
+  isFullscreen?: boolean | null;
+  isPriority?: boolean | null;
+  width: number;
+  height: number;
+  objectFit?: ('cover' | 'contain' | 'fill') | null;
+  position?:
+    | ('left' | 'center' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right')
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -286,6 +304,19 @@ export interface PostsSelect<T extends boolean = true> {
               icon?: T;
               variant?: T;
               size?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              isFullscreen?: T;
+              isPriority?: T;
+              width?: T;
+              height?: T;
+              objectFit?: T;
+              position?: T;
               id?: T;
               blockName?: T;
             };
