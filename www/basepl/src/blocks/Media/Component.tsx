@@ -20,7 +20,10 @@ export const MediaBlock = (props: MediaType) => {
         className={mediaClasses}
         width={isFullscreen ? '100%' : width}
         height={isFullscreen ? '100%' : height}
-        controls
+        playsInline
+        autoPlay
+        loop
+        muted
       >
         <p>{mediaData.alt}</p>
       </video>
