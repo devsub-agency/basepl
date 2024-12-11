@@ -38,7 +38,7 @@ export const BaseplImage: Block = {
           defaultValue: 'scale',
           required: true,
           options: [
-            { label: 'Auto scale', value: 'scale' },
+            { label: 'Fill', value: 'scale' },
             { label: 'Custom', value: 'custom' },
           ],
           admin: {
@@ -59,30 +59,14 @@ export const BaseplImage: Block = {
       ],
     },
     {
-      type: 'row',
+      name: 'isAbsoluteWidth',
+      type: 'checkbox',
+      label: 'Absolute Width',
+      defaultValue: true,
       admin: {
+        width: '25%',
         condition: (_, siblingData) => siblingData?.scaleOption === 'custom',
       },
-      fields: [
-        {
-          name: 'isAbsoluteWidth',
-          type: 'checkbox',
-          label: 'Absolute Width',
-          defaultValue: true,
-          admin: {
-            width: '25%',
-          },
-        },
-        {
-          name: 'isAbsoluteHeight',
-          type: 'checkbox',
-          label: 'Absolute Height',
-          defaultValue: true,
-          admin: {
-            width: '25%',
-          },
-        },
-      ],
     },
     {
       type: 'row',
@@ -94,6 +78,7 @@ export const BaseplImage: Block = {
           name: 'absoluteWidth',
           type: 'number',
           label: 'Width (px)',
+          min: 1,
           required: true,
           defaultValue: 800,
           admin: {
@@ -102,36 +87,27 @@ export const BaseplImage: Block = {
           },
         },
         {
-          name: 'absoluteHeight',
-          type: 'number',
-          label: 'Height (px)',
-          required: true,
-          defaultValue: 600,
-          admin: {
-            width: '50%',
-            condition: (_, siblingData) => siblingData?.isAbsoluteHeight,
-          },
-        },
-        {
           name: 'relativeWidth',
           type: 'number',
           label: 'Width (%)',
           required: true,
           defaultValue: 100,
+          min: 1,
+          max: 100,
           admin: {
             width: '50%',
             condition: (_, siblingData) => !siblingData?.isAbsoluteWidth,
           },
         },
         {
-          name: 'relativeHeight',
+          name: 'absoluteHeight',
           type: 'number',
-          label: 'Height (%)',
+          label: 'Height (px)',
+          min: 1,
           required: true,
-          defaultValue: 100,
+          defaultValue: 600,
           admin: {
             width: '50%',
-            condition: (_, siblingData) => !siblingData?.isAbsoluteHeight,
           },
         },
         {

@@ -76,10 +76,21 @@ export const BaseplVideo: Block = {
       required: true,
       defaultValue: 'scale',
       options: [
-        { label: 'Auto scale', value: 'scale' },
+        { label: 'Fill', value: 'scale' },
         { label: 'Custom', value: 'custom' },
       ],
     },
+    {
+      name: 'isAbsoluteWidth',
+      type: 'checkbox',
+      label: 'Absolute Width',
+      defaultValue: true,
+      admin: {
+        width: '25%',
+        condition: (_, siblingData) => siblingData?.scaleOption === 'custom',
+      },
+    },
+
     {
       type: 'row',
       admin: {
@@ -87,17 +98,35 @@ export const BaseplVideo: Block = {
       },
       fields: [
         {
-          name: 'width',
+          name: 'absoluteWidth',
           type: 'number',
+          label: 'Width (px)',
+          min: 1,
           required: true,
           defaultValue: 800,
           admin: {
             width: '50%',
+            condition: (_, siblingData) => siblingData?.isAbsoluteWidth,
           },
         },
         {
-          name: 'height',
+          name: 'relativeWidth',
           type: 'number',
+          label: 'Width (%)',
+          required: true,
+          defaultValue: 100,
+          min: 1,
+          max: 100,
+          admin: {
+            width: '50%',
+            condition: (_, siblingData) => !siblingData?.isAbsoluteWidth,
+          },
+        },
+        {
+          name: 'absoluteHeight',
+          type: 'number',
+          label: 'Height (px)',
+          min: 1,
           required: true,
           defaultValue: 600,
           admin: {

@@ -7,8 +7,10 @@ export const BaseplVideo = (props: BaseplVideoType) => {
     autoPlay,
     loop,
     muted,
-    width,
-    height,
+    isAbsoluteWidth,
+    absoluteWidth,
+    relativeWidth,
+    absoluteHeight,
     scaleOption,
     objectFit,
     objectPosition,
@@ -16,6 +18,12 @@ export const BaseplVideo = (props: BaseplVideoType) => {
   const videoData = video as Media
   const fallbackSlug = '/'
   const isScale = scaleOption === 'scale'
+
+  const fallBackHeight = 500
+  const fallBackWidth = 500
+
+  const width = (isAbsoluteWidth ? absoluteWidth : relativeWidth + '%') ?? fallBackWidth
+  const height = absoluteHeight ?? fallBackHeight
 
   return (
     <video

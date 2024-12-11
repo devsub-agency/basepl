@@ -4,36 +4,60 @@ import { BaseplImageType, Media } from '@/payload-types'
 export const BaseplImage = (props: BaseplImageType) => {
   const {
     image,
+    isAbsoluteWidth,
     absoluteWidth,
     absoluteHeight,
+    relativeWidth,
     objectPosition,
     objectFit,
     isPriority,
     scaleOption,
   } = props
+
   const imageData = image as Media
   const isScale = scaleOption === 'scale'
-  const fallbackSlug = '/'
 
-  const width = absoluteWidth ?? 0
-  const height = absoluteHeight ?? 0
+  const fallbackSlug = '/'
+  const fallBackHeight = 500
+  const fallBackWidth = 500
+
+  const width = (isAbsoluteWidth ? absoluteWidth : relativeWidth + '%') ?? fallBackWidth
+  const height = absoluteHeight ?? fallBackHeight
+  const classes = 'relative'
+
+  if (isScale) {
+    return (
+      <div
+        id={imageData.id}
+        className={classes}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Image
+          src={imageData.url ?? fallbackSlug}
+          alt={imageData.alt}
+          priority={isPriority ?? false}
+          objectFit={objectFit as string}
+          objectPosition={objectPosition as string}
+          width={imageData.width ?? fallBackWidth}
+          height={imageData.height ?? fallBackHeight}
+          layout="responsive"
+        />
+      </div>
+    )
+  }
 
   return (
-    <div
-      id={imageData.id}
-      className="relative"
-      style={{
-        width: isScale ? '100%' : width,
-        height: isScale ? '100%' : height,
-      }}
-    >
+    <div id={imageData.id} className={classes} style={{ width, height }}>
       <Image
         src={imageData.url ?? fallbackSlug}
         alt={imageData.alt}
         priority={isPriority ?? false}
         objectFit={objectFit as string}
         objectPosition={objectPosition as string}
-        {...(!isScale ? { layout: 'fill' } : { width, height })}
+        layout="fill"
       />
     </div>
   )
