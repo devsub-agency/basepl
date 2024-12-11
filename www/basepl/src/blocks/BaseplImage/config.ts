@@ -1,15 +1,11 @@
 import type { Block } from 'payload'
 
 const positionOptions = [
-  { label: 'Left', value: 'left' },
   { label: 'Center', value: 'center' },
+  { label: 'Left', value: 'left' },
   { label: 'Right', value: 'right' },
   { label: 'Top', value: 'top' },
   { label: 'Bottom', value: 'bottom' },
-  { label: 'Top Left', value: 'top-left' },
-  { label: 'Top Right', value: 'top-right' },
-  { label: 'Bottom Left', value: 'bottom-left' },
-  { label: 'Bottom Right', value: 'bottom-right' },
 ]
 
 const fitOptions = [
@@ -24,11 +20,11 @@ export const BaseplImage: Block = {
   interfaceName: 'BaseplImageType',
   fields: [
     {
-      name: 'media',
+      name: 'image',
       type: 'upload',
       relationTo: 'media',
       filterOptions: {
-        mimeType: { equals: 'image' },
+        mimeType: { contains: 'image' },
       },
       required: true,
     },
@@ -36,13 +32,17 @@ export const BaseplImage: Block = {
       type: 'row',
       fields: [
         {
-          name: 'isScale',
-          type: 'checkbox',
-          label: 'Scale',
-          defaultValue: true,
+          name: 'scaleOption',
+          type: 'select',
+          label: 'Size',
+          defaultValue: 'scale',
+          required: true,
+          options: [
+            { label: 'Auto scale', value: 'scale' },
+            { label: 'Custom', value: 'custom' },
+          ],
           admin: {
-            width: '30%',
-            description: 'Media will span as large as possible',
+            width: '50%',
           },
         },
         {
@@ -51,7 +51,8 @@ export const BaseplImage: Block = {
           label: 'Priority',
           defaultValue: true,
           admin: {
-            width: '30%',
+            style: { padding: '16px 0 0 24px' },
+            width: '50%',
             description: 'Media will not lazy load',
           },
         },
@@ -60,30 +61,83 @@ export const BaseplImage: Block = {
     {
       type: 'row',
       admin: {
-        condition: (_, siblingData) => siblingData?.isScale === false,
+        condition: (_, siblingData) => siblingData?.scaleOption === 'custom',
       },
       fields: [
         {
-          name: 'width',
+          name: 'isAbsoluteWidth',
+          type: 'checkbox',
+          label: 'Absolute Width',
+          defaultValue: true,
+          admin: {
+            width: '25%',
+          },
+        },
+        {
+          name: 'isAbsoluteHeight',
+          type: 'checkbox',
+          label: 'Absolute Height',
+          defaultValue: true,
+          admin: {
+            width: '25%',
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      admin: {
+        condition: (_, siblingData) => siblingData?.scaleOption === 'custom',
+      },
+      fields: [
+        {
+          name: 'absoluteWidth',
           type: 'number',
+          label: 'Width (px)',
           required: true,
           defaultValue: 800,
           admin: {
             width: '50%',
+            condition: (_, siblingData) => siblingData?.isAbsoluteWidth,
           },
         },
         {
-          name: 'height',
+          name: 'absoluteHeight',
           type: 'number',
+          label: 'Height (px)',
           required: true,
           defaultValue: 600,
           admin: {
             width: '50%',
+            condition: (_, siblingData) => siblingData?.isAbsoluteHeight,
+          },
+        },
+        {
+          name: 'relativeWidth',
+          type: 'number',
+          label: 'Width (%)',
+          required: true,
+          defaultValue: 100,
+          admin: {
+            width: '50%',
+            condition: (_, siblingData) => !siblingData?.isAbsoluteWidth,
+          },
+        },
+        {
+          name: 'relativeHeight',
+          type: 'number',
+          label: 'Height (%)',
+          required: true,
+          defaultValue: 100,
+          admin: {
+            width: '50%',
+            condition: (_, siblingData) => !siblingData?.isAbsoluteHeight,
           },
         },
         {
           name: 'objectFit',
           type: 'select',
+          required: true,
           defaultValue: 'cover',
           options: fitOptions,
           admin: {
@@ -91,8 +145,9 @@ export const BaseplImage: Block = {
           },
         },
         {
-          name: 'position',
+          name: 'objectPosition',
           type: 'select',
+          required: true,
           defaultValue: 'center',
           options: positionOptions,
           admin: {

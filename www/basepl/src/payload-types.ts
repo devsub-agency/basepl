@@ -163,15 +163,17 @@ export interface LinkType {
  * via the `definition` "BaseplImageType".
  */
 export interface BaseplImageType {
-  media: string | Media;
-  isScale?: boolean | null;
+  image: string | Media;
+  scaleOption: 'scale' | 'custom';
   isPriority?: boolean | null;
-  width: number;
-  height: number;
-  objectFit?: ('cover' | 'contain' | 'fill') | null;
-  position?:
-    | ('left' | 'center' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right')
-    | null;
+  isAbsoluteWidth?: boolean | null;
+  isAbsoluteHeight?: boolean | null;
+  absoluteWidth?: number | null;
+  absoluteHeight?: number | null;
+  relativeWidth?: number | null;
+  relativeHeight?: number | null;
+  objectFit: 'cover' | 'contain' | 'fill';
+  objectPosition: 'center' | 'left' | 'right' | 'top' | 'bottom';
   id?: string | null;
   blockName?: string | null;
   blockType: 'baseplImage';
@@ -182,13 +184,15 @@ export interface BaseplImageType {
  */
 export interface BaseplVideoType {
   video: string | Media;
-  width: number;
-  height: number;
-  playsInline?: boolean | null;
+  showControls?: boolean | null;
   autoPlay?: boolean | null;
   loop?: boolean | null;
   muted?: boolean | null;
-  isScale?: boolean | null;
+  scaleOption: 'scale' | 'custom';
+  width: number;
+  height: number;
+  objectFit: 'cover' | 'contain' | 'fill';
+  objectPosition: 'center' | 'left' | 'right' | 'top' | 'bottom';
   id?: string | null;
   blockName?: string | null;
   blockType: 'baseplVideo';
@@ -327,13 +331,17 @@ export interface PostsSelect<T extends boolean = true> {
         baseplImage?:
           | T
           | {
-              media?: T;
-              isScale?: T;
+              image?: T;
+              scaleOption?: T;
               isPriority?: T;
-              width?: T;
-              height?: T;
+              isAbsoluteWidth?: T;
+              isAbsoluteHeight?: T;
+              absoluteWidth?: T;
+              absoluteHeight?: T;
+              relativeWidth?: T;
+              relativeHeight?: T;
               objectFit?: T;
-              position?: T;
+              objectPosition?: T;
               id?: T;
               blockName?: T;
             };
@@ -341,13 +349,15 @@ export interface PostsSelect<T extends boolean = true> {
           | T
           | {
               video?: T;
-              width?: T;
-              height?: T;
-              playsInline?: T;
+              showControls?: T;
               autoPlay?: T;
               loop?: T;
               muted?: T;
-              isScale?: T;
+              scaleOption?: T;
+              width?: T;
+              height?: T;
+              objectFit?: T;
+              objectPosition?: T;
               id?: T;
               blockName?: T;
             };

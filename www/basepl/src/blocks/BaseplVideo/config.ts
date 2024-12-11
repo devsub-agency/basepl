@@ -1,5 +1,19 @@
 import type { Block } from 'payload'
 
+const positionOptions = [
+  { label: 'Center', value: 'center' },
+  { label: 'Left', value: 'left' },
+  { label: 'Right', value: 'right' },
+  { label: 'Top', value: 'top' },
+  { label: 'Bottom', value: 'bottom' },
+]
+
+const fitOptions = [
+  { label: 'Cover', value: 'cover' },
+  { label: 'Contain', value: 'contain' },
+  { label: 'Fill', value: 'fill' },
+]
+
 export const BaseplVideo: Block = {
   slug: 'baseplVideo',
   labels: { singular: 'Video', plural: 'Videos' },
@@ -11,19 +25,19 @@ export const BaseplVideo: Block = {
       relationTo: 'media',
       required: true,
       filterOptions: {
-        mimeType: { equals: 'video' },
+        mimeType: { contains: 'video' },
       },
     },
     {
       type: 'row',
       fields: [
         {
-          name: 'playsInline',
+          name: 'showControls',
           type: 'checkbox',
-          label: 'Plays Inline',
+          label: 'Control panel',
           defaultValue: true,
           admin: {
-            width: '20%',
+            width: '25%',
           },
         },
         {
@@ -32,43 +46,44 @@ export const BaseplVideo: Block = {
           label: 'Autoplay',
           defaultValue: true,
           admin: {
-            width: '20%',
+            width: '25%',
           },
         },
         {
           name: 'loop',
           type: 'checkbox',
-          label: 'Loop',
+          label: 'Loop sequence',
           defaultValue: true,
           admin: {
-            width: '20%',
+            width: '25%',
           },
         },
         {
           name: 'muted',
           type: 'checkbox',
-          label: 'Muted',
+          label: 'Muted audio',
           defaultValue: true,
           admin: {
-            width: '20%',
+            width: '25%',
           },
         },
       ],
     },
     {
-      name: 'isScale',
-      type: 'checkbox',
-      label: 'Scale',
-      defaultValue: true,
-      admin: {
-        width: '20%',
-        description: 'Video will span as large as possible',
-      },
+      name: 'scaleOption',
+      type: 'select',
+      label: 'Size',
+      required: true,
+      defaultValue: 'scale',
+      options: [
+        { label: 'Auto scale', value: 'scale' },
+        { label: 'Custom', value: 'custom' },
+      ],
     },
     {
       type: 'row',
       admin: {
-        condition: (data, siblingData) => siblingData?.isScale === false,
+        condition: (_, siblingData) => siblingData?.scaleOption === 'custom',
       },
       fields: [
         {
@@ -85,6 +100,26 @@ export const BaseplVideo: Block = {
           type: 'number',
           required: true,
           defaultValue: 600,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'objectFit',
+          type: 'select',
+          required: true,
+          defaultValue: 'cover',
+          options: fitOptions,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'objectPosition',
+          type: 'select',
+          required: true,
+          defaultValue: 'center',
+          options: positionOptions,
           admin: {
             width: '50%',
           },

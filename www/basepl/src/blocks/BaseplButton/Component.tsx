@@ -50,7 +50,7 @@ export const BaseplButton = (props: BaseplButtonType) => {
   )
 
   return (
-    <Button variant={variant} size={size} id={id ?? ''} asChild>
+    <Button variant={variant} size={size} id={id ?? undefined} asChild>
       <Link href={getNavigationHref()} target={navigationTarget} referrerPolicy={referrerPolicy}>
         {hasIcon && isIconStart && IconComponent}
         {size !== 'icon' && label}
