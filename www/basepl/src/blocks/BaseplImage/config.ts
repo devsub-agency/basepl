@@ -18,14 +18,18 @@ const fitOptions = [
   { label: 'Fill', value: 'fill' },
 ]
 
-export const Image: Block = {
-  slug: 'image',
-  interfaceName: 'ImageType',
+export const BaseplImage: Block = {
+  slug: 'baseplImage',
+  labels: { singular: 'Image', plural: 'Images' },
+  interfaceName: 'BaseplImageType',
   fields: [
     {
       name: 'media',
       type: 'upload',
       relationTo: 'media',
+      filterOptions: {
+        mimeType: { equals: 'image' },
+      },
       required: true,
     },
     {

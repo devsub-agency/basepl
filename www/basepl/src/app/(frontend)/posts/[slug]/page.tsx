@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { draftMode, headers } from 'next/headers'
-import { Clock } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,10 +11,12 @@ import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { BaseplButton } from '@/blocks/BaseplButton/Component'
 import { BaseplImage } from '@/blocks/BaseplImage/Component'
+import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
 
 const blockComponents = {
-  button: BaseplButton,
-  image: BaseplImage,
+  baseplButton: BaseplButton,
+  baseplImage: BaseplImage,
+  baseplVideo: BaseplVideo,
 }
 
 const queryPostBySlug = async (slug: string) => {

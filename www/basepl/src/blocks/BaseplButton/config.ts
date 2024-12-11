@@ -77,9 +77,10 @@ const styleOptions: Field = {
   ],
 }
 
-export const Button: Block = {
-  slug: 'button',
-  interfaceName: 'ButtonType',
+export const BaselplButton: Block = {
+  slug: 'baseplButton',
+  interfaceName: 'BaseplButtonType',
+  labels: { singular: 'Button', plural: 'Buttons' },
   fields: [link({ fieldIsLocalized: localized }), styleOptions],
   admin: {},
 }

@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Media } from '@/payload-types'
+import { BaseplImageType, Media } from '@/payload-types'
 import { cn } from '@/lib/utils'
 
-export const BaseplImage = (props: any) => {
+export const BaseplImage = (props: BaseplImageType) => {
   const { media, width, height, isScale, position, objectFit, isPriority } = props
   const { alt } = media as Media
   const mediaData = media as Media

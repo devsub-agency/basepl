@@ -119,16 +119,16 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  layout: (ButtonType | ImageType)[];
+  layout: (BaseplButtonType | BaseplImageType | BaseplVideoType)[];
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ButtonType".
+ * via the `definition` "BaseplButtonType".
  */
-export interface ButtonType {
+export interface BaseplButtonType {
   link: LinkType;
   hasIcon?: boolean | null;
   isIconStart?: boolean | null;
@@ -137,7 +137,7 @@ export interface ButtonType {
   size: 'default' | 'sm' | 'lg' | 'icon';
   id?: string | null;
   blockName?: string | null;
-  blockType: 'button';
+  blockType: 'baseplButton';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -160,9 +160,9 @@ export interface LinkType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageType".
+ * via the `definition` "BaseplImageType".
  */
-export interface ImageType {
+export interface BaseplImageType {
   media: string | Media;
   isScale?: boolean | null;
   isPriority?: boolean | null;
@@ -174,7 +174,24 @@ export interface ImageType {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'image';
+  blockType: 'baseplImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplVideoType".
+ */
+export interface BaseplVideoType {
+  video: string | Media;
+  width: number;
+  height: number;
+  playsInline?: boolean | null;
+  autoPlay?: boolean | null;
+  loop?: boolean | null;
+  muted?: boolean | null;
+  isScale?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'baseplVideo';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -282,7 +299,7 @@ export interface PostsSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        button?:
+        baseplButton?:
           | T
           | {
               link?:
@@ -307,7 +324,7 @@ export interface PostsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        image?:
+        baseplImage?:
           | T
           | {
               media?: T;
@@ -317,6 +334,20 @@ export interface PostsSelect<T extends boolean = true> {
               height?: T;
               objectFit?: T;
               position?: T;
+              id?: T;
+              blockName?: T;
+            };
+        baseplVideo?:
+          | T
+          | {
+              video?: T;
+              width?: T;
+              height?: T;
+              playsInline?: T;
+              autoPlay?: T;
+              loop?: T;
+              muted?: T;
+              isScale?: T;
               id?: T;
               blockName?: T;
             };

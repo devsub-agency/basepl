@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { ButtonType, Media } from '@/payload-types'
+import { BaseplButtonType, Media } from '@/payload-types'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export const BaseplButton = (props: ButtonType) => {
+export const BaseplButton = (props: BaseplButtonType) => {
   const fallbackSlug = '/'
   const fallbackIconSlug = '/'
   const { id, size, variant, isIconStart, hasIcon, icon, link } = props

@@ -1,5 +1,6 @@
-import { Button } from '@/blocks/BaseplButton/config'
-import { Image } from '@/blocks/BaseplImage/config'
+import { BaselplButton } from '@/blocks/BaseplButton/config'
+import { BaseplImage } from '@/blocks/BaseplImage/config'
+import { BaseplVideo } from '@/blocks/BaseplVideo/config'
 import type { CollectionConfig } from 'payload'
 
 export const Posts: CollectionConfig = {
@@ -65,7 +66,7 @@ export const Posts: CollectionConfig = {
     {
       name: 'layout',
       type: 'blocks',
-      blocks: [Button, Image],
+      blocks: [BaselplButton, BaseplImage, BaseplVideo],
       required: true,
     },
     {
