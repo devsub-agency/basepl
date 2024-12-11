@@ -2,6 +2,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -9,10 +10,21 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { Posts } from './collections/Posts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const generateTitle: GenerateTitle = ({ doc }) => {
+  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+}
+
+const generateURL: GenerateURL = ({ doc }) => {
+  return doc?.slug
+    ? `${process.env.NEXT_PUBLIC_SERVER_URL!}/${doc.slug}`
+    : process.env.NEXT_PUBLIC_SERVER_URL!
+}
 
 export default buildConfig({
   admin: {
@@ -33,6 +45,10 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    seoPlugin({
+      generateTitle,
+      generateURL,
+    }),
     // storage-adapter-placeholder
   ],
 })

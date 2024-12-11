@@ -4,6 +4,7 @@ import './globals.css'
 import Header from './components/Header/Component'
 import { ThemeProvider } from './components/theme-provider'
 import { Footer } from './components/Footer/Component'
+import PlausibleProvider from 'next-plausible'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
