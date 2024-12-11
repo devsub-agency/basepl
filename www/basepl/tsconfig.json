@@ -30,7 +30,8 @@
       ],
       "@payload-config": [
         "./src/payload.config.ts"
-      ]
+      ],
+      "contentlayer/generated": ["./.contentlayer/generated"]
     },
     "target": "ES2022",
   },
@@ -38,8 +39,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
+, "contentlayer.config.js"  ],
   "exclude": [
     "node_modules"
   ]

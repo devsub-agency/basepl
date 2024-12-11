@@ -1,10 +1,10 @@
 import { Field } from 'payload'
 
-export const label: Field = {
+export const label = (maxLength = 20): Field => ({
     name: 'label',
     label: 'Label',
     required: true,
     localized: true,
     type: 'text',
-    maxLength: 20,
-}
+    maxLength: maxLength,
+})
