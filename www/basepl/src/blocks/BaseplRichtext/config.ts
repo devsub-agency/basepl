@@ -11,6 +11,7 @@ import { BaseplButton } from '../BaseplButton/config'
 
 export const BaseplRichtext: Block = {
   slug: 'baseplRichtext',
+  interfaceName: 'BaseplRichtextType',
   labels: {
     singular: 'Richtext',
     plural: 'Richtexts',

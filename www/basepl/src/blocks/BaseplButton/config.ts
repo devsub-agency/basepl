@@ -82,5 +82,4 @@ export const BaseplButton: Block = {
   interfaceName: 'BaseplButtonType',
   labels: { singular: 'Button', plural: 'Buttons' },
   fields: [link({ fieldIsLocalized: localized }), styleOptions],
-  admin: {},
 }

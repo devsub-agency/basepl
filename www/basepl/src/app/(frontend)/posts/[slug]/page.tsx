@@ -12,11 +12,13 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { BaseplButton } from '@/blocks/BaseplButton/Component'
 import { BaseplImage } from '@/blocks/BaseplImage/Component'
 import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
+import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
 
 const blockComponents = {
   baseplButton: BaseplButton,
   baseplImage: BaseplImage,
   baseplVideo: BaseplVideo,
+  baseplRichtext: BaseplRichtext,
 }
 
 const queryPostBySlug = async (slug: string) => {
@@ -71,8 +73,6 @@ const Post = async ({ params }: PostProps) => {
 
   const url = `/posts/${slug}`
   const post = await queryPostBySlug(slug)
-
-  console.log(post)
 
   if (!post) {
     return null

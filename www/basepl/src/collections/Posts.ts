@@ -66,7 +66,7 @@ export const Posts: CollectionConfig = {
               fields: [
                 { type: 'date', name: 'date', required: true, admin: { width: '50%' } },
                 {
-                  type: 'relationship',
+                  type: 'upload',
                   name: 'image',
                   relationTo: 'media',
                   required: true,
