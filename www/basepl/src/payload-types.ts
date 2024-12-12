@@ -102,9 +102,10 @@ export interface Media {
 export interface Post {
   id: string;
   slug: string;
+  date: string;
   title: string;
   readingTime: number;
-  date: string;
+  headline: string;
   image: string | Media;
   layout: (BaseplButtonType | BaseplImageType | BaseplVideoType | BaseplRichtextType)[];
   meta?: {
@@ -313,9 +314,10 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   slug?: T;
+  date?: T;
   title?: T;
   readingTime?: T;
-  date?: T;
+  headline?: T;
   image?: T;
   layout?:
     | T

@@ -43,6 +43,12 @@ export const Posts: CollectionConfig = {
       },
     },
     {
+      type: 'date',
+      name: 'date',
+      required: true,
+      admin: { width: '50%', position: 'sidebar' },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -64,14 +70,18 @@ export const Posts: CollectionConfig = {
             {
               type: 'row',
               fields: [
-                { type: 'date', name: 'date', required: true, admin: { width: '50%' } },
+                {
+                  type: 'text',
+                  name: 'headline',
+                  required: true,
+                },
                 {
                   type: 'upload',
                   name: 'image',
                   relationTo: 'media',
                   required: true,
                   filterOptions: { mimeType: { contains: 'image' } },
-                  admin: { width: '50%' },
+                  admin: { width: '100%' },
                 },
               ],
             },

@@ -3,14 +3,14 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import type { Post } from '@/payload-types'
+import type { Media, Post } from '@/payload-types'
 import { redirect } from 'next/navigation'
 import { generateMeta } from '@/utilities/generateMetadata'
 import { BaseplButton } from '@/blocks/BaseplButton/Component'
 import { BaseplImage } from '@/blocks/BaseplImage/Component'
 import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
-import { BlogHero } from '../../components/BlogHeader/Component'
+import { BlogHero } from '../../components/BlogHero/Component'
 import { BlogSidebar } from '../../components/BlogSidebar/Component'
 
 const blockComponents = {
@@ -36,7 +36,6 @@ export async function generateStaticParams() {
   const params = posts.docs.map(({ slug }) => {
     return { slug }
   })
-
   return params
 }
 
@@ -48,7 +47,6 @@ type Args = {
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
   const post = await queryPostBySlug({ slug })
 
   if (!post) {
@@ -56,12 +54,19 @@ export default async function Post({ params: paramsPromise }: Args) {
   }
 
   return (
-    <div className="grid md:grid-cols-5 w-full max-w-screen-xl mx-auto px-6 md:px-8 md:pt-28">
-      <div className="md:col-span-3">
-        <BlogHero slug={slug} title={post.title} />
+    <div className="grid md:grid-cols-3 w-full max-w-screen-xl mx-auto px-6 md:px-8 md:pt-36">
+      <div className="md:col-span-2" id="blogContent">
+        <BlogHero
+          slug={slug}
+          title={post.title}
+          headline={post.headline}
+          date={post.date}
+          readingTime={post.readingTime}
+          imageSrc={(post.image as Media).url ?? '/'}
+          alt={(post.image as Media).alt ?? ''}
+        />
         {post.layout.map((block, index) => {
-          const { blockName, blockType } = block
-
+          const { blockType } = block
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
@@ -77,8 +82,10 @@ export default async function Post({ params: paramsPromise }: Args) {
           return null
         })}
       </div>
-      <div className="md:ml-8 md:col-span-2 sticky">
-        <BlogSidebar />
+      <div className="relative md:pl-16 md:pr-5">
+        <div className="fixed">
+          <BlogSidebar />
+        </div>
       </div>
     </div>
   )
@@ -87,7 +94,6 @@ export default async function Post({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ slug })
-
   return generateMeta({ doc: post })
 }
 
