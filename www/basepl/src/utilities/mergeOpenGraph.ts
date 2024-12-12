@@ -12,14 +12,14 @@ export const getServerSideURL = () => {
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description: 'basepl - An open-source library built on top of Payload CMS',
   images: [
     {
       url: `${getServerSideURL()}/basepl-logo.png`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'basepl - templates, components and plugins',
+  title: 'basepl',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
