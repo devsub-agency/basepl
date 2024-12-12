@@ -10,6 +10,8 @@ import { BaseplButton } from '@/blocks/BaseplButton/Component'
 import { BaseplImage } from '@/blocks/BaseplImage/Component'
 import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
+import { BlogHero } from '../../components/BlogHeader/Component'
+import { BlogSidebar } from '../../components/BlogSidebar/Component'
 
 const blockComponents = {
   baseplButton: BaseplButton,
@@ -54,24 +56,30 @@ export default async function Post({ params: paramsPromise }: Args) {
   }
 
   return (
-    <div>
-      {post.layout.map((block, index) => {
-        const { blockName, blockType } = block
+    <div className="grid md:grid-cols-5 w-full max-w-screen-xl mx-auto px-6 md:px-8 md:pt-28">
+      <div className="md:col-span-3">
+        <BlogHero slug={slug} title={post.title} />
+        {post.layout.map((block, index) => {
+          const { blockName, blockType } = block
 
-        if (blockType && blockType in blockComponents) {
-          const Block = blockComponents[blockType]
+          if (blockType && blockType in blockComponents) {
+            const Block = blockComponents[blockType]
 
-          if (Block) {
-            return (
-              <div className="my-16" key={index}>
-                {/* @ts-expect-error */}
-                <Block id={index} {...block} />
-              </div>
-            )
+            if (Block) {
+              return (
+                <div className="my-16" key={index}>
+                  {/* @ts-expect-error */}
+                  <Block id={index} {...block} />
+                </div>
+              )
+            }
           }
-        }
-        return null
-      })}
+          return null
+        })}
+      </div>
+      <div className="md:ml-8 md:col-span-2 sticky">
+        <BlogSidebar />
+      </div>
     </div>
   )
 }
