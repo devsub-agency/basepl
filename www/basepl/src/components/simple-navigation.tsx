@@ -1,10 +1,9 @@
 "use client"
 
+import { NavGroup } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown } from "lucide-react"
-import { NavGroup } from "@/lib/navigation"
 
 interface DocsNavProps {
   items: NavGroup[]
@@ -18,7 +17,7 @@ export function DocsNav({ items }: DocsNavProps) {
       {items.map((group) => (
         <div key={group.title} className="pb-4">
           <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">
-            {group.title}
+            {group.title.toUpperCase()}
           </h4>
           <div className="grid grid-flow-row auto-rows-max text-sm">
             {group.items.map((item) => (

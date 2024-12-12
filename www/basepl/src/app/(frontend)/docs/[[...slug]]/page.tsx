@@ -6,7 +6,7 @@ import { siteConfig } from "../../site"
 import { notFound } from "next/navigation"
 import { ChevronRight } from "lucide-react"
 import { Mdx } from "@/components/mdx-components"
-import TableOfContents from "@/components/toc"
+import {TableOfContents} from "@/components/toc"
 import { getNavigation } from "@/lib/navigation"
 import { DocsNav } from "@/components/simple-navigation"
 
@@ -68,8 +68,13 @@ export default async function Page(params: Args) {
         notFound();
     }
 
+    console.log('doc toc', doc.toc);
+
     return (
-        <main className="py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+        <main className="py-6 lg:gap-10 lg:py-8 h-[90%] flex">
+            <div className="flex ">
+                <DocsNav items={navigation} />
+            </div>
             <div className="mx-auto w-full min-w-0">
                 <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
                     <div className="truncate">Docs</div>
@@ -86,19 +91,12 @@ export default async function Page(params: Args) {
                         </p>
                     )}
                 </div>
-                <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r md:sticky md:block">
-                    <DocsNav items={navigation} />
-                    <div className="pb-12 pt-8">
-                        <Mdx code={doc.body.code} />
-                    </div>
-                </aside>
-                <div className="hidden text-sm xl:block">
-                    <div className="sticky top-20 -mt-6 h-[calc(100vh-3.5rem)] pt-4">
-                        <div className="no-scrollbar h-full overflow-auto pb-10">
-                            {doc.toc && <TableOfContents rawBody={doc.body.raw} />}
-                        </div>
-                    </div>
+                <div className="pb-12 pt-8">
+                    <Mdx code={doc.body.code} />
                 </div>
+            </div>
+            <div className="flex sticky">
+                <TableOfContents rawBody={doc.body.raw} />
             </div>
         </main>
     )

@@ -16,43 +16,104 @@ interface TocItem {
 }
 
 function getTableOfContents(raw: string): TocItem[] {
-  const headingLines = raw
-    .split("\n")
-    .filter((line) => line.match(/^#{2,6}\s/)) // Match headings level 2-6
+  if (!raw) return []
 
-  return headingLines.map((raw) => {
-    const match = raw.match(/^(#{2,6})\s(.+)$/)
-    if (!match) return null
+  // Handle different newline formats and clean the string
+  const cleanedRaw = raw.replace(/\r\n/g, '\n').trim()
+  
+  const headingLines = cleanedRaw
+    .split('\n')
+    .filter(line => line.match(/^#{2,6}\s+/)) // Added + to ensure at least one space
 
-    const [, level, title] = match
+  console.log('Found heading lines:', headingLines)
 
-    return {
-      level: level.length,
-      title: title.trim(),
-      slug: title
+  return headingLines
+    .map((line) => {
+      // Improved regex to handle more heading formats
+      const match = line.match(/^(#{2,6})\s*(.+?)\s*$/)
+      if (!match) {
+        console.log('No match for line:', line)
+        return null
+      }
+
+      const [, hashes, title] = match
+      const level = hashes.length
+
+      const slug = title
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-"),
-    }
-  }).filter(Boolean) as TocItem[]
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-') // Handle multiple dashes
+        .replace(/^-+|-+$/g, '') // Remove leading/trailing dashes
+
+      console.log('Processed heading:', { level, title, slug })
+
+      return {
+        level,
+        title: title.trim(),
+        slug,
+      }
+    })
+    .filter((item): item is TocItem => Boolean(item))
 }
 
-export default function TableOfContents({ rawBody, className }: TocProps) {
+export function TableOfContents({ rawBody, className }: TocProps) {
+  const [activeItem, setActiveItem] = React.useState<string>("")
+  const itemsRef = React.useRef<HTMLElement[]>([])
+  
   const items = React.useMemo(() => getTableOfContents(rawBody), [rawBody])
 
-  if (!items.length) {
-    return null
-  }
+  React.useEffect(() => {
+    if (!items.length) return
+
+    itemsRef.current = items.map(item => 
+      document.getElementById(item.slug)
+    ).filter(Boolean) as HTMLElement[]
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveItem(entry.target.id)
+          }
+        })
+      },
+      {
+        rootMargin: '-20% 0% -35% 0%',
+        threshold: 1.0
+      }
+    )
+
+    itemsRef.current.forEach((item) => {
+      if (item) observer.observe(item)
+    })
+
+    return () => {
+      itemsRef.current.forEach((item) => {
+        if (item) observer.unobserve(item)
+      })
+    }
+  }, [items])
+
+  if (!items?.length) return null
 
   return (
     <div className={cn("space-y-2", className)}>
       <p className="font-medium">On This Page</p>
-      <Tree items={items} />
+      <Tree items={items} activeItem={activeItem} />
     </div>
   )
 }
 
-function Tree({ items, level = 1 }: { items: TocItem[]; level?: number }) {
+function Tree({ 
+  items, 
+  level = 1, 
+  activeItem 
+}: { 
+  items: TocItem[]
+  level?: number
+  activeItem: string 
+}) {
   return (
     <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
       {items.map((item, index) => (
@@ -61,11 +122,20 @@ function Tree({ items, level = 1 }: { items: TocItem[]; level?: number }) {
             href={`#${item.slug}`}
             className={cn(
               "inline-block no-underline transition-colors hover:text-foreground",
-              "text-muted-foreground",
               {
+                "text-muted-foreground": item.slug !== activeItem,
+                "font-medium text-foreground": item.slug === activeItem,
                 "text-sm": level > 2,
               }
             )}
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById(item.slug)?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "nearest",
+              })
+            }}
           >
             {item.title}
           </Link>
