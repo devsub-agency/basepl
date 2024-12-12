@@ -4,8 +4,8 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
+import {buildConfig} from 'payload'
+import {fileURLToPath} from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
@@ -17,7 +17,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const generateTitle: GenerateTitle = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | basepl` : 'basepl'
 }
 
 const generateURL: GenerateURL = ({ doc }) => {
