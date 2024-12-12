@@ -5,8 +5,10 @@ import { Metadata } from "next"
 import { siteConfig } from "../../site"
 import { notFound } from "next/navigation"
 import { ChevronRight } from "lucide-react"
-import { Mdx } from "@/components/mdx-compoents"
+import { Mdx } from "@/components/mdx-components"
 import TableOfContents from "@/components/toc"
+import { getNavigation } from "@/lib/navigation"
+import { DocsNav } from "@/components/simple-navigation"
 
 type Args = {
     params: Promise<{ slug: string[] }>
@@ -23,7 +25,7 @@ async function getDocFromParams(slug: string[]) {
 }
 
 export async function generateMetadata(params: Args): Promise<Metadata> {
-  const path = await params.params;
+    const path = await params.params;
     const doc = await getDocFromParams(path.slug)
 
     if (!doc) {
@@ -61,7 +63,7 @@ export default async function Page(params: Args) {
     const docName = await params.params;
     console.log('in page', docName.slug);
     const doc = await getDocFromParams(docName.slug);
-
+    const navigation = getNavigation();
     if (!doc) {
         notFound();
     }
@@ -84,18 +86,19 @@ export default async function Page(params: Args) {
                         </p>
                     )}
                 </div>
-
-                <div className="pb-12 pt-8">
-                    <Mdx code={doc.body.code} />
+                <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r md:sticky md:block">
+                    <DocsNav items={navigation} />
+                    <div className="pb-12 pt-8">
+                        <Mdx code={doc.body.code} />
+                    </div>
+                </aside>
+                <div className="hidden text-sm xl:block">
+                    <div className="sticky top-20 -mt-6 h-[calc(100vh-3.5rem)] pt-4">
+                        <div className="no-scrollbar h-full overflow-auto pb-10">
+                            {doc.toc && <TableOfContents rawBody={doc.body.raw} />}
+                        </div>
+                    </div>
                 </div>
-
-              <div className="hidden text-sm xl:block">
-                <div className="sticky top-20 -mt-6 h-[calc(100vh-3.5rem)] pt-4">
-                  <div className="no-scrollbar h-full overflow-auto pb-10">
-                    {doc.toc && <TableOfContents rawBody={doc.body.raw} />}
-                  </div>
-                </div>
-              </div>
             </div>
         </main>
     )
