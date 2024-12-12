@@ -1,14 +1,11 @@
-import { Metadata } from 'next'
-import { draftMode, headers } from 'next/headers'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
+import { draftMode } from 'next/headers'
+import React, { cache } from 'react'
+import type { Post } from '@/payload-types'
+import { redirect } from 'next/navigation'
+import { generateMeta } from '@/utilities/generateMetadata'
 import { BaseplButton } from '@/blocks/BaseplButton/Component'
 import { BaseplImage } from '@/blocks/BaseplImage/Component'
 import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
@@ -21,80 +18,43 @@ const blockComponents = {
   baseplRichtext: BaseplRichtext,
 }
 
-const queryPostBySlug = async (slug: string) => {
-  if (!slug) {
-    return null
-  }
-
-  const { isEnabled: draft } = await draftMode()
-  const payload = await getPayloadHMR({ config: configPromise })
-  const authResult = draft ? await payload.auth({ headers: await headers() }) : undefined
-  const user = authResult?.user
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: false,
-    user,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-}
-
 export async function generateStaticParams() {
-  const payload = await getPayloadHMR({ config: configPromise })
+  const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
     collection: 'posts',
     draft: false,
     limit: 1000,
     overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
   })
 
-  return posts.docs?.map(({ slug }) => ({ slug }))
+  const params = posts.docs.map(({ slug }) => {
+    return { slug }
+  })
+
+  return params
 }
 
-interface PostProps {
-  params: {
-    slug: string
-  }
+type Args = {
+  params: Promise<{
+    slug?: string
+  }>
 }
 
-const Post = async ({ params }: PostProps) => {
-  const { slug } = await params
-  if (!slug) {
-    return null
-  }
-
-  const url = `/posts/${slug}`
-  const post = await queryPostBySlug(slug)
+export default async function Post({ params: paramsPromise }: Args) {
+  const { slug = '' } = await paramsPromise
+  const url = '/posts/' + slug
+  const post = await queryPostBySlug({ slug })
 
   if (!post) {
-    return null
+    redirect('/')
   }
 
-  const renderBreadcrumb = () => (
-    <Breadcrumb className="mb-6">
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={`/posts/${slug}`}>{post.title}</BreadcrumbLink>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-  )
-
-  const renderHeader = () => (
-    <header className="mb-8">
-      <h1 className="mb-4 text-3xl font-medium tracking-tight md:w-3/4">{post.title}</h1>
+  return (
+    <div>
       {post.layout.map((block, index) => {
         const { blockName, blockType } = block
 
@@ -112,32 +72,34 @@ const Post = async ({ params }: PostProps) => {
         }
         return null
       })}
-      <div className="flex items-center space-x-4 text-sm text-muted-foreground">Test</div>
-    </header>
-  )
-
-  return (
-    <div className="bg-background">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 px-5 md:px-8 pt-20 pb-10 md:pt-40 md:pb-16">
-        {renderBreadcrumb()}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-          <div className="lg:col-span-2">{renderHeader()}</div>
-        </div>
-      </div>
     </div>
   )
 }
 
-export default Post
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { slug = '' } = await paramsPromise
+  const post = await queryPostBySlug({ slug })
 
-export function generateMetadata(): Metadata {
-  return {
-    title: `Introducing basepl - Open source library based on Payload CMS`,
-    description:
-      'An overview and quick introduction to the open source library basepl and how it can help you build applications with Payload CMS.',
-    authors: [{ name: 'Maurice Ihl' }],
-    openGraph: {
-      images: [{ url: '/article-thumbnail.png' }],
-    },
-  }
+  return generateMeta({ doc: post })
 }
+
+const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+  const { isEnabled: draft } = await draftMode()
+
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'posts',
+    draft,
+    limit: 1,
+    overrideAccess: draft,
+    pagination: false,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})
