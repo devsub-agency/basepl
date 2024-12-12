@@ -12,6 +12,10 @@ import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
 import { BlogHero } from '../../components/BlogHero/Component'
 import { BlogSidebar } from '../../components/BlogSidebar/Component'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { DiscordLogo } from '../../components/Logos/DiscordLogo'
 
 const blockComponents = {
   baseplButton: BaseplButton,
@@ -54,7 +58,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   }
 
   return (
-    <div className="grid md:grid-cols-3 w-full max-w-screen-xl mx-auto px-6 md:px-8 md:pt-36">
+    <div className="grid md:grid-cols-3 w-full max-w-screen-xl mx-auto px-5 md:px-8 pt-20 md:pt-36">
       <div className="md:col-span-2" id="blogContent">
         <BlogHero
           slug={slug}
@@ -65,6 +69,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           imageSrc={(post.image as Media).url ?? '/'}
           alt={(post.image as Media).alt ?? ''}
         />
+
         {post.layout.map((block, index) => {
           const { blockType } = block
           if (blockType && blockType in blockComponents) {
@@ -81,8 +86,31 @@ export default async function Post({ params: paramsPromise }: Args) {
           }
           return null
         })}
+
+        <div className="relative flex justify-between items-center w-full md:mx-auto mt-8 mb-12 md:my-16">
+          <div className="flex items-center space-x-3">
+            <Image
+              src={'/pb-maurice.png'}
+              alt={'profile picture of Maurice'}
+              width={40}
+              height={40}
+              className="rounded-full h-10 w-10 object-cover"
+            />
+            <div>
+              <div className="text-sm font-semibold text-muted-foreground">Maurice</div>
+              <div className="text-sm text-muted-foreground">Co-Founder</div>
+            </div>
+          </div>
+          <Button type="submit" id="discord" asChild>
+            <Link href="https://discord.gg/b99KZMW2">
+              <DiscordLogo isNative={false} />
+              Join on Discord
+            </Link>
+          </Button>
+        </div>
       </div>
-      <div className="relative md:pl-16 md:pr-5">
+
+      <div className="relative md:pl-16 md:pr-5 md:mt-12">
         <div className="fixed">
           <BlogSidebar />
         </div>

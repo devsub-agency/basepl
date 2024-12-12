@@ -41,10 +41,10 @@ export const BlogHero = (props: BlogHeroProps) => {
         </span>
         <span className="flex items-center gap-1 text-muted-foreground text-sm">
           <Clock className="h-4 w-4" />
-          {readingTime + 'min'}
+          {readingTime + 'min read'}
         </span>
       </div>
-      <div className="relative w-full h-96 mt-8">
+      <div className="relative w-full mt-8 h-48 md:h-96">
         <Image
           src={imageSrc}
           alt={alt}
