@@ -1,7 +1,15 @@
-import { BaselplButton } from '@/blocks/BaseplButton/config'
 import { BaseplImage } from '@/blocks/BaseplImage/config'
 import { BaseplVideo } from '@/blocks/BaseplVideo/config'
+import { BaseplButton } from '@/blocks/BaseplButton/config'
+import { BaseplRichtext } from '@/blocks/BaseplRichtext/config'
 import type { CollectionConfig } from 'payload'
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -26,11 +34,6 @@ export const Posts: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'slug',
       type: 'text',
       required: true,
@@ -40,34 +43,76 @@ export const Posts: CollectionConfig = {
       },
     },
     {
-      name: 'status',
-      type: 'select',
-      required: true,
-      defaultValue: 'draft',
-      options: [
+      type: 'tabs',
+      tabs: [
         {
-          label: 'Draft',
-          value: 'draft',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'title',
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                { type: 'number', name: 'readingTime', required: true, admin: { width: '50%' } },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                { type: 'date', name: 'date', required: true, admin: { width: '50%' } },
+                {
+                  type: 'relationship',
+                  name: 'image',
+                  relationTo: 'media',
+                  required: true,
+                  filterOptions: { mimeType: { contains: 'image' } },
+                  admin: { width: '50%' },
+                },
+              ],
+            },
+          ],
+          label: 'Hero',
         },
         {
-          label: 'Published',
-          value: 'published',
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              blocks: [BaseplButton, BaseplImage, BaseplVideo, BaseplRichtext],
+              required: true,
+            },
+          ],
+          label: 'Content',
+        },
+        {
+          name: 'meta',
+          label: 'SEO',
+          fields: [
+            OverviewField({
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+              imagePath: 'meta.image',
+            }),
+            MetaTitleField({
+              hasGenerateFn: true,
+            }),
+            MetaImageField({
+              relationTo: 'media',
+            }),
+            MetaDescriptionField({}),
+            PreviewField({
+              hasGenerateFn: true,
+              titlePath: 'meta.title',
+              descriptionPath: 'meta.description',
+            }),
+          ],
         },
       ],
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
-      name: 'content',
-      type: 'richText',
-      required: true,
-    },
-    {
-      name: 'layout',
-      type: 'blocks',
-      blocks: [BaselplButton, BaseplImage, BaseplVideo],
-      required: true,
     },
     {
       name: 'publishedAt',

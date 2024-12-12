@@ -101,25 +101,41 @@ export interface Media {
  */
 export interface Post {
   id: string;
-  title: string;
   slug: string;
-  status: 'draft' | 'published';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
+  title: string;
+  readingTime: number;
+  date: string;
+  image: string | Media;
+  layout: (
+    | BaseplButtonType
+    | BaseplImageType
+    | BaseplVideoType
+    | {
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'baseplRichtext';
+      }
+  )[];
+  meta?: {
+    title?: string | null;
+    image?: (string | null) | Media;
+    description?: string | null;
   };
-  layout: (BaseplButtonType | BaseplImageType | BaseplVideoType)[];
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -296,10 +312,11 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
-  title?: T;
   slug?: T;
-  status?: T;
-  content?: T;
+  title?: T;
+  readingTime?: T;
+  date?: T;
+  image?: T;
   layout?:
     | T
     | {
@@ -361,6 +378,20 @@ export interface PostsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        baseplRichtext?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
       };
   publishedAt?: T;
   updatedAt?: T;

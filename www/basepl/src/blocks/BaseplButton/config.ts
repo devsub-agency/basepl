@@ -77,7 +77,7 @@ const styleOptions: Field = {
   ],
 }
 
-export const BaselplButton: Block = {
+export const BaseplButton: Block = {
   slug: 'baseplButton',
   interfaceName: 'BaseplButtonType',
   labels: { singular: 'Button', plural: 'Buttons' },
