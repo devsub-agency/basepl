@@ -71,12 +71,12 @@ export default async function Page(params: Args) {
     console.log('doc toc', doc.toc);
 
     return (
-        <main className="py-6 lg:gap-10 lg:py-8 h-[90%] flex">
+        <main className="flex h-[90%] py-6 lg:gap-10 lg:py-8">
             <div className="flex ">
                 <DocsNav items={navigation} />
             </div>
             <div className="mx-auto w-full min-w-0">
-                <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
+                <div className="text-muted-foreground mb-4 flex items-center space-x-1 text-sm leading-none">
                     <div className="truncate">Docs</div>
                     <ChevronRight className="size-3.5" />
                     <div className="text-foreground">{doc.title}</div>
@@ -86,7 +86,7 @@ export default async function Page(params: Args) {
                         {doc.title}
                     </h1>
                     {doc.description && (
-                        <p className="text-base text-muted-foreground">
+                        <p className="text-muted-foreground text-base">
                             {doc.description}
                         </p>
                     )}
@@ -95,7 +95,7 @@ export default async function Page(params: Args) {
                     <Mdx code={doc.body.code} />
                 </div>
             </div>
-            <div className="flex sticky">
+            <div className="sticky flex">
                 <TableOfContents rawBody={doc.body.raw} />
             </div>
         </main>

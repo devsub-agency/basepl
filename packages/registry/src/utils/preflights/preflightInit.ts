@@ -1,4 +1,4 @@
-import { initOptionSchema } from "@/src/commands/init";
+import { initOptionSchema } from "@/commands/init";
 import { existsSync } from "fs";
 import fs from "fs-extra";
 import path from "path";
@@ -21,7 +21,7 @@ export async function preFlightInit(
 //Default check for project
 export const checkProjectSetUp = async (projectDir: string) => {
   const isPayloadPresents = existsSync(
-    path.resolve(projectDir, "src/payload.config.ts"),
+    path.resolve(projectDir, "src/payload.label.ts"),
   );
   return isPayloadPresents;
 };

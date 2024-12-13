@@ -11,7 +11,7 @@ interface DocsNavProps {
 
 export function DocsNav({ items }: DocsNavProps) {
   const pathname = usePathname()
-  
+
   return (
     <div className="w-full">
       {items.map((group) => (

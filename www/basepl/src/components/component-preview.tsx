@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {Index} from "templates"
+import {Index} from "docs"
 import {cn} from "@/lib/utils"
 import dynamic from "next/dynamic"
 import {getComponentContent} from "@/lib/file-reader"

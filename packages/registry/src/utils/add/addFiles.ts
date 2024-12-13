@@ -32,7 +32,7 @@ const getFileContent = async (file: RegistryFile): Promise<string> => {
 };
 
 export const addFiles = async (
-  options: { cwd: string; overwrite?: boolean, configOnly?: boolean },
+  options: { cwd: string; overwrite?: boolean; configOnly?: boolean },
   files: RegistryItem["files"],
   config: ConfigFile,
 ) => {

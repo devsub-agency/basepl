@@ -1,7 +1,3 @@
-import { BaseplImage } from '@/blocks/BaseplImage/config'
-import { BaseplVideo } from '@/blocks/BaseplVideo/config'
-import { BaseplButton } from '@/blocks/BaseplButton/config'
-import { BaseplRichtext } from '@/blocks/BaseplRichtext/config'
 import type { CollectionConfig } from 'payload'
 import {
   MetaDescriptionField,
@@ -10,6 +6,10 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import {BaseplButton} from "@/blocks/BaseplButton/config";
+import {BaseplImage} from "@/blocks/BaseplImage/config";
+import {BaseplVideo} from "@/blocks/BaseplVideo/config";
+import {BaseplRichtext} from "@/blocks/BaseplRichtext/config";
 
 export const Posts: CollectionConfig = {
   slug: 'posts',

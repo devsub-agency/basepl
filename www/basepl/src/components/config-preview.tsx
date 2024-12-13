@@ -2,7 +2,7 @@
 
 import '@/style/mdx.css'
 import * as React from "react"
-import { Index } from "templates"
+import { Index } from "docs"
 import { cn } from "@/lib/utils"
 import { CopyButton } from "@/components/ui/copy-button"
 import { getComponentContent } from "@/lib/file-reader"

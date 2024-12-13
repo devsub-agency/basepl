@@ -20,7 +20,7 @@ function getTableOfContents(raw: string): TocItem[] {
 
   // Handle different newline formats and clean the string
   const cleanedRaw = raw.replace(/\r\n/g, '\n').trim()
-  
+
   const headingLines = cleanedRaw
     .split('\n')
     .filter(line => line.match(/^#{2,6}\s+/)) // Added + to ensure at least one space
@@ -60,13 +60,13 @@ function getTableOfContents(raw: string): TocItem[] {
 export function TableOfContents({ rawBody, className }: TocProps) {
   const [activeItem, setActiveItem] = React.useState<string>("")
   const itemsRef = React.useRef<HTMLElement[]>([])
-  
+
   const items = React.useMemo(() => getTableOfContents(rawBody), [rawBody])
 
   React.useEffect(() => {
     if (!items.length) return
 
-    itemsRef.current = items.map(item => 
+    itemsRef.current = items.map(item =>
       document.getElementById(item.slug)
     ).filter(Boolean) as HTMLElement[]
 
@@ -105,14 +105,14 @@ export function TableOfContents({ rawBody, className }: TocProps) {
   )
 }
 
-function Tree({ 
-  items, 
-  level = 1, 
-  activeItem 
-}: { 
+function Tree({
+  items,
+  level = 1,
+  activeItem
+}: {
   items: TocItem[]
   level?: number
-  activeItem: string 
+  activeItem: string
 }) {
   return (
     <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>

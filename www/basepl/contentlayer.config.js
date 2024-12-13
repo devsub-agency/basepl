@@ -1,4 +1,4 @@
-// contentlayer.config.ts
+// contentlayer.label.ts
 import { defineDocumentType, makeSource } from "contentlayer2/source-files"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypePrettyCode from "rehype-pretty-code"

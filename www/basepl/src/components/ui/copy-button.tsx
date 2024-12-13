@@ -7,11 +7,11 @@ interface CopyButtonProps extends ButtonProps {
     value: string
     src?: string
   }
-  
+
   export async function copyToClipboardWithMeta(value: string, event?: Event) {
     navigator.clipboard.writeText(value)
   }
-  
+
   export function CopyButton({
     value,
     className,
@@ -20,13 +20,13 @@ interface CopyButtonProps extends ButtonProps {
     ...props
   }: CopyButtonProps) {
     const [hasCopied, setHasCopied] = React.useState(false)
-  
+
     React.useEffect(() => {
       setTimeout(() => {
         setHasCopied(false)
       }, 2000)
     }, [hasCopied])
-  
+
     return (
       <Button
         size="icon"
