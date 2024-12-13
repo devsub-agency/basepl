@@ -8,10 +8,6 @@
     "name": "devsub",
     "url": "https://devsub.de/en"
   },
-  "workspaces": [
-    "www/*",
-    "packages/*"
-  ],
   "scripts": {
     "build": "pnpm -r build",
     "build:cli": "pnpm --filter=@basepl/cli build",
