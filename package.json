@@ -33,7 +33,7 @@
     "check": "pnpm -r lint typecheck format:check",
     "test": "pnpm -r test"
   },
-  "packageManager": "pnpm@9.0.6",
+  "packageManager": "pnpm@9.15.0",
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.10",
