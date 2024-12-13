@@ -53,8 +53,10 @@ export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ slug })
 
+  console.log(post)
+
   if (!post) {
-    redirect('/')
+    return null
   }
 
   return (
