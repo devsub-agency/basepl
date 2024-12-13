@@ -21,6 +21,7 @@
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/plugin-seo": "latest",
     "@payloadcms/storage-s3": "latest",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
@@ -39,7 +40,7 @@
     "framer-motion": "^11.13.1",
     "fs-extra": "^11.2.0",
     "graphql": "^16.8.1",
-    "lucide-react": "^0.462.0",
+    "lucide-react": "^0.468.0",
     "next": "15.0.0",
     "next-plausible": "^3.12.4",
     "next-themes": "^0.4.3",
@@ -57,9 +58,9 @@
     "@types/node": "^22.5.4",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "eslint": "^8",
+    "eslint": "^9.16.0",
     "eslint-config-next": "15.0.3",
-    "rimraf": "^5.0.0",
+    "rimraf": "^6.0.1",
     "typescript": "5.7.2"
   },
   "engines": {

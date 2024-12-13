@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { YoutubeLogo } from '../Logos/YoutubeLogo'
 import { GithubLogo } from '../Logos/GithubLogo'
-import { LinkedinLogo } from '../Logos/LinkedInLogo'
 import { XLogo } from '../Logos/XLogo'
 import { BaseplLogo } from '../Logos/BaseplLogo'
 import { DiscordLogo } from '../Logos/DiscordLogo'
@@ -14,7 +13,7 @@ interface FooterProps extends React.HTMLAttributes<HTMLElement> {}
 
 export function Footer({ className, ...props }: FooterProps) {
   return (
-    <footer className={cn('w-full border-t bg-background', className)} {...props}>
+    <footer className={cn('w-full border-t bg-background z-0', className)} {...props}>
       <div className="mx-auto max-w-screen-xl md:px-5">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 px-5 py-10 md:border-x md:p-16">
           <div className="flex flex-col justify-between col-span-2 lg:col-span-1">
@@ -51,7 +50,7 @@ export function Footer({ className, ...props }: FooterProps) {
           </div>
           <div className="hidden md:block" />
           <div className="flex flex-col space-y-4">
-            <h3 className="text-sm font-medium">Resources</h3>
+            <span className="text-sm font-medium">Resources</span>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
               <Link href="/">Templates</Link>
               <Link href="/">Components</Link>
@@ -59,14 +58,14 @@ export function Footer({ className, ...props }: FooterProps) {
             </nav>
           </div>
           <div className="flex flex-col space-y-4">
-            <h3 className="text-sm font-medium">Company</h3>
+            <span className="text-sm font-medium">Company</span>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
               <Link href="/posts">Blog</Link>
               <Link href="https://devsub.de">devsub</Link>
             </nav>
           </div>
           <div className="flex flex-col space-y-4">
-            <h3 className="text-sm font-medium">Legal</h3>
+            <span className="text-sm font-medium">Legal</span>
             <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
               <Link href="/">Privacy Policy</Link>
               <Link href="/">Terms of Service</Link>
