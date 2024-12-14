@@ -22,6 +22,12 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/blocks/BaseplButton/config.ts"
     }
   },
+  "BaseplRichtext": {
+    name: "BaseplRichtext",
+    file: {
+      path: "src/blocks/BaseplRichtext/config.ts"
+    }
+  },
   "BaseplImage": {
     name: "BaseplImage",
     file: {
@@ -34,31 +40,32 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/blocks/BaseplVideo/config.ts"
     }
   },
-  "BaseplRichtext": {
-    name: "BaseplRichtext",
-    file: {
-      path: "src/blocks/BaseplRichtext/config.ts"
-    }
-  },
   "button-default": {
     name: "button-default",
     file: {
-      path: "examples/blocks/button/default.tsx",
+      path: "src/examples/blocks/button/default.tsx",
       component: React.lazy(() => import("@/examples/blocks/button/default.tsx"))
     }
   },
   "button-external": {
     name: "button-external",
     file: {
-      path: "examples/blocks/button/external.tsx",
+      path: "src/examples/blocks/button/external.tsx",
       component: React.lazy(() => import("@/examples/blocks/button/external.tsx"))
     }
   },
   "button-link": {
     name: "button-link",
     file: {
-      path: "examples/blocks/button/link.tsx",
+      path: "src/examples/blocks/button/link.tsx",
       component: React.lazy(() => import("@/examples/blocks/button/link.tsx"))
+    }
+  },
+  "image-default": {
+    name: "image-default",
+    file: {
+      path: "src/examples/blocks/image/default.tsx",
+      component: React.lazy(() => import("@/examples/blocks/image/default.tsx"))
     }
   }
 };

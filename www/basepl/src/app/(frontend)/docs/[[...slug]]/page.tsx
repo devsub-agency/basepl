@@ -1,14 +1,13 @@
-import "@/style/mdx.css"
-import { absoluteUrl, cn } from "@/lib/utils"
-import { allDocs } from "contentlayer/generated"
-import { Metadata } from "next"
-import { siteConfig } from "../../site"
-import { notFound } from "next/navigation"
-import { ChevronRight } from "lucide-react"
 import { Mdx } from "@/components/mdx-components"
-import {TableOfContents} from "@/components/toc"
+import { TableOfContents } from "@/components/toc"
 import { getNavigation } from "@/lib/navigation"
-import { DocsNav } from "@/components/simple-navigation"
+import { absoluteUrl, cn } from "@/lib/utils"
+import "@/style/mdx.css"
+import { allDocs } from "contentlayer/generated"
+import { ChevronRight } from "lucide-react"
+import { Metadata } from "next"
+import { notFound, redirect } from "next/navigation"
+import { siteConfig } from "../../site"
 
 type Args = {
     params: Promise<{ slug: string[] }>
@@ -16,8 +15,6 @@ type Args = {
 
 async function getDocFromParams(slug: string[]) {
     const path = slug.join("/") || "";
-    console.log('path', path);
-    console.log('allDocs', allDocs);
     const doc = allDocs.find((doc) => doc.slugAsParams === path)
     if (!doc) {
         return null
@@ -28,6 +25,9 @@ async function getDocFromParams(slug: string[]) {
 
 export async function generateMetadata(params: Args): Promise<Metadata> {
     const path = await params.params;
+    if (!path.slug || path.slug.length === 0) {
+        return {}
+    }
     const doc = await getDocFromParams(path.slug)
 
     if (!doc) {
@@ -63,9 +63,12 @@ export async function generateMetadata(params: Args): Promise<Metadata> {
 
 export default async function Page(params: Args) {
     const docName = await params.params;
-    console.log('in page', docName.slug);
+
+    if(!docName.slug || docName.slug.length === 0) {
+        redirect("/docs/getting-started")
+    }
+
     const doc = await getDocFromParams(docName.slug);
-    const navigation = getNavigation();
     if (!doc) {
         notFound();
     }
@@ -74,9 +77,6 @@ export default async function Page(params: Args) {
 
     return (
         <main className="flex h-[90%] py-6 lg:gap-10 lg:py-8">
-            <div className="flex ">
-                <DocsNav items={navigation} />
-            </div>
             <div className="mx-auto w-full min-w-0">
                 <div className="text-muted-foreground mb-4 flex items-center space-x-1 text-sm leading-none">
                     <div className="truncate">Docs</div>

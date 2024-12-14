@@ -12,7 +12,7 @@ import { Source } from "graphql"
 // Define the document type for documentation
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
-  filePathPattern: '**/*.mdx',
+  filePathPattern: 'docs/**/*.mdx',
   contentType: "mdx",
   fields: {
     title: {
@@ -42,7 +42,7 @@ export const Doc = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: "./docs",
+  contentDirPath: "./src",
   documentTypes: [Doc],
   mdx: {
     remarkPlugins: [

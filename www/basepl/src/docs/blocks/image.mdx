@@ -1,0 +1,31 @@
+---
+title: Image 
+description: Basic and reusable Image block using the media collection. 
+---
+
+## Installation
+
+```bash
+npx @basepl/cli add BaseplImage
+```
+
+Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
+Simply run
+```bash
+pnpm generate:types
+```
+
+If not you will get an error in the BaseplImage/Component.tsx file. Because the BaseplImageType is not present.
+
+## Configuration
+
+This is the config file for the button.
+
+<ConfigPreview name='BaseplImage' description='A basic reusable block for the media collection only handling images.' />
+
+
+## Example
+
+How to present an awesome profile picture.
+
+<ComponentPreview name='image-default' description='A basic reusable block for the media collection only handling images.' />

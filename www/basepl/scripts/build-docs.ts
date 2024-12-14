@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import path from 'path'
 import glob from 'fast-glob'
-import { RegistryItem, IndexFile } from '../docs/schema'
+import { IndexFile, RegistryItem } from '@/docs/schema'
 
 function processPath(filePath: string): IndexFile {
   return {
@@ -17,23 +17,26 @@ function createRegistryItem(name: string, file: IndexFile): RegistryItem {
 }
 
 async function generateDocsIndex() {
+  console.log('Generating docs index...')
   const rootDir = process.cwd()
-  const docsDir = path.join(rootDir, 'docs')
+  const docsDir = path.join(rootDir, 'src/docs')
   
   await fs.ensureDir(docsDir)
 
   const fields = await glob('src/fields/*.ts')
   const blocks = await glob('src/blocks/*/*.ts')
-  const examples = await glob('examples/**/*.tsx')
+  const examples = await glob('src/examples/**/*.tsx')
 
   const items: Record<string, RegistryItem> = {}
 
+  console.log(`Processing ${fields.length} fields`)
   // Process fields
   for (const field of fields) {
     const name = path.parse(field).name
     items[name] = createRegistryItem(name, processPath(field))
   }
 
+  console.log(`Processing ${blocks.length} blocks`)
   // Process blocks
   for (const block of blocks) {
     const dirs = block.split('/')
@@ -41,16 +44,17 @@ async function generateDocsIndex() {
     items[name] = createRegistryItem(name, processPath(block))
   }
 
+  console.log(`Processing ${examples.length} examples`)
   // Process examples
   for (const example of examples) {
     const parts = example.split('/')
-    console.log(parts)
     const name = `${parts[parts.length-2]}-${path.parse(parts[parts.length-1]).name}`
+    const relativePath = example.replace('src/', '@/')
     items[name] = createRegistryItem(
       name, 
       {
         path: example,
-        component: `React.lazy(() => import("@/${example}"))`
+        component: `React.lazy(() => import("${relativePath}"))`
       }
     )
   }
@@ -67,8 +71,7 @@ ${Object.entries(items).map(([key, item]) => `  "${key}": {
     file: {
       path: "${item.file.path}"${item.file.component ? `,
       component: ${item.file.component}` : ''}
-    },
-    registryDependencies: []
+    }
   }`).join(',\n')}
 };`
 
@@ -76,6 +79,7 @@ ${Object.entries(items).map(([key, item]) => `  "${key}": {
     path.join(docsDir, 'index.ts'),
     indexContent
   )
+  console.log('Docs index generated successfully')
 }
 
 generateDocsIndex()

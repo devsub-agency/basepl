@@ -3,6 +3,7 @@
 import { CopyButton } from "@/components/ui/copy-button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Index } from "@/docs"
+
 import { getComponentContent } from "@/lib/file-reader"
 import { cn } from "@/lib/utils"
 import * as React from "react"
@@ -14,10 +15,8 @@ interface ComponentPreviewProps {
 }
 
 export function ComponentPreview({name, description, className}: ComponentPreviewProps) {
-  console.log('in component preview', name);
   const [content, setContent] = React.useState<string | null>(null)
   const component = Index[name]
-  console.log('component', component);
 
   const Preview = React.useMemo(() => {
     const Component = Index[name]?.file?.component

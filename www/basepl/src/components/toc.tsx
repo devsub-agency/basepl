@@ -25,8 +25,6 @@ function getTableOfContents(raw: string): TocItem[] {
     .split('\n')
     .filter(line => line.match(/^#{2,6}\s+/)) // Added + to ensure at least one space
 
-  console.log('Found heading lines:', headingLines)
-
   return headingLines
     .map((line) => {
       // Improved regex to handle more heading formats
@@ -45,8 +43,6 @@ function getTableOfContents(raw: string): TocItem[] {
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-') // Handle multiple dashes
         .replace(/^-+|-+$/g, '') // Remove leading/trailing dashes
-
-      console.log('Processed heading:', { level, title, slug })
 
       return {
         level,

@@ -4,3 +4,4 @@ Basepl
 contentlayer
 devsub
 payloadcms
+Shadcn

@@ -1,0 +1,36 @@
+---
+title: Getting Started
+description: Get started with Basepl
+---
+
+## Installation
+
+How to install basepl and develop your payload projects in hours not in days. 
+
+### Requirements
+
+You need the following things to be present and configured. 
+
+1. Payload in version 3.0.0 or higher. 
+2. Payload Project: It doesn't matter if you have a new project or an existing project. If you don't know to start check out the [Payload Documentation](https://payloadcms.com/docs/getting-started/installation).
+3. Tailwind CSS: Basepl is using Shadcn/ui for styling. This need Tailwind CSS. If you don't have it installed yet, check out the [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation).
+
+4. **Optional** Shadcn/ui: If you don't have it installed yet, basepl will ask if you want to install it during the init process. 
+
+### Command
+
+```bash 
+npx @basepl/cli init
+```
+
+## Options 
+
+You can decide if you only want the config *.ts files or also the unstyled components. If you don't have shadcn/ui, you can only add the config files.
+
+```bash
+npx @basepl/cli init --config
+```
+
+## Good to know
+Yet we don't provide collections. We are working on it.
+In this time check out our code or the official payload templates if you have no collections yet. The most important is the media collection for images and videos. 

@@ -151,10 +151,7 @@ interface MdxProps {
 }
 
 export function Mdx({ code }: MdxProps) {
-    console.log('in mdx');
   const Component = useMDXComponent(code)
-
-  console.log('component', Component);
 
   return (
     <div className="mdx">
