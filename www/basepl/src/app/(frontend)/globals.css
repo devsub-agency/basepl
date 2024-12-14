@@ -81,3 +81,23 @@ h3 {
 p {
   @apply text-muted-foreground;
 }
+
+table {
+  @apply w-full;
+}
+
+th {
+  @apply bg-foreground/5 font-semibold !border-foreground/10;
+}
+
+th p {
+  @apply !text-foreground;
+}
+
+td {
+  @apply text-foreground !border-foreground/10;
+}
+
+p a {
+  @apply text-primary underline decoration-emerald-500;
+}

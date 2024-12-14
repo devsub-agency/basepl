@@ -10,6 +10,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -22,6 +23,10 @@ export const Posts: CollectionConfig = {
     create: () => true,
     update: () => true,
     delete: () => true,
+  },
+  hooks: {
+    afterChange: [revalidatePost],
+    afterDelete: [revalidateDelete],
   },
   defaultPopulate: {
     title: true,

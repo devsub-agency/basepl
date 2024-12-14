@@ -4,6 +4,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
   BlocksFeature,
+  EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
 import { BaseplImage } from '../BaseplImage/config'
 import { BaseplVideo } from '../BaseplVideo/config'
@@ -26,6 +27,7 @@ export const BaseplRichtext: Block = {
             ...rootFeatures,
             FixedToolbarFeature(),
             InlineToolbarFeature(),
+            EXPERIMENTAL_TableFeature(),
             BlocksFeature({
               blocks: [BaseplButton, BaseplImage, BaseplVideo],
             }),
