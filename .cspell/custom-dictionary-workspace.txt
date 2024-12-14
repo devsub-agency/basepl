@@ -1,7 +1,0 @@
-# Custom Dictionary Words
-basepl
-Basepl
-contentlayer
-devsub
-payloadcms
-Shadcn
