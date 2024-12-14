@@ -7,7 +7,7 @@
   "scripts": {
     "build": "contentlayer2 build && cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:registry": "tsx scripts/build-registry.ts",
-    "build:docs": "contentlayer2 build",
+    "build:docs": "contentlayer2 build && tsx scripts/build-docs.ts",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "clean": "rimraf dist node_modules",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",

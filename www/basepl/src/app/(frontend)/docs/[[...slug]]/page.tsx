@@ -16,6 +16,8 @@ type Args = {
 
 async function getDocFromParams(slug: string[]) {
     const path = slug.join("/") || "";
+    console.log('path', path);
+    console.log('allDocs', allDocs);
     const doc = allDocs.find((doc) => doc.slugAsParams === path)
     if (!doc) {
         return null

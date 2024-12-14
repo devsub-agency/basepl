@@ -1,20 +1,35 @@
-import { z } from 'zod'
-import path from 'path'
-import fs from 'fs-extra'
-import glob from 'fast-glob'
-import { registryFileSchemaType } from 'public/schema';
+import glob from 'fast-glob';
+import fs from 'fs-extra';
+import path from 'path';
 
 function parseRegistryDependencies(content: string): string[] {
-  const importRegex = /import\s*{([^}]+)}\s*from\s*['"]\.\.\/([^/'"\s]+)/g;
+  const importPatterns = [
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']@\/fields\/([^'"]+)["']/g,
+      groupIndex: 2
+    },
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']\.\.\/([^/]+)\/config["']/g,
+      groupIndex: 2
+    },
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']\.\/([^/]+)["']/g,
+      groupIndex: 2
+    }
+  ];
+  
   const deps = new Set<string>();
-
-  let match;
-  while ((match = importRegex.exec(content)) !== null) {
-    const componentPath = match[2];
-    if (componentPath) {
-      deps.add(componentPath);
+  
+  for (const {pattern, groupIndex} of importPatterns) {
+    let match;
+    while ((match = pattern.exec(content)) !== null) {
+      const componentName = match[groupIndex];
+      if (componentName) {
+        deps.add(componentName);
+      }
     }
   }
+  
   return Array.from(deps);
 }
 
@@ -22,9 +37,9 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
   for (const file of files) {
     if (file.includes('schema.ts') || file.includes('index.ts')) continue;
 
-    const pathParts = file.split(path.sep)
+    const pathParts = file.split('/')
     const type = isBlock ? 'blocks' : 'fields'
-    
+
     // For blocks: first part is component name, last part is filename
     const name = isBlock ? pathParts[0] : path.parse(file).name
     const filename = path.parse(pathParts[pathParts.length - 1]).name
@@ -63,7 +78,6 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
       }
     };
 
-    // Fixed path construction - removed extra nesting
     const targetPath = isBlock
       ? path.join(publicDir, type, name, `${filename}.json`)
       : path.join(publicDir, type, `${filename}.json`);
@@ -84,7 +98,8 @@ async function buildRegistry() {
     cwd: blocksDir
   })
 
-  const fields = await glob('*.{ts}', {
+  //TODO fix this
+  const fields = await glob('*.ts', {
     cwd: fieldsDir
   })
 

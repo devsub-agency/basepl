@@ -1,12 +1,11 @@
 "use client"
 
+import { CopyButton } from "@/components/ui/copy-button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Index } from "@/docs"
+import { getComponentContent } from "@/lib/file-reader"
+import { cn } from "@/lib/utils"
 import * as React from "react"
-import {Index} from "docs"
-import {cn} from "@/lib/utils"
-import dynamic from "next/dynamic"
-import {getComponentContent} from "@/lib/file-reader"
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import {CopyButton} from "@/components/ui/copy-button"
 
 interface ComponentPreviewProps {
   name: string

@@ -11,6 +11,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "build:cli": "pnpm --filter=@basepl/cli build",
+    "build:docs": "pnpm --filter=@basepl/www build:docs",
     "build:registry": "pnpm --filter=@basepl/www build:registry && pnpm format:write",
     "registry:build": "pnpm --filter=@basepl/www build:registry && pnpm format:write",
     "registry:capture": "pnpm --filter=@basepl/www registry:capture",

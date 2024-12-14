@@ -1,41 +1,29 @@
 [
   {
-    "name": "BaseplButton/Component.tsx",
+    "name": "BaseplButton",
     "type": "templates/blocks",
     "files": [
       {
         "path": "BaseplButton/Component.tsx",
         "type": "templates/blocks"
-      }
-    ],
-    "registryDependencies": []
-  },
-  {
-    "name": "BaseplButton/config.ts",
-    "type": "templates/blocks",
-    "files": [
+      },
       {
         "path": "BaseplButton/config.ts",
         "type": "templates/blocks"
       }
     ],
-    "registryDependencies": []
+    "registryDependencies": [
+      "link"
+    ]
   },
   {
-    "name": "BaseplImage/Component.tsx",
+    "name": "BaseplImage",
     "type": "templates/blocks",
     "files": [
       {
         "path": "BaseplImage/Component.tsx",
         "type": "templates/blocks"
-      }
-    ],
-    "registryDependencies": []
-  },
-  {
-    "name": "BaseplImage/config.ts",
-    "type": "templates/blocks",
-    "files": [
+      },
       {
         "path": "BaseplImage/config.ts",
         "type": "templates/blocks"
@@ -44,22 +32,19 @@
     "registryDependencies": []
   },
   {
-    "name": "BaseplRichtext/Component.tsx",
+    "name": "BaseplRichtext",
     "type": "templates/blocks",
     "files": [
       {
         "path": "BaseplRichtext/Component.tsx",
         "type": "templates/blocks"
-      }
-    ],
-    "registryDependencies": []
-  },
-  {
-    "name": "BaseplRichtext/config.ts",
-    "type": "templates/blocks",
-    "files": [
+      },
       {
         "path": "BaseplRichtext/config.ts",
+        "type": "templates/blocks"
+      },
+      {
+        "path": "BaseplRichtext/RichText.tsx",
         "type": "templates/blocks"
       }
     ],
@@ -70,38 +55,38 @@
     ]
   },
   {
-    "name": "BaseplRichtext/RichText.tsx",
-    "type": "templates/blocks",
-    "files": [
-      {
-        "path": "BaseplRichtext/RichText.tsx",
-        "type": "templates/blocks"
-      }
-    ],
-    "registryDependencies": [
-      "BaseplButton",
-      "BaseplImage",
-      "BaseplVideo"
-    ]
-  },
-  {
-    "name": "BaseplVideo/Component.tsx",
+    "name": "BaseplVideo",
     "type": "templates/blocks",
     "files": [
       {
         "path": "BaseplVideo/Component.tsx",
+        "type": "templates/blocks"
+      },
+      {
+        "path": "BaseplVideo/config.ts",
         "type": "templates/blocks"
       }
     ],
     "registryDependencies": []
   },
   {
-    "name": "BaseplVideo/config.ts",
-    "type": "templates/blocks",
+    "name": "label",
+    "type": "templates/fields",
     "files": [
       {
-        "path": "BaseplVideo/config.ts",
-        "type": "templates/blocks"
+        "path": "label.ts",
+        "type": "templates/fields"
+      }
+    ],
+    "registryDependencies": []
+  },
+  {
+    "name": "link",
+    "type": "templates/fields",
+    "files": [
+      {
+        "path": "link.ts",
+        "type": "templates/fields"
       }
     ],
     "registryDependencies": []
