@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="flex flex-col max-w-screen-xl sm:px-8 mx-auto">
       <div className="flex flex-col justify-center mx-auto h-screen ">
-        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 md:w-3/5 md:px-10">
+        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 md:w-3/5 pt-20 md:px-10 ">
           <h1 className="text-4xl font-medium leading-[1.125] tracking-tight md:text-6xl">
             Build your Payload applications in minutes
           </h1>
