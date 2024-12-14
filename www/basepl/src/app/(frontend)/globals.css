@@ -97,3 +97,7 @@ th p {
 td {
   @apply text-foreground !border-foreground/10;
 }
+
+p a {
+  @apply text-primary underline decoration-emerald-500;
+}
