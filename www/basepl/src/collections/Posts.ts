@@ -10,6 +10,7 @@ import {BaseplButton} from "@/blocks/BaseplButton/config";
 import {BaseplImage} from "@/blocks/BaseplImage/config";
 import {BaseplVideo} from "@/blocks/BaseplVideo/config";
 import {BaseplRichtext} from "@/blocks/BaseplRichtext/config";
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -22,6 +23,10 @@ export const Posts: CollectionConfig = {
     create: () => true,
     update: () => true,
     delete: () => true,
+  },
+  hooks: {
+    afterChange: [revalidatePost],
+    afterDelete: [revalidateDelete],
   },
   defaultPopulate: {
     title: true,
