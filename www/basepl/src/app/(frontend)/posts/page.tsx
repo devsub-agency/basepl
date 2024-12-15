@@ -30,8 +30,8 @@ export default function Page() {
     description:
       'Get a quick overview of our vision for the open-source library basepl and how it can help you building applications with payload cms faster.',
     image: '/article-thumbnail.png',
-    date: '04 December, 2024',
-    readTime: '2 min read',
+    date: '12 December, 2024',
+    readTime: '3 min read',
     author: {
       name: 'Maurice',
       role: 'Co-founder',
@@ -50,9 +50,9 @@ export default function Page() {
         name: 'Maurice',
         image: '/pb-maurice.png',
         role: 'Co-Founder',
-        date: 'Coming soon',
+        date: '15 December, 2024',
       },
-      slug: '/',
+      slug: '/payload-vs-strapi-comparison',
     },
   ]
 
@@ -73,7 +73,7 @@ export default function Page() {
             />
             <div className="absolute left-4 top-4">
               <Badge variant="secondary" className="bg-white/10 text-white backdrop-blur-sm">
-                NEW
+                Library
               </Badge>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function Page() {
 
         <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
           {articles.map((article, index) => (
-            <div key={index} className="group space-y-6">
+            <Link href={article.slug} key={index} className="group space-y-6">
               <div className="space-y-4">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
                   <Image
@@ -117,7 +117,7 @@ export default function Page() {
 
                   <div className="absolute left-4 top-4">
                     <Badge variant="secondary" className="bg-white/10 text-white backdrop-blur-sm">
-                      {'Coming soon'}
+                      NEW
                     </Badge>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ export default function Page() {
                   <span className="text-muted-foreground"> • {article.author.date}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </main>

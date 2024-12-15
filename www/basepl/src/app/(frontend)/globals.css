@@ -101,3 +101,7 @@ td {
 p a {
   @apply text-primary underline decoration-emerald-500;
 }
+
+p a span{
+  @apply text-primary underline decoration-emerald-500;
+}
