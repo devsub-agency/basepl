@@ -105,7 +105,7 @@ export default function Page() {
 
         <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
           {articles.map((article, index) => (
-            <Link href={article.slug} key={index} className="group space-y-6">
+            <Link href={`/posts/${article.slug}`} key={index} className="group space-y-6">
               <div className="space-y-4">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
                   <Image
