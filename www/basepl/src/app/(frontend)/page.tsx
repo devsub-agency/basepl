@@ -61,7 +61,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <LayoutPanelTop />
-              <h2 className="font-medium">Templates</h2>
+              <h2 className="text-lg font-medium mb-0">Templates</h2>
             </div>
             <p className="text-muted-foreground">
               Find starter kits for e-commerce, websites and more to suit your needs.
@@ -70,7 +70,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Package />
-              <h2 className="font-medium">Blocks & Components</h2>
+              <h2 className="text-lg font-medium mb-0">Blocks & Components</h2>
             </div>
             <p className="text-muted-foreground">
               Install pre-built components, panels and blocks directly from your console.
@@ -79,7 +79,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Plug />
-              <h2 className="font-medium">Plugins</h2>
+              <h2 className="text-lg font-medium mb-0">Plugins</h2>
             </div>
             <p className="text-muted-foreground">
               A rich set of plug-ins to extend the applications to meet your or your customers
@@ -89,7 +89,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <GitPullRequest />
-              <h2 className="font-medium">Open Source</h2>
+              <h2 className="text-lg font-medium mb-0">Open Source</h2>
             </div>
             <p className="text-muted-foreground">
               A transparent and community-driven open source library built on top of Payload CMS.

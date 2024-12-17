@@ -50,21 +50,21 @@ export default buildConfig({
       generateTitle,
       generateURL,
     }),
-    s3Storage({
-      collections: {
-        media: true,
-      },
-      bucket: process.env.S3_BUCKET_NAME ?? '',
-      config: {
-        endpoint: process.env.S3_ENDPOINT,
-        region: 'eu-central-1',
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY ?? '',
-          secretAccessKey: process.env.S3_SECRET_KEY ?? '',
-        },
-        forcePathStyle: true,
-      },
-    }),
+    // s3Storage({
+    //   collections: {
+    //     media: true,
+    //   },
+    //   bucket: process.env.S3_BUCKET_NAME ?? '',
+    //   config: {
+    //     endpoint: process.env.S3_ENDPOINT,
+    //     region: 'eu-central-1',
+    //     credentials: {
+    //       accessKeyId: process.env.S3_ACCESS_KEY ?? '',
+    //       secretAccessKey: process.env.S3_SECRET_KEY ?? '',
+    //     },
+    //     forcePathStyle: true,
+    //   },
+    // }),
     // storage-adapter-placeholder
   ],
 })
