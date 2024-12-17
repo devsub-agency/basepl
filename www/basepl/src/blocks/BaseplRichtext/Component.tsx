@@ -1,5 +1,4 @@
-import { BaseplRichtextType } from '@/payload-types'
-import { BaseplButtonType, BaseplImageType, BaseplVideoType } from '@/payload-types'
+import { BaseplButtonType, BaseplImageType, BaseplRichtextType, BaseplVideoType } from '@/payload-types'
 import { BaseplButton } from '../BaseplButton/Component'
 import { BaseplImage } from '../BaseplImage/Component'
 import { BaseplVideo } from '../BaseplVideo/Component'

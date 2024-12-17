@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const BaseplLogo = () => {
   return (
-    <Link href={'/'} className="w-fit h-fit cursor-pointer">
+    <Link href={'/'} className="w-fit h-fit cursor-pointer" aria-label="basepl">
       <svg
         width="655"
         height="173"

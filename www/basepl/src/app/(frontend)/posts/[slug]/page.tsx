@@ -6,9 +6,6 @@ import React, { cache } from 'react'
 import type { Media, Post } from '@/payload-types'
 import { redirect } from 'next/navigation'
 import { generateMeta } from '@/utilities/generateMetadata'
-import { BaseplButton } from '@/blocks/BaseplButton/Component'
-import { BaseplImage } from '@/blocks/BaseplImage/Component'
-import { BaseplVideo } from '@/blocks/BaseplVideo/Component'
 import { BaseplRichtext } from '@/blocks/BaseplRichText/Component'
 import { BlogHero } from '../../components/BlogHero/Component'
 import { BlogSidebar } from '../../components/BlogSidebar/Component'
@@ -16,13 +13,6 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { DiscordLogo } from '../../components/Logos/DiscordLogo'
-
-const blockComponents = {
-  baseplButton: BaseplButton,
-  baseplImage: BaseplImage,
-  baseplVideo: BaseplVideo,
-  baseplRichtext: BaseplRichtext,
-}
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -69,29 +59,12 @@ export default async function Post({ params: paramsPromise }: Args) {
           imageSrc={(post.image as Media).url ?? '/'}
           alt={(post.image as Media).alt ?? ''}
         />
-
-        {post.layout.map((block, index) => {
-          const { blockType } = block
-          if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
-
-            if (Block) {
-              return (
-                <div className="my-16" key={index}>
-                  {/* @ts-expect-error */}
-                  <Block id={index} {...block} />
-                </div>
-              )
-            }
-          }
-          return null
-        })}
-
+        <BaseplRichtext {...post.content} />
         <div className="relative flex justify-between items-center w-full md:mx-auto mt-8 mb-12 md:my-16">
           <div className="flex items-center space-x-3">
             <Image
-              src={'/pb-maurice.png'}
-              alt={'profile picture of Maurice'}
+              src={(post.profilePicture as Media)?.url ?? ''}
+              alt={(post.profilePicture as Media)?.alt ?? ''}
               width={40}
               height={40}
               className="rounded-full h-10 w-10 object-cover"
