@@ -1,6 +1,3 @@
-import { BaseplImage } from '@/blocks/BaseplImage/config'
-import { BaseplVideo } from '@/blocks/BaseplVideo/config'
-import { BaseplButton } from '@/blocks/BaseplButton/config'
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/config'
 import type { CollectionConfig } from 'payload'
 import {
@@ -11,6 +8,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import { populateAuthors } from './hooks/populateAuthors'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -27,6 +25,7 @@ export const Posts: CollectionConfig = {
   hooks: {
     afterChange: [revalidatePost],
     afterDelete: [revalidateDelete],
+    afterRead: [populateAuthors],
   },
   defaultPopulate: {
     title: true,
@@ -52,6 +51,67 @@ export const Posts: CollectionConfig = {
       name: 'date',
       required: true,
       admin: { width: '50%', position: 'sidebar' },
+    },
+    {
+      name: 'authors',
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+      },
+      relationTo: 'users',
+    },
+    {
+      name: 'profilePicture',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    // This field is only used to populate the user data via the `populateAuthors` hook
+    // This is because the `user` collection has access control locked to protect user privacy
+    // GraphQL will also not return mutated user data that differs from the underlying schema
+    {
+      name: 'populatedAuthors',
+      type: 'group',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        disabled: true,
+        readOnly: true,
+      },
+      fields: [
+        {
+          name: 'id',
+          type: 'text',
+        },
+        {
+          name: 'name',
+          type: 'text',
+        },
+        {
+          name: 'role',
+          type: 'text',
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          type: 'text',
+          name: 'previewDescription',
+          required: true,
+          admin: { width: '50%' },
+        },
+        {
+          type: 'text',
+          name: 'categoryTag',
+          required: true,
+          admin: { width: '50%' },
+        },
+      ],
     },
     {
       type: 'tabs',
@@ -94,15 +154,9 @@ export const Posts: CollectionConfig = {
           label: 'Hero',
         },
         {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [BaseplButton, BaseplImage, BaseplVideo, BaseplRichtext],
-              required: true,
-            },
-          ],
-          label: 'Content',
+          name: 'content',
+          interfaceName: BaseplRichtext.interfaceName,
+          fields: BaseplRichtext.fields,
         },
         {
           name: 'meta',

@@ -65,6 +65,6 @@ export default buildConfig({
         forcePathStyle: true,
       },
     }),
-    // storage-adapter-placeholder
+    // storage - adapter - placeholder,
   ],
 })
