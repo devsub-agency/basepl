@@ -155,7 +155,8 @@ export const Posts: CollectionConfig = {
         },
         {
           name: 'content',
-          fields: [BaseplRichtext.fields[0]],
+          interfaceName: BaseplRichtext.interfaceName,
+          fields: BaseplRichtext.fields,
         },
         {
           name: 'meta',

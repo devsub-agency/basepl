@@ -118,23 +118,7 @@ export interface Post {
   readingTime: number;
   headline: string;
   image: string | Media;
-  content?: {
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-  };
+  content?: BaseplRichtextType;
   meta?: {
     title?: string | null;
     image?: (string | null) | Media;
@@ -143,6 +127,27 @@ export interface Post {
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplRichtextType".
+ */
+export interface BaseplRichtextType {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
