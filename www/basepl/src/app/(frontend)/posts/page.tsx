@@ -34,8 +34,12 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
       </div>
       <div className="flex flex-col justify-center space-y-4">
         <div className="space-y-2">
-          <div className={cn('text-sm text-muted-foreground mb-4', { hidden: !isFeatured })}>
-            {new Date(article.date).toLocaleDateString()} •{' ' + article.readingTime + ' min read'}
+          <div
+            className={cn('flex text-sm text-muted-foreground mb-4 gap-1', { hidden: !isFeatured })}
+          >
+            <span>{new Date(article.date).toLocaleDateString()}</span>
+            <span>•</span>
+            <span>{article.readingTime + ' min read'}</span>
           </div>
           <h2
             className={cn(
@@ -88,7 +92,7 @@ export default async function Page() {
   })
 
   const featuredArticle: Post = posts.docs[0] || {}
-  const articles = posts.docs
+  const articles = posts.docs.slice(1)
 
   return (
     <div className="bg-background">
@@ -110,7 +114,7 @@ export function generateMetadata(): Metadata {
     description:
       'Explore helpful articles such as comparisons, tutorials and more to help you build applications more efficiently.',
     openGraph: {
-      images: [{ url: '/article-thumbnail.png' }],
+      images: [{ url: '/basepl-logo.png' }],
     },
   }
 }
