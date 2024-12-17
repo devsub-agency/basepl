@@ -65,6 +65,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  name?: string | null;
+  role?: ('coFounder' | 'contributor') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -103,6 +105,15 @@ export interface Post {
   id: string;
   slug: string;
   date: string;
+  authors?: (string | null) | User;
+  profilePicture?: (string | null) | Media;
+  populatedAuthors?: {
+    id?: string | null;
+    name?: string | null;
+    role?: string | null;
+  };
+  previewDescription: string;
+  categoryTag: string;
   title: string;
   readingTime: number;
   headline: string;
@@ -199,6 +210,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -234,6 +247,17 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   date?: T;
+  authors?: T;
+  profilePicture?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        role?: T;
+      };
+  previewDescription?: T;
+  categoryTag?: T;
   title?: T;
   readingTime?: T;
   headline?: T;
