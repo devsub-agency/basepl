@@ -94,15 +94,8 @@ export const Posts: CollectionConfig = {
           label: 'Hero',
         },
         {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [BaseplButton, BaseplImage, BaseplVideo, BaseplRichtext],
-              required: true,
-            },
-          ],
-          label: 'Content',
+          name: 'content',
+          fields: [BaseplRichtext.fields[0]],
         },
         {
           name: 'meta',
