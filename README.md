@@ -1,6 +1,6 @@
-# base pl
+# basepl
 
-Platform for information, templates and components for the payload cms.
+Platform for fields, blocks and templates for payload cms.
 
 ## Usage
 
@@ -16,7 +16,7 @@ to add components run
 npx @basepl/cli add <component(s)>
 ```
 
-For more information check out the official docs under [basepl](https://basepl.com)
+For more information check out the official docs under [basepl](https://basepl.com/docs)
 
 ## About
 
@@ -24,7 +24,7 @@ The goal of basepl is to provide an easy and fast workflow for developing payloa
 
 Some basic informations regarding the components.
 
-1. Components can contain multiple files. For example a label.ts and a component.tsx. If you are not familiar with the files in payload check out the official [docs](https://payloadcms.com/docs/getting-started/what-is-payload)
+1. Components can contain multiple files. For example a config.ts and a component.tsx. If you are not familiar with the files in payload check out the official [docs](https://payloadcms.com/docs/getting-started/what-is-payload)
 2. The components.tsx are optional. You can configure basepl to run not install them by declining shadcn installation. Or you can set the --config flag on the add command to just install config files.
 3. For styling we use shadcn/ui. If you haven't set this up yet basepl will ask you to install it.
 4. All components come "unstyled" and are 100% customizable in your own code.
@@ -32,6 +32,10 @@ Some basic informations regarding the components.
 # How to contribute?
 
 Check out out [contribution guide line.](https://github.com/devsub-agency/basepl/blob/main/CONTRIBUTING.md)
+
+# Whats planed next? 
+
+Check out our [Roadmap](https://github.com/devsub-agency/basepl/blob/main/ROADMAP.md) for our future plans. 
 
 # License
 

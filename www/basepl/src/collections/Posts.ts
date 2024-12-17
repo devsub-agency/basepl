@@ -9,7 +9,7 @@ import {
 import {BaseplButton} from "@/blocks/BaseplButton/config";
 import {BaseplImage} from "@/blocks/BaseplImage/config";
 import {BaseplVideo} from "@/blocks/BaseplVideo/config";
-import {BaseplRichtext} from "@/blocks/BaseplRichtext/config";
+import {BaseplRichtext} from "@/blocks/BaseplRichText/config";
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {

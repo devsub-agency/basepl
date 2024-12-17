@@ -26,6 +26,6 @@ export default function ButtonIconStart() {
     }
 
     return (
-        <BaseplButton link={link} variant={"secondary"} size={"lg"} blockType={"baseplButton"} icon={icon} isIconStart />
+        <BaseplButton link={link} variant={"secondary"} size={"icon"} blockType={"baseplButton"} icon={icon} isIconStart />
     )
 }

@@ -5,7 +5,7 @@
   "description": "Website for basepl project",
   "type": "module",
   "scripts": {
-    "build": "contentlayer2 build && cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "contentlayer2 build && tsx scripts/build-docs.ts && tsx scripts/build-registry.ts && cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:registry": "tsx scripts/build-registry.ts",
     "build:docs": "contentlayer2 build && tsx scripts/build-docs.ts",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",

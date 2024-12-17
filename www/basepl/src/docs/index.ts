@@ -109,5 +109,19 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/examples/blocks/image/default.tsx",
       component: React.lazy(() => import("@/examples/blocks/image/default.tsx"))
     }
+  },
+  "video-control-panel": {
+    name: "video-control-panel",
+    file: {
+      path: "src/examples/blocks/video/control-panel.tsx",
+      component: React.lazy(() => import("@/examples/blocks/video/control-panel.tsx"))
+    }
+  },
+  "video-loop-silent": {
+    name: "video-loop-silent",
+    file: {
+      path: "src/examples/blocks/video/loop-silent.tsx",
+      component: React.lazy(() => import("@/examples/blocks/video/loop-silent.tsx"))
+    }
   }
 };
