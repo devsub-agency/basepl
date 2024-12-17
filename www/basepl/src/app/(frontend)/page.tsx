@@ -39,6 +39,7 @@ const Home = () => {
           width={1000}
           height={1000}
           className="absolute left-0 top-0 h-full w-full object-cover object-bottom opacity-80 dark:opacity-20 z-0 pointer-events-none"
+          priority
         />
       </div>
       <div className="flex flex-col gap-4 px-5 mx-auto md:text-center md:w-3/5 md:px-10 md:pb-12">
