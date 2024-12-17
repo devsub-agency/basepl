@@ -63,8 +63,8 @@ export default async function Post({ params: paramsPromise }: Args) {
         <div className="relative flex justify-between items-center w-full md:mx-auto mt-8 mb-12 md:my-16">
           <div className="flex items-center space-x-3">
             <Image
-              src={'/pb-maurice.png'}
-              alt={'profile picture of Maurice'}
+              src={(post.profilePicture as Media)?.url ?? ''}
+              alt={(post.profilePicture as Media)?.alt ?? ''}
               width={40}
               height={40}
               className="rounded-full h-10 w-10 object-cover"

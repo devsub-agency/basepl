@@ -11,6 +11,9 @@ interface ArticleProps {
   isFeatured?: boolean
 }
 
+export const dynamic = 'force-static'
+export const revalidate = 600
+
 const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
   const containerClass = isFeatured
     ? 'mb-16 grid gap-8 md:gap-12 md:grid-cols-2'
