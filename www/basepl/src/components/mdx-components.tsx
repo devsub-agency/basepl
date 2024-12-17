@@ -9,10 +9,12 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
+import { DocsImage } from "./docs-image"
 
 const components = {
   ComponentPreview,
   ConfigPreview,
+  DocsImage,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(

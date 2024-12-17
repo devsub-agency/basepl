@@ -17,11 +17,48 @@ pnpm generate:types
 
 If not you will get an error in the BaseplButton/Component.tsx file. Because the BaseplButtonType is not present.
 
+## Admin Preview
+
+This is the pre configured admin panel for the button block.
+You can change it to your needs in the `BaseplButton/Config.ts` file.
+
+<DocsImage imagePath='button-admin-layout.png' alt='Layout options for the button block in the admin panel.' />
+
+## Options 
+
+An overview of options you can set in the admin panel to customize the button.
+
+### Link 
+- Label: The text that will be displayed on the button.
+- Target Type: What type the button should be.
+    - Page: Either a page reference or the slug to a page.
+    - File Download: Link to a file download. 
+    - External URL: Link to an external website.
+        - Open in new Tab: Should be self-explanatory.
+        - No referrer: If a referral is present.
+    - Email Address: mailto: link to an email address.
+### Styling 
+- Icon: Check if you want to use an icon instead of the label text. 
+    - Icon: Choose the icon from the media collection. 
+    - Icon at Start: Choose if the icon should be placed at the start or the end of the button.
+- Variant: Choose the style of the button. [Check out the examples](#example)
+    - Default
+    - Secondary
+    - Outline
+    - Destructive
+    - Ghost
+    - Link
+- Size: Choose the size of the button.
+    - Small
+    - Medium
+    - Large
+
 ## Configuration
 
 This is the config file for the button.
 
 <ConfigPreview name='BaseplButton' description='A basic, reusable button for different blocks and components.' />
+
 
 ## Example
 
@@ -29,10 +66,34 @@ This is the config file for the button.
 
 <ComponentPreview name='button-default' description="A large button with a default style." />
 
-### Default large button
+### Link large button
 
 <ComponentPreview name='button-link' description="Button to be used as a link." />
 
-### Default large button
+### External large button
 
 <ComponentPreview name='button-external' description="Button with external reference." />
+
+### Secondary button
+
+<ComponentPreview name='button-secondary' description="Secondary button style." />
+
+### Outline button
+
+<ComponentPreview name='button-outline' description="Outline button style." />
+
+### Destructive button
+
+<ComponentPreview name='button-destructive' description="Destructive button style." />
+
+### Ghost button
+
+<ComponentPreview name='button-ghost' description="Ghost button style." />
+
+### Button with icon start 
+
+<ComponentPreview name='button-icon-start' description="Button with icon at the start." />
+
+### Button with icon end
+
+<ComponentPreview name='button-icon-end' description="Button with icon at the end." />

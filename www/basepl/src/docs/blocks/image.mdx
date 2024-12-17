@@ -1,7 +1,10 @@
 ---
-title: Image 
-description: Basic and reusable Image block using the media collection. 
+title: Image
+description: Basic and reusable Image block using the media collection.
 ---
+
+import React from "react";
+import { DocsImage } from "../../components/docs-image";
 
 ## Installation
 
@@ -17,6 +20,39 @@ pnpm generate:types
 
 If not you will get an error in the BaseplImage/Component.tsx file. Because the BaseplImageType is not present.
 
+## Admin Preview
+
+This is the pre configured admin panel for the button block.
+You can change it to your needs in the `BaseplButton/Config.ts` file.
+
+<DocsImage imagePath='image-admin-layout.png' alt='Overview of the payload admin panel with the props of an image. '/>
+
+## Options
+
+An overview of options you can set in the admin panel to customize the image.
+
+### Image
+- Image: Choose the image from the media collection.
+- Size: Choose the size of the image.
+    - Fill
+    - Custom
+        - Absolute Width
+            - **true**: Width in px
+            - **false**: Width in %
+        - Height in px
+        - Object Fit
+            - Cover
+            - Contain
+            - Fill
+        - Object Position
+            - Top
+            - Bottom
+            - Left
+            - Right
+            - Center
+- Priority: check if you want to prevent lazy loading for this image.
+
+
 ## Configuration
 
 This is the config file for the button.
@@ -26,6 +62,6 @@ This is the config file for the button.
 
 ## Example
 
-How to present an awesome profile picture.
+Simple example of the image bloc.
 
 <ComponentPreview name='image-default' description='A basic reusable block for the media collection only handling images.' />
