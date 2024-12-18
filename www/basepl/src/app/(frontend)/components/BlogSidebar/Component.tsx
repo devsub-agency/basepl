@@ -1,8 +1,8 @@
 'use client'
-
 import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { TableOfContentsIcon, Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Menu, TableOfContentsIcon } from 'lucide-react'
 import Link from 'next/link'
 
 interface TableOfContentsItem {
@@ -10,39 +10,6 @@ interface TableOfContentsItem {
   title: string
   subitems?: TableOfContentsItem[]
 }
-
-const tableOfContents: TableOfContentsItem[] = [
-  {
-    href: '#the-challenge-we-faced',
-    title: 'The challenge we faced',
-  },
-  {
-    href: '#keep-the-beauty',
-    title: 'Keep the beauty ',
-  },
-  {
-    href: '#what-is-basepl',
-    title: 'What is basepl?',
-    subitems: [
-      {
-        href: '#scalable-templates',
-        title: 'Scalable templates',
-      },
-      {
-        href: '#components-via-CL-commands',
-        title: 'Components via CL commands',
-      },
-      {
-        href: '#a-directory-for-plugins',
-        title: 'A directory for plugins',
-      },
-    ],
-  },
-  {
-    href: '#establish-a-better-cms',
-    title: 'establish a better CMS',
-  },
-]
 
 interface TableOfContentsProps {
   items: TableOfContentsItem[]
@@ -74,11 +41,36 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => (
   </nav>
 )
 
-interface BlogSidebarProps {
-  tableOfContents: TableOfContentsItem[]
-}
-
 export const BlogSidebar = () => {
+  const [tableOfContents, setTableOfContents] = useState<TableOfContentsItem[]>([])
+
+  useEffect(() => {
+    const headings = Array.from(document.querySelectorAll('#blogContent h2, #blogContent h3'))
+    const tocItems: TableOfContentsItem[] = []
+
+    headings.forEach((heading) => {
+      const id = heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-')
+      if (id) {
+        heading.id = id
+        const item: TableOfContentsItem = {
+          href: `#${id}`,
+          title: heading.textContent || '',
+        }
+        if (heading.tagName.toLowerCase() === 'h3') {
+          const lastItem = tocItems[tocItems.length - 1]
+          if (lastItem) {
+            lastItem.subitems = lastItem.subitems || []
+            lastItem.subitems.push(item)
+          }
+        } else {
+          tocItems.push(item)
+        }
+      }
+    })
+
+    setTableOfContents(tocItems)
+  }, [])
+
   const tableOfContentsHeadline = (
     <div className="flex gap-2 items-center mb-4">
       <TableOfContentsIcon />
@@ -94,15 +86,10 @@ export const BlogSidebar = () => {
           <TableOfContents items={tableOfContents} />
         </div>
       </div>
-
       <div className="fixed bottom-6 right-6 lg:hidden z-50">
         <Sheet>
           <SheetTrigger asChild>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="h-12 w-12 rounded-full bg-emerald-500"
-            >
+            <Button size="icon" className="h-12 w-12 rounded-full bg-emerald-500">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
@@ -117,5 +104,3 @@ export const BlogSidebar = () => {
     </>
   )
 }
-
-export { tableOfContents }

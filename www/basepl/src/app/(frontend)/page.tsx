@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="flex flex-col max-w-screen-xl sm:px-8 mx-auto">
       <div className="flex flex-col justify-center mx-auto h-screen ">
-        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 md:w-3/5 md:px-10">
+        <div className="flex flex-col z-10 gap-6 px-5 sm:text-center mx-auto pb-40 md:w-3/5 pt-20 md:px-10 ">
           <h1 className="text-4xl font-medium leading-[1.125] tracking-tight md:text-6xl">
             Build your Payload applications in minutes
           </h1>
@@ -39,6 +39,7 @@ const Home = () => {
           width={1000}
           height={1000}
           className="absolute left-0 top-0 h-full w-full object-cover object-bottom opacity-80 dark:opacity-20 z-0 pointer-events-none"
+          priority
         />
       </div>
       <div className="flex flex-col gap-4 px-5 mx-auto md:text-center md:w-3/5 md:px-10 md:pb-12">
@@ -61,7 +62,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <LayoutPanelTop />
-              <h2 className="font-medium">Templates</h2>
+              <h2 className="text-lg font-medium mb-0">Templates</h2>
             </div>
             <p className="text-muted-foreground">
               Find starter kits for e-commerce, websites and more to suit your needs.
@@ -70,7 +71,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Package />
-              <h2 className="font-medium">Blocks & Components</h2>
+              <h2 className="text-lg font-medium mb-0">Blocks & Components</h2>
             </div>
             <p className="text-muted-foreground">
               Install pre-built components, panels and blocks directly from your console.
@@ -79,7 +80,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Plug />
-              <h2 className="font-medium">Plugins</h2>
+              <h2 className="text-lg font-medium mb-0">Plugins</h2>
             </div>
             <p className="text-muted-foreground">
               A rich set of plug-ins to extend the applications to meet your or your customers
@@ -89,7 +90,7 @@ const Home = () => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <GitPullRequest />
-              <h2 className="font-medium">Open Source</h2>
+              <h2 className="text-lg font-medium mb-0">Open Source</h2>
             </div>
             <p className="text-muted-foreground">
               A transparent and community-driven open source library built on top of Payload CMS.

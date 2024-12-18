@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    posts: Post;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -21,6 +22,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -63,6 +65,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  name?: string | null;
+  role?: ('coFounder' | 'contributor') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -95,6 +99,58 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  slug: string;
+  date: string;
+  authors?: (string | null) | User;
+  profilePicture?: (string | null) | Media;
+  populatedAuthors?: {
+    id?: string | null;
+    name?: string | null;
+    role?: string | null;
+  };
+  previewDescription: string;
+  categoryTag: string;
+  title: string;
+  readingTime: number;
+  headline: string;
+  image: string | Media;
+  content?: BaseplRichtextType;
+  meta?: {
+    title?: string | null;
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplRichtextType".
+ */
+export interface BaseplRichtextType {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -107,6 +163,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -155,6 +215,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -182,6 +244,44 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  slug?: T;
+  date?: T;
+  authors?: T;
+  profilePicture?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        role?: T;
+      };
+  previewDescription?: T;
+  categoryTag?: T;
+  title?: T;
+  readingTime?: T;
+  headline?: T;
+  image?: T;
+  content?:
+    | T
+    | {
+        content?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -214,6 +314,79 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkType".
+ */
+export interface LinkType {
+  label: string;
+  targetType: 'page' | 'file' | 'external' | 'email';
+  isOpenNewTab?: boolean | null;
+  hasNoReferrer?: boolean | null;
+  useSlug?: boolean | null;
+  externalUrl?: string | null;
+  emailAddress?: string | null;
+  slug?: string | null;
+  pageReference?: {
+    relationTo: 'posts';
+    value: string | Post;
+  } | null;
+  fileReference?: (string | null) | Media;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplButtonType".
+ */
+export interface BaseplButtonType {
+  link: LinkType;
+  hasIcon?: boolean | null;
+  isIconStart?: boolean | null;
+  icon?: (string | null) | Media;
+  variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size: 'default' | 'sm' | 'lg' | 'icon';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'baseplButton';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplImageType".
+ */
+export interface BaseplImageType {
+  image: string | Media;
+  scaleOption: 'scale' | 'custom';
+  isPriority?: boolean | null;
+  isAbsoluteWidth?: boolean | null;
+  absoluteWidth?: number | null;
+  relativeWidth?: number | null;
+  absoluteHeight: number;
+  objectFit: 'cover' | 'contain' | 'fill';
+  objectPosition: 'center' | 'left' | 'right' | 'top' | 'bottom';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'baseplImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplVideoType".
+ */
+export interface BaseplVideoType {
+  video: string | Media;
+  showControls?: boolean | null;
+  autoPlay?: boolean | null;
+  loop?: boolean | null;
+  muted?: boolean | null;
+  scaleOption: 'scale' | 'custom';
+  isAbsoluteWidth?: boolean | null;
+  absoluteWidth?: number | null;
+  relativeWidth?: number | null;
+  absoluteHeight: number;
+  objectFit: 'cover' | 'contain' | 'fill';
+  objectPosition: 'center' | 'left' | 'right' | 'top' | 'bottom';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'baseplVideo';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
