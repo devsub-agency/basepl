@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { TableOfContentsIcon, Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface TableOfContentsItem {
   href: string
@@ -16,30 +17,60 @@ interface TableOfContentsProps {
   className?: string
 }
 
-const TableOfContents = ({ items, className }: TableOfContentsProps) => (
-  <nav className={className}>
-    {items.map((item) => (
-      <div key={item.href}>
-        <Link href={item.href} className="block text-foreground hover:text-foreground pt-4">
-          {item.title}
-        </Link>
-        {item.subitems && (
-          <div className="pl-4 space-y-3 border-l pt-3">
-            {item.subitems.map((subitem) => (
-              <Link
-                key={subitem.href}
-                href={subitem.href}
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                {subitem.title}
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-    ))}
-  </nav>
-)
+const TableOfContents = ({ items, className }: TableOfContentsProps) => {
+  const [activeId, setActiveId] = useState<string>('')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '0px 0px -80% 0px' },
+    )
+
+    const headings = document.querySelectorAll('h2, h3')
+    headings.forEach((heading) => observer.observe(heading))
+
+    return () => {
+      headings.forEach((heading) => observer.unobserve(heading))
+    }
+  }, [])
+
+  const getLinkClassName = (href: string) => {
+    return cn('text-muted-foreground hover:text-foreground py-2', {
+      'text-emerald-500 font-medium': activeId === href.replace('#', ''),
+    })
+  }
+
+  return (
+    <nav className={className}>
+      {items.map((item) => (
+        <div key={item.href} className="flex flex-col">
+          <Link href={item.href} className={getLinkClassName(item.href)}>
+            {item.title}
+          </Link>
+          {item.subitems && (
+            <div className="border-l px-5 flex flex-col">
+              {item.subitems.map((subitem) => (
+                <Link
+                  key={subitem.href}
+                  href={subitem.href}
+                  className={getLinkClassName(subitem.href)}
+                >
+                  {subitem.title}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+  )
+}
 
 export const BlogSidebar = () => {
   const [tableOfContents, setTableOfContents] = useState<TableOfContentsItem[]>([])
@@ -74,14 +105,14 @@ export const BlogSidebar = () => {
   const tableOfContentsHeadline = (
     <div className="flex gap-2 items-center mb-4">
       <TableOfContentsIcon />
-      <span className="text-lg font-semibold">Table of contents</span>
+      <span className="text-foreground/80 font-semibold ">Table of contents</span>
     </div>
   )
 
   return (
     <>
       <div className="hidden lg:block">
-        <div className="sticky top-8">
+        <div className="sticky top-32">
           {tableOfContentsHeadline}
           <TableOfContents items={tableOfContents} />
         </div>

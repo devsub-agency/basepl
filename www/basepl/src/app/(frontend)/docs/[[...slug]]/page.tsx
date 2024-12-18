@@ -88,7 +88,7 @@ export default async function Page(params: Args) {
           <Mdx code={doc.body.code} />
         </div>
       </div>
-      <div className="sticky flex">
+      <div className="flex lg:w-64">
         <BlogSidebar />
       </div>
     </main>

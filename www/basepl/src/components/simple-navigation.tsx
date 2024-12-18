@@ -40,11 +40,11 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
   }
 
   return (
-    <div className="w-full space-y-4 pr-2 text-sm">
+    <div className="w-full space-y-4 pr-2">
       {items.map((group) => (
         <div key={group.title}>
-          <h4 className="py-2 text-sm font-semibold text-foreground/80">{group.title}</h4>
-          <div className="flex flex-col">
+          <h4 className="pb-2 font-semibold text-foreground/80">{group.title}</h4>
+          <div className="pb-2 flex flex-col">
             {group.items.map((item) => (
               <Link
                 key={item.href}
