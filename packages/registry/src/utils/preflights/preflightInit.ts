@@ -1,4 +1,4 @@
-import { initOptionSchema } from "@/src/commands/init";
+import { initOptionSchema } from "../../../src/commands/init";
 import { existsSync } from "fs";
 import fs from "fs-extra";
 import path from "path";
@@ -13,10 +13,6 @@ export type PayloadAppDetails = {
 
 const MINIMUM_MAJOR_VERSION = 3;
 const SUPPORTED_SPECIAL_VERSIONS = ["latest"];
-
-export async function preFlightInit(
-  options: z.infer<typeof initOptionSchema>,
-) {}
 
 //Default check for project
 export const checkProjectSetUp = async (projectDir: string) => {

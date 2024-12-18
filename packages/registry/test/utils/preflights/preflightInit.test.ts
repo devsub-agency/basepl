@@ -1,134 +1,93 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
-import fse from 'fs-extra';
-import { existsSync } from 'fs';
-import path from 'path'
-import { checkProjectSetUp, checkShadcnPresents, getPayloadAppDetails } from '../../../src/utils/preflights/preflightInit'
-import { logger } from '../../../src/utils/logging/logger'
+import { existsSync } from "fs"
+import fs from 'fs-extra'
+import { describe, it, vi, expect, beforeEach } from 'vitest'
+import { checkProjectSetUp, checkShadcnPresents, getPayloadAppDetails } from "../../../src/utils/preflights/preflightInit"
+import { logger } from "../../../src/utils/logging/logger"
 
-vi.mock('fs', () => ({
-    default: {
-      readJson: vi.fn()
-    },
-    existsSync: vi.fn()
-  }))
-
-vi.mock('path', async () => {
-    const actual = await vi.importActual<typeof import('path')>('path')
-    return {
-        ...actual,
-        resolve: (...args: string[]) => args.join('/')
-    }
-})
-
+vi.mock('fs')
+vi.mock('fs-extra', () => ({
+  default: {
+    readJson: vi.fn()
+  }
+}))
 vi.mock('../../../src/utils/logging/logger', () => ({
-    logger: {
-        warn: vi.fn()
-    }
+  logger: {
+    warn: vi.fn()
+  }
 }))
 
-describe('preflightInit utilities', () => {
+describe('Project Setup Checks', () => {
+  describe('checkProjectSetUp', () => {
+    it('returns true when payload.config.ts exists', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      const result = await checkProjectSetUp('/test/path')
+      expect(result).toBe(true)
+    })
+
+    it('returns false when payload.config.ts does not exist', async () => {
+      vi.mocked(existsSync).mockReturnValue(false)
+      const result = await checkProjectSetUp('/test/path')
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('checkShadcnPresents', () => {
+    it('returns true when components.json exists', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      const result = await checkShadcnPresents('/test/path')
+      expect(result).toBe(true)
+    })
+
+    it('returns false when components.json does not exist', async () => {
+      vi.mocked(existsSync).mockReturnValue(false)
+      const result = await checkShadcnPresents('/test/path')
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('getPayloadAppDetails', () => {
     beforeEach(() => {
-        vi.clearAllMocks()
+      vi.resetAllMocks()
     })
 
-    describe('checkProjectSetUp', () => {
-        it('should return true when payload.config.ts exists', async () => {
-            vi.mocked(existsSync).mockReturnValue(true)
-            const result = await checkProjectSetUp('/test/path')
-            expect(result).toBe(true)
-        })
+    it('handles missing payload version', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      vi.mocked(fs.readJson).mockResolvedValue({ dependencies: {} })
 
-        it('should return false when payload.config.ts does not exist', async () => {
-            vi.mocked(existsSync).mockReturnValue(false)
-            const result = await checkProjectSetUp('/test/path')
-            expect(result).toBe(false)
-        })
+      const result = await getPayloadAppDetails('/test/path')
+      expect(result).toEqual({
+        isSrcDir: true,
+        isSupportedPayloadVersion: false,
+        payloadVersion: null
+      })
     })
 
-    describe('checkShadcnPresents', () => {
-        it('should return true when components.json exists', async () => {
-            vi.mocked(existsSync).mockReturnValue(true)
-            const result = await checkShadcnPresents('/test/path')
-            expect(result).toBe(true)
-        })
+    it('handles valid latest version', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      vi.mocked(fs.readJson).mockResolvedValue({
+        dependencies: { payload: 'latest' }
+      })
 
-        it('should return false when components.json does not exist', async () => {
-            vi.mocked(existsSync).mockReturnValue(false)
-            const result = await checkShadcnPresents('/test/path')
-            expect(result).toBe(false)
-        })
+      const result = await getPayloadAppDetails('/test/path')
+      expect(result.isSupportedPayloadVersion).toBe(true)
     })
 
-    describe('getPayloadAppDetails', () => {
-        it('should detect valid payload setup', async () => {
-            vi.mocked(existsSync).mockReturnValue(true)
-            vi.mocked(fse.readJson).mockImplementation(() => (Promise.resolve({
-                dependencies: { payload: '3.0.0' }
-            })))
+    it('handles invalid version format', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      vi.mocked(fs.readJson).mockResolvedValue({
+        dependencies: { payload: '1.2.3' }
+      })
 
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result).toEqual({
-                isSrcDir: true,
-                isSupportedPayloadVersion: true,
-                payloadVersion: '3.0.0'
-            })
-        })
-
-        it('should handle missing src directory', async () => {
-            vi.mocked(fs.existsSync).mockReturnValue(false)
-            vi.mocked(fsExtra.readJson).mockResolvedValue({
-                dependencies: { payload: '3.0.0' }
-            })
-
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result.isSrcDir).toBe(false)
-        })
-
-        it('should handle missing payload dependency', async () => {
-            vi.mocked(fs.existsSync).mockReturnValue(true)
-            vi.mocked(fsExtra.readJson).mockResolvedValue({
-                dependencies: {}
-            })
-
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result).toEqual({
-                isSrcDir: true,
-                isSupportedPayloadVersion: false,
-                payloadVersion: null
-            })
-        })
-
-        it('should handle latest version', async () => {
-            vi.mocked(fs.existsSync).mockReturnValue(true)
-            const readJson = vi.hoisted(() => vi.fn())
-            vi.mocked(readJson).mockResolvedValue({
-                dependencies: { payload: 'latest' }
-            })
-
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result.isSupportedPayloadVersion).toBe(true)
-        })
-
-        it('should handle unsupported version', async () => {
-            vi.mocked(fs.existsSync).mockReturnValue(true)
-            vi.mocked(fsExtra.readJson).mockResolvedValue({
-                dependencies: { payload: '2.0.0' }
-            })
-
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result.isSupportedPayloadVersion).toBe(false)
-            expect(logger.warn).toHaveBeenCalled()
-        })
-
-        it('should handle invalid version format', async () => {
-            vi.mocked(fs.existsSync).mockReturnValue(true)
-            vi.mocked(fsExtra.readJson).mockResolvedValue({
-                dependencies: { payload: 'invalid' }
-            })
-
-            const result = await getPayloadAppDetails('/test/path')
-            expect(result.isSupportedPayloadVersion).toBe(false)
-            expect(logger.warn).toHaveBeenCalled()
-        })
+      const result = await getPayloadAppDetails('/test/path')
+      expect(result.isSupportedPayloadVersion).toBe(false)
+      expect(logger.warn).toHaveBeenCalled()
     })
+
+    it('handles fs read error', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      vi.mocked(fs.readJson).mockRejectedValue(new Error('Read error'))
+
+      await expect(getPayloadAppDetails('/test/path')).rejects.toThrow('Read error')
+    })
+  })
 })

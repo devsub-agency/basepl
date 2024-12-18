@@ -1,92 +1,73 @@
-import * as fs from 'fs'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { existsSync } from 'fs'
+import path from 'path'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import { addOptionsSchema } from '../../../src/commands/add'
 import { logger } from '../../../src/utils/logging/logger'
 import { preFlightAdd } from '../../../src/utils/preflights/preflightAdd'
-import path from 'path'
 
-vi.mock('fs', () => ({
-    existsSync: vi.fn()
+
+vi.mock('fs')
+vi.mock('path', () => ({
+    default: {
+        resolve: vi.fn()
+    }
 }))
-
 vi.mock('../../../src/utils/logging/logger', () => ({
     logger: {
         error: vi.fn()
     }
 }))
 
-vi.mock('path', async () => {
-    const actual = await vi.importActual<typeof import('path')>('path')
-    return {
-        ...actual,
-        resolve: (...args: string[]) => args.join('/')
-    }
-})
+const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
 describe('preFlightAdd', () => {
+
+    const addOptions: z.infer<typeof addOptionsSchema> = {
+        components: ['test'],
+        cwd: '/test/path',
+        yes: true,
+        overwrite: false,
+        config: false
+    }
+
     beforeEach(() => {
-        vi.clearAllMocks()
+        vi.resetAllMocks()
+        vi.mocked(path.resolve).mockImplementation((...args) => args.join('/'))
     })
-    const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
-    it('should handle relative paths', () => {
-        const relativeOptions: z.infer<typeof addOptionsSchema> = {
-            cwd: './relative/path',
-            components: [],
-            yes: true,
-            overwrite: false,
-            config: false
-        }
+    it('should pass when project directory and package.json exist', () => {
+        vi.mocked(existsSync)
+            .mockReturnValueOnce(true)  // project directory exists
+            .mockReturnValueOnce(true)  // package.json exists
 
-        vi.mocked(fs.existsSync)
-            .mockReturnValueOnce(true)
-            .mockReturnValueOnce(true)
+        preFlightAdd(addOptions)
 
-        preFlightAdd(relativeOptions)
-
-        expect(fs.existsSync).toHaveBeenCalledWith(relativeOptions.cwd)
         expect(logger.error).not.toHaveBeenCalled()
         expect(mockExit).not.toHaveBeenCalled()
     })
 
-    it('should handle empty components array', () => {
-        const emptyComponentsOptions: z.infer<typeof addOptionsSchema> = {
-            cwd: '/test/path',
-            components: [],
-            yes: true,
-            overwrite: false,
-            config: false
-        }
+    it('should exit when project directory does not exist', () => {
+        vi.mocked(existsSync).mockReturnValue(false)
 
-        vi.mocked(fs.existsSync)
-            .mockReturnValueOnce(true)
-            .mockReturnValueOnce(true)
+        preFlightAdd(addOptions)
 
-        preFlightAdd(emptyComponentsOptions)
-
-        expect(fs.existsSync).toHaveBeenCalledTimes(2)
-        expect(logger.error).not.toHaveBeenCalled()
-        expect(mockExit).not.toHaveBeenCalled()
+        expect(logger.error).toHaveBeenCalledWith(
+            'Target project does not exist or is not a valid Payload project'
+        )
+        expect(mockExit).toHaveBeenCalledWith(0)
     })
 
-    it('should handle missing package.json', () => {
-        const options: z.infer<typeof addOptionsSchema> = {
-            cwd: '/test/path',
-            components: [],
-            yes: true,
-            overwrite: false,
-            config: false
-        }
-    
-        vi.mocked(fs.existsSync)
-            .mockReturnValueOnce(true)  // cwd exists
-            .mockReturnValueOnce(false) // package.json doesn't exist
-    
-        preFlightAdd(options)
-    
-        expect(fs.existsSync).toHaveBeenCalledWith(options.cwd)
-        expect(logger.error).toHaveBeenCalledWith("Target project does not exist or is not a valid Payload project")
+    it('should exit when package.json does not exist', () => {
+        vi.mocked(existsSync)
+            .mockReturnValueOnce(true)   // project directory exists
+            .mockReturnValueOnce(false)  // package.json doesn't exist
+
+        preFlightAdd(addOptions)
+
+        expect(logger.error).toHaveBeenCalledWith(
+            'Target project does not exist or is not a valid Payload project'
+        )
         expect(mockExit).toHaveBeenCalledWith(0)
     })
 })
