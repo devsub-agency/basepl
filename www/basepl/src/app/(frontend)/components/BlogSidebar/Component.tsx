@@ -86,7 +86,7 @@ export const BlogSidebar = () => {
           <TableOfContents items={tableOfContents} />
         </div>
       </div>
-      <div className="fixed bottom-6 right-6 lg:hidden z-50">
+      <div className="fixed bottom-6 right-6 lg:hidden z-50 lg:max-w-[320px]">
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" className="h-12 w-12 rounded-full bg-emerald-500">

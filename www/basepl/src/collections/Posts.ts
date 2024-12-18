@@ -7,7 +7,6 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import {BaseplRichtext} from "@/blocks/BaseplRichText/config";
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 import { populateAuthors } from './hooks/populateAuthors'
 

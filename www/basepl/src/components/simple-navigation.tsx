@@ -1,15 +1,16 @@
-"use client"
+'use client'
 
-import { NavGroup } from "@/lib/navigation"
-import { cn } from "@/lib/utils"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { NavGroup } from '@/lib/navigation'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface DocsNavProps {
   items: NavGroup[]
+  setIsOpen?: (isOpen: boolean) => void
 }
 
-export function DocsNav({ items }: DocsNavProps) {
+export function DocsNav({ items, setIsOpen }: DocsNavProps) {
   const pathname = usePathname()
 
   return (
@@ -22,12 +23,13 @@ export function DocsNav({ items }: DocsNavProps) {
           <div className="grid grid-flow-row auto-rows-max text-sm">
             {group.items.map((item) => (
               <Link
+                onClick={() => setIsOpen?.(false)}
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex w-full items-center rounded-md p-2 hover:underline",
-                  "text-muted-foreground",
-                  pathname === item.href && "font-medium text-foreground"
+                  'flex w-full items-center rounded-md p-2 hover:underline',
+                  'text-muted-foreground',
+                  pathname === item.href && 'font-medium text-foreground',
                 )}
               >
                 {item.title}
