@@ -45,7 +45,7 @@ export const BlogSidebar = () => {
   const [tableOfContents, setTableOfContents] = useState<TableOfContentsItem[]>([])
 
   useEffect(() => {
-    const headings = Array.from(document.querySelectorAll('#blogContent h2, #blogContent h3'))
+    const headings = Array.from(document.querySelectorAll('h2, h3'))
     const tocItems: TableOfContentsItem[] = []
 
     headings.forEach((heading) => {

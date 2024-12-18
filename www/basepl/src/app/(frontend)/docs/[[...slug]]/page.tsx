@@ -1,5 +1,4 @@
 import { Mdx } from '@/components/mdx-components'
-import { TableOfContents } from '@/components/toc'
 import { absoluteUrl, cn } from '@/lib/utils'
 import '@/style/mdx.css'
 import { allDocs } from 'contentlayer/generated'
@@ -7,6 +6,7 @@ import { ChevronRight } from 'lucide-react'
 import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import { siteConfig } from '../../site'
+import { BlogSidebar } from '../../components/BlogSidebar/Component'
 
 type Args = {
   params: Promise<{ slug: string[] }>
@@ -72,8 +72,6 @@ export default async function Page(params: Args) {
     notFound()
   }
 
-  console.log('doc toc', doc.toc)
-
   return (
     <main className="flex py-6 lg:gap-10 lg:py-8">
       <div className="mx-auto w-full min-w-0">
@@ -91,7 +89,7 @@ export default async function Page(params: Args) {
         </div>
       </div>
       <div className="sticky flex">
-        <TableOfContents rawBody={doc.body.raw} />
+        <BlogSidebar />
       </div>
     </main>
   )
