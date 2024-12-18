@@ -33,7 +33,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex flex-col justify-between w-full gap-4 backdrop-blur-md bg-accent/50 md:rounded-lg md:flex-row md:px-4 md:py-2',
+        'flex flex-col justify-between w-full gap-4 bg-background md:rounded-lg md:flex-row md:px-4 md:py-2 md:backdrop-blur-md md:bg-accent/50',
         { 'bg-background': showMenu },
       ])}
     >
