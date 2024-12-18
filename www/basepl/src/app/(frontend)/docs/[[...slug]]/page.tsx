@@ -74,7 +74,7 @@ export default async function Page(params: Args) {
 
   return (
     <main className="flex py-6 lg:gap-10 lg:py-8">
-      <div className="mx-auto w-full min-w-0">
+      <div className="mx-auto w-full min-w-0 md:pl-10">
         <div className="text-muted-foreground mb-4 flex items-center space-x-1 text-sm leading-none">
           <div className="truncate">Docs</div>
           <ChevronRight className="size-3.5" />

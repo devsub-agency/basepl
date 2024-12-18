@@ -82,6 +82,12 @@ p {
   @apply text-muted-foreground;
 }
 
+p,
+a,
+span {
+  @apply font-light;
+}
+
 table {
   @apply w-full;
 }
@@ -102,6 +108,6 @@ p a {
   @apply text-primary underline decoration-emerald-500;
 }
 
-p a span{
+p a span {
   @apply text-primary underline decoration-emerald-500;
 }

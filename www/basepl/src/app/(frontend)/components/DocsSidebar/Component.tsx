@@ -26,7 +26,7 @@ export default function DocSidebar({ children }: DocSidebarProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-72 p-5">
-            <SheetHeader className="text-left mb-2">
+            <SheetHeader className="text-left mb-4">
               <SheetTitle>Documentation</SheetTitle>
             </SheetHeader>
             <DocsNav items={navigation} setIsOpen={setIsOpen} />
