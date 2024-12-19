@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { logger, loggingColor } from "@/utils/logging/logger";
+import { logger, loggingColor } from "../logging/logger";
+
 
 const handleError = (error: unknown) => {
   logger.error(

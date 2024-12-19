@@ -1,7 +1,7 @@
 "use client"
 import { useMDXComponent } from "next-contentlayer2/hooks"
 import { ComponentPreview } from "./component-preview"
-import { ConfigPreview } from "./config-preview"
+import { CodePreview } from "./config-preview"
 import { cn } from "@/lib/utils"
 import {
     Tabs,
@@ -13,7 +13,7 @@ import { DocsImage } from "./docs-image"
 
 const components = {
   ComponentPreview,
-  ConfigPreview,
+  ConfigPreview: CodePreview,
   DocsImage,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1

@@ -1,4 +1,3 @@
-import type { CollectionConfig } from 'payload'
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/config'
 import {
   MetaDescriptionField,
@@ -7,9 +6,9 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import {BaseplRichtext} from "@/blocks/BaseplRichText/config";
-import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import type { CollectionConfig } from 'payload'
 import { populateAuthors } from './hooks/populateAuthors'
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
