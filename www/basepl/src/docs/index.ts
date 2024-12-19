@@ -16,10 +16,22 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/fields/link.ts"
     }
   },
+  "BaseplButton-Component": {
+    name: "BaseplButton-Component",
+    file: {
+      path: "src/blocks/BaseplButton/Component.tsx"
+    }
+  },
   "BaseplButton": {
     name: "BaseplButton",
     file: {
       path: "src/blocks/BaseplButton/config.ts"
+    }
+  },
+  "BaseplImage-Component": {
+    name: "BaseplImage-Component",
+    file: {
+      path: "src/blocks/BaseplImage/Component.tsx"
     }
   },
   "BaseplImage": {
@@ -28,10 +40,22 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/blocks/BaseplImage/config.ts"
     }
   },
+  "BaseplRichtext-Component": {
+    name: "BaseplRichtext-Component",
+    file: {
+      path: "src/blocks/BaseplRichtext/Component.tsx"
+    }
+  },
   "BaseplRichtext": {
     name: "BaseplRichtext",
     file: {
       path: "src/blocks/BaseplRichtext/config.ts"
+    }
+  },
+  "BaseplVideo-Component": {
+    name: "BaseplVideo-Component",
+    file: {
+      path: "src/blocks/BaseplVideo/Component.tsx"
     }
   },
   "BaseplVideo": {

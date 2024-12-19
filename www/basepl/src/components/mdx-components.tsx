@@ -1,18 +1,24 @@
 'use client'
-import { useMDXComponent } from 'next-contentlayer2/hooks'
-import { ComponentPreview } from './component-preview'
-import { ConfigPreview } from './config-preview'
-import { cn } from '@/lib/utils'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { DocsImage } from './docs-image'
+
 import { CommandPreview } from './command-preview'
 import { NotificationContainer } from './notification-container'
+import { useMDXComponent } from "next-contentlayer2/hooks"
+import { ComponentPreview } from "./component-preview"
+import { CodePreview } from "./config-preview"
+import { cn } from "@/lib/utils"
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+  } from "@/components/ui/tabs"
+import { DocsImage } from "./docs-image"
 
 const components = {
   NotificationContainer,
   CommandPreview,
   ComponentPreview,
-  ConfigPreview,
+  ConfigPreview: CodePreview,
   DocsImage,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1

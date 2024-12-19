@@ -24,7 +24,7 @@ async function generateDocsIndex() {
   await fs.ensureDir(docsDir)
 
   const fields = await glob('src/fields/*.ts')
-  const blocks = await glob('src/blocks/*/*.ts')
+  const blocks = await glob('src/blocks/*/*')
   const examples = await glob('src/examples/**/*.tsx')
 
   const items: Record<string, RegistryItem> = {}
@@ -40,7 +40,10 @@ async function generateDocsIndex() {
   // Process blocks
   for (const block of blocks) {
     const dirs = block.split('/')
-    const name = dirs[2]
+    let name = dirs[2]
+    if (block.endsWith('.tsx')) {
+      name = name + '-Component'
+    }
     items[name] = createRegistryItem(name, processPath(block))
   }
 
