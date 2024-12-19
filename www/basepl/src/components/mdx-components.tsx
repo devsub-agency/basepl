@@ -6,8 +6,10 @@ import { cn } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DocsImage } from './docs-image'
 import { CommandPreview } from './command-preview'
+import { NotificationContainer } from './notification-container'
 
 const components = {
+  NotificationContainer,
   CommandPreview,
   ComponentPreview,
   ConfigPreview,
@@ -74,7 +76,7 @@ const components = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+      className={cn('leading-7 [&:not(:first-child)]:mt-2', className)}
       {...props}
     />
   ),

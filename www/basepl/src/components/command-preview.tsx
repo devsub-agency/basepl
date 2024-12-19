@@ -62,15 +62,15 @@ export const CommandPreview = ({
     <div className="relative">
       <Tabs
         defaultValue={selectedTab}
-        className="relative my-5 w-full rounded-lg border bg-accent/20 pt-1"
+        className="relative mb-8 mt-6 w-full rounded-lg border bg-accent/20"
         onValueChange={(value) => setSelectedTab(value as PackageManager)}
       >
-        <TabsList className="w-full justify-start rounded-none border-b bg-transparent">
+        <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
           {packageManagers.map((manager) => (
             <TabsTrigger
               key={manager}
               value={manager}
-              className="rounded-none border-b !bg-transparent px-5 pb-3 pt-2 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
+              className="rounded-none border-b border-b-transparent !bg-transparent px-5 pb-3 pt-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
             >
               {manager}
             </TabsTrigger>

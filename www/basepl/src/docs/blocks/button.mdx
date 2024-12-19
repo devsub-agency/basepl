@@ -1,9 +1,26 @@
 ---
 title: Button
-description: Basic and reusable Button block
+description: Basic and reusable Button block and component.
 ---
 
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
 ## Installation
+
+You can add the pre-configured button to your project with the command below. If you only want to install the button block check the reference [here](https://basepl.com/docs/getting-started).
 
 <CommandPreview
   npmCommand={'npx @basepl/cli add BaseplButton'}
