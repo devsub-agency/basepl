@@ -2,7 +2,13 @@
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { TableOfContentsIcon, Menu } from 'lucide-react'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
@@ -41,7 +47,7 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => {
   }, [])
 
   const getLinkClassName = (href: string) => {
-    return cn('text-muted-foreground hover:text-foreground py-2', {
+    return cn('text-sm text-muted-foreground hover:text-foreground py-2', {
       'text-emerald-500 font-medium': activeId === href.replace('#', ''),
     })
   }
@@ -54,7 +60,7 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => {
             {item.title}
           </Link>
           {item.subitems && (
-            <div className="border-l px-5 flex flex-col">
+            <div className="flex flex-col border-l px-5">
               {item.subitems.map((subitem) => (
                 <Link
                   key={subitem.href}
@@ -73,14 +79,17 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => {
 }
 
 export const BlogSidebar = () => {
-  const [tableOfContents, setTableOfContents] = useState<TableOfContentsItem[]>([])
+  const [tableOfContents, setTableOfContents] = useState<TableOfContentsItem[]>(
+    [],
+  )
 
   useEffect(() => {
     const headings = Array.from(document.querySelectorAll('h2, h3'))
     const tocItems: TableOfContentsItem[] = []
 
     headings.forEach((heading) => {
-      const id = heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-')
+      const id =
+        heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-')
       if (id) {
         heading.id = id
         const item: TableOfContentsItem = {
@@ -103,9 +112,11 @@ export const BlogSidebar = () => {
   }, [])
 
   const tableOfContentsHeadline = (
-    <div className="flex gap-2 items-center mb-4">
-      <TableOfContentsIcon />
-      <span className="text-foreground/80 font-semibold ">Table of contents</span>
+    <div className="mb-4 flex items-center gap-2">
+      <TableOfContentsIcon className="h-5 w-5" />
+      <span className="font-semibold text-foreground/80">
+        Table of contents
+      </span>
     </div>
   )
 
@@ -117,10 +128,13 @@ export const BlogSidebar = () => {
           <TableOfContents items={tableOfContents} />
         </div>
       </div>
-      <div className="fixed bottom-6 right-6 lg:hidden z-50 lg:max-w-[320px]">
+      <div className="fixed bottom-6 right-6 z-50 lg:hidden lg:max-w-[320px]">
         <Sheet>
           <SheetTrigger asChild>
-            <Button size="icon" className="h-12 w-12 rounded-full bg-emerald-500">
+            <Button
+              size="icon"
+              className="h-12 w-12 rounded-full bg-emerald-500"
+            >
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>

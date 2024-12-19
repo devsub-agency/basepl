@@ -20,22 +20,29 @@ const CopyButton = ({ textToCopy }: CopyButtonProps) => {
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={handleCopy} className="size-7 rounded-md">
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={handleCopy}
+      className="size-7 rounded-md"
+    >
       <Check className={cn('size-4 text-emerald-500', { hidden: !isCopied })} />
-      <Copy className={cn('size-4 text-muted-foreground', { hidden: isCopied })} />
+      <Copy
+        className={cn('size-4 text-muted-foreground', { hidden: isCopied })}
+      />
     </Button>
   )
 }
 
-interface InstallPreviewProps {
+interface CommandPreviewProps {
   npmCommand: string
   pnpmCommand: string
 }
 
-export const InstallPreview = ({
+export const CommandPreview = ({
   npmCommand = 'npm i',
   pnpmCommand = 'pnpm i',
-}: InstallPreviewProps) => {
+}: CommandPreviewProps) => {
   type PackageManager = 'npm' | 'pnpm'
   const [selectedTab, setSelectedTab] = useState<PackageManager>('npm')
   const packageManagers: PackageManager[] = ['npm', 'pnpm']
@@ -55,17 +62,17 @@ export const InstallPreview = ({
     <div className="relative">
       <Tabs
         defaultValue={selectedTab}
-        className="relative my-5 w-full bg-accent/20 rounded-lg border pt-1"
+        className="relative my-5 w-full rounded-lg border bg-accent/20 pt-1"
         onValueChange={(value) => setSelectedTab(value as PackageManager)}
       >
         <TabsList className="w-full justify-start rounded-none border-b bg-transparent">
-          {packageManagers.map((pm) => (
+          {packageManagers.map((manager) => (
             <TabsTrigger
-              key={pm}
-              value={pm}
-              className="text-sm rounded-none border-b !bg-transparent px-5 pb-3 pt-2 text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
+              key={manager}
+              value={manager}
+              className="rounded-none border-b !bg-transparent px-5 pb-3 pt-2 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
             >
-              {pm}
+              {manager}
             </TabsTrigger>
           ))}
         </TabsList>
