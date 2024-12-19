@@ -10,8 +10,10 @@ import {
     TabsTrigger,
   } from "@/components/ui/tabs"
 import { DocsImage } from "./docs-image"
+import { InstallPreview } from "./install-preview"
 
 const components = {
+  InstallPreview, 
   ComponentPreview,
   ConfigPreview,
   DocsImage,
