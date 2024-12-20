@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { CopyButton } from "@/components/ui/copy-button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Index } from "@/docs"
+import { CopyButton } from '@/components/ui/copy-button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Index } from '@/docs'
 
-import { getComponentContent } from "@/lib/file-reader"
-import { cn } from "@/lib/utils"
-import * as React from "react"
+import { getComponentContent } from '@/lib/file-reader'
+import { cn } from '@/lib/utils'
+import * as React from 'react'
 
 interface ComponentPreviewProps {
   name: string
@@ -14,7 +14,11 @@ interface ComponentPreviewProps {
   className?: string
 }
 
-export function ComponentPreview({name, description, className}: ComponentPreviewProps) {
+export function ComponentPreview({
+  name,
+  description,
+  className,
+}: ComponentPreviewProps) {
   const [content, setContent] = React.useState<string | null>(null)
   const component = Index[name]
 
@@ -24,10 +28,10 @@ export function ComponentPreview({name, description, className}: ComponentPrevie
     if (!Component) {
       return (
         <p className="text-sm text-muted-foreground">
-          Component{" "}
+          Component{' '}
           <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
             {name}
-          </code>{" "}
+          </code>{' '}
           not found in registry.
         </p>
       )
@@ -49,19 +53,26 @@ export function ComponentPreview({name, description, className}: ComponentPrevie
   if (!component) {
     return (
       <p className="text-sm text-muted-foreground">
-        Component <code
-        className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">{name}</code> not found.
+        Component{' '}
+        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
+          {name}
+        </code>{' '}
+        not found.
       </p>
     )
   }
 
   return (
-    <div className={cn("group relative my-4 flex flex-col space-y-2", className)}>
+    <div
+      className={cn('group relative my-4 flex flex-col space-y-2', className)}
+    >
       {description && (
         <p className="text-sm text-muted-foreground">{description}</p>
       )}
-
-      <Tabs defaultValue={Preview ? "preview" : "code"} className="relative w-full">
+      <Tabs
+        defaultValue={Preview ? 'preview' : 'code'}
+        className="relative w-full"
+      >
         <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
           {Preview && (
             <TabsTrigger
@@ -81,7 +92,7 @@ export function ComponentPreview({name, description, className}: ComponentPrevie
 
         {Preview && (
           <TabsContent value="preview" className="relative rounded-md border">
-            <div className="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+            <div className="preview flex min-h-[350px] w-full items-center justify-center p-10">
               {Preview}
             </div>
           </TabsContent>

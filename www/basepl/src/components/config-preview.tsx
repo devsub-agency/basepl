@@ -1,107 +1,126 @@
-"use client"
+'use client'
 
-import { CopyButton } from "@/components/ui/copy-button"
-import { Index } from "@/docs"
-import { getComponentContent } from "@/lib/file-reader"
-import { cn } from "@/lib/utils"
+import { Index } from '@/docs'
+import { getComponentContent } from '@/lib/file-reader'
+import { cn } from '@/lib/utils'
 import '@/style/mdx.css'
-import * as React from "react"
+import * as React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { codeToHtml } from 'shiki'
+import { getMediaUrl } from '@/lib/media-url'
+import { CopyButton } from './copy-button'
 
-interface ConfigPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ConfigPreviewProps {
   name: string
-  description?: string
-  className?: string,
+  imagePath: string
+  className?: string
 }
+type Tabs = 'Preview' | 'Code'
 
-export function CodePreview({ name, description, className, children, ...props }: ConfigPreviewProps) {
-  const [configContent, setConfigContent] = React.useState<string | null>(null)
-  const [componentContent, setComponentContent] = React.useState<string | null>(null)
+export function CodePreview({
+  name,
+  className,
+  imagePath,
+}: ConfigPreviewProps) {
+  const [configContent, setConfigContent] = useState<string>('')
+  const [selectedTab, setSelectedTab] = useState<Tabs>('Preview')
+
+  const packageManagers: Tabs[] = ['Preview', 'Code']
+  const finalImageUrl = getMediaUrl(imagePath)
   const config = Index[name]
-  const component = Index[name + '-Component']
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function loadContent() {
       if (!config) return
       const configFile = config.file
       if (configFile) {
         const fileContent = await getComponentContent(configFile.path)
-        setConfigContent(fileContent)
-      }
-    }
-    async function loadComponent() {
-      if (!component) return
-      const componentFile = component.file
-      if (componentFile) {
-        const fileContent = await getComponentContent(componentFile.path)
-        setComponentContent(fileContent)
+        const html = await codeToHtml(fileContent, {
+          lang: 'typescript',
+          theme: 'github-dark',
+          transformers: [
+            {
+              pre(node) {
+                node.properties.style = 'background-color: transparent;'
+                return node
+              },
+            },
+          ],
+        })
+        setConfigContent(html)
       }
     }
     loadContent()
-    loadComponent()
   }, [name])
 
-  if (!config && !component) {
+  if (!config) {
     return (
       <p className="text-sm text-muted-foreground">
-        Component <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">{name}</code> not found in registry.
+        Component not found in registry.
       </p>
     )
   }
 
+  function getTabContent(tab: Tabs) {
+    switch (tab) {
+      case 'Preview':
+        return (
+          <Image
+            src={'/' + imagePath}
+            alt={name}
+            className="w-full rounded-lg object-contain"
+            width={600}
+            height={600}
+          />
+        )
+      case 'Code':
+        return (
+          <div className="h-full w-full">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: configContent,
+              }}
+            />
+            <div className="absolute right-0 top-0 z-20 pr-5 pt-2">
+              <CopyButton textToCopy={configContent} />
+            </div>
+          </div>
+        )
+      default:
+        return <></>
+    }
+  }
+
   return (
-    <div className={cn("group relative my-4 flex flex-col space-y-2", className)}>
-      {description && (
-        <p className="text-sm text-muted-foreground">{description}</p>
-      )}
-      <Tabs defaultValue={configContent ? 'config' : "component"} className="relative w-full">
-        <TabsList>
-          {configContent && (
+    <div
+      className={cn('group relative my-4 flex flex-col space-y-2', className)}
+    >
+      <Tabs
+        defaultValue={selectedTab}
+        className="relative mb-8 mt-6 w-full rounded-lg border bg-accent/20"
+        onValueChange={(value) => setSelectedTab(value as Tabs)}
+      >
+        <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
+          {packageManagers.map((manager) => (
             <TabsTrigger
-              value="preview"
-              className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold"
+              key={manager}
+              value={manager}
+              className="rounded-none border-b border-b-transparent !bg-transparent px-5 pb-3 pt-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
             >
-              Config
+              {manager}
             </TabsTrigger>
-          )}
-          {componentContent && (
-            <TabsTrigger
-              value="code"
-              className="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold"
-            >
-              Component
-            </TabsTrigger>
-          )}
+          ))}
         </TabsList>
-
-        {configContent && (
-          <TabsContent value="preview" className="relative rounded-md border">
-            <>
-              <CopyButton
-                value={configContent}
-                className="absolute right-4 top-4"
-              />
-              <pre className="max-h-[350px] overflow-auto rounded-md border p-4">
-                <code>{configContent}</code>
-              </pre>
-            </>
-          </TabsContent>
-        )}
-
-        {componentContent && (
-          <TabsContent value="code" className="relative rounded-md border">
-            <>
-              <CopyButton
-                value={componentContent}
-                className="absolute right-4 top-4"
-              />
-              <pre className="max-h-[350px] overflow-auto rounded-md border p-4">
-                <code>{componentContent}</code>
-              </pre>
-            </>
-          </TabsContent>
-        )}
-
+        <TabsContent
+          value={selectedTab}
+          className="relative flex items-center px-5 pb-5 pt-3 text-sm text-muted-foreground"
+        >
+          <div className="item-center flex max-h-[480px] w-full justify-center overflow-auto">
+            {getTabContent(selectedTab)}
+          </div>
+        </TabsContent>
       </Tabs>
     </div>
   )
