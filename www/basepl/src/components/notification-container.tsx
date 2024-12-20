@@ -34,8 +34,8 @@ export const NotificationContainer = ({
       </div>
       <p
         className={cn('text-sm', {
-          'text-yellow-200': context === 'warning',
-          'text-sky-200': context === 'informational',
+          'text-yellow-700 dark:text-yellow-200': context === 'warning',
+          'text-sky-700 dark:text-sky-200': context === 'informational',
         })}
       >
         {children}

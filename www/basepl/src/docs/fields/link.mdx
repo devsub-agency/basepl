@@ -12,22 +12,31 @@ npx @basepl/cli add link
 ## Usage
 
 ```ts
-import { Label } from '@/fields/link';
+import { Label } from '@/fields/link'
 ```
 
 Simply add the label to the field array of your desired configuration.
 
 ```ts
-fields: [
-    link
-]
+fields: [link]
 ```
+
+### Link
+
+- Label: The text that will be displayed on the button.
+- Target Type: What type the button should be.
+  - Page: Either a page reference or the slug to a page.
+  - File Download: Link to a file download.
+  - External URL: Link to an external website.
+    - Open in new Tab: Should be self-explanatory.
+    - No referrer: If a referral is present.
+  - Email Address: mailto: link to an email address.
 
 ## Configuration
 
 This is the default configuration file you can add to your project.
 
-<ConfigPreview name='link' description='Simple but powerful Link.' />
+<ConfigPreview name="link" description="Simple but powerful Link." />
 
 ## Usage
 
