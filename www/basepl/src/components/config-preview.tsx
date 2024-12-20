@@ -14,6 +14,7 @@ import { CopyButton } from './copy-button'
 
 interface ConfigPreviewProps {
   name: string
+  componentName: string; 
   imagePath: string
   className?: string
 }

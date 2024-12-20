@@ -7,36 +7,39 @@ import { Index } from '@/docs'
 import { getComponentContent } from '@/lib/file-reader'
 import { cn } from '@/lib/utils'
 import * as React from 'react'
-import { CopyButton } from './copy-button'
+import { SyntaxHighlighter } from './syntax-highlighter'
 
 interface ComponentPreviewProps {
   name: string
+  componentName: string
   className?: string
 }
 type Tabs = 'Preview' | 'Sample' | 'Code'
 
-export function ComponentPreview({ name, className }: ComponentPreviewProps) {
-  const [content, setContent] = useState<string | null>(null)
-  const [componentContent, setComponentContent] = useState<string | null>(null)
+export function ComponentPreview({
+  name,
+  className,
+  componentName,
+}: ComponentPreviewProps) {
+  const [sampleCode, setSampleCode] = useState<string>('')
+  const [componentContent, setComponentContent] = useState<string>('')
   const [selectedTab, setSelectedTab] = useState<Tabs>('Preview')
 
   const packageManagers: Tabs[] = ['Preview', 'Sample', 'Code']
   const component = Index[name]
+  const plComponent = Index[componentName]
   const Preview = Index[name]?.file?.component
 
   useEffect(() => {
     async function loadContent() {
       if (!component) return
       const fileContent = await getComponentContent(component.file.path)
-      setContent(fileContent)
+      setSampleCode(fileContent)
     }
     async function loadComponent() {
-      if (!component) return
-      const componentFile = component.file
-      if (componentFile) {
-        const fileContent = await getComponentContent(componentFile.path)
-        setComponentContent(fileContent)
-      }
+      if (!plComponent) return
+      const fileContent = await getComponentContent(plComponent.file.path)
+      setComponentContent(fileContent)
     }
     loadComponent()
     loadContent()
@@ -59,31 +62,9 @@ export function ComponentPreview({ name, className }: ComponentPreviewProps) {
       case 'Preview':
         return <Preview />
       case 'Sample':
-        return (
-          <div className="h-full w-full">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: componentContent ?? '',
-              }}
-            />
-            <div className="absolute right-0 top-0 z-20 pr-5 pt-2">
-              <CopyButton textToCopy={''} />
-            </div>
-          </div>
-        )
+        return <SyntaxHighlighter code={sampleCode} />
       case 'Code':
-        return (
-          <div className="h-full w-full">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: content ?? '',
-              }}
-            />
-            <div className="absolute right-0 top-0 z-20 pr-5 pt-2">
-              <CopyButton textToCopy={''} />
-            </div>
-          </div>
-        )
+        return <SyntaxHighlighter code={componentContent} />
       default:
         return <></>
     }
