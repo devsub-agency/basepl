@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { HeaderClient } from './Component.client'
 
-const mockDate = ['Templates', 'Components', 'Plugins', 'Blog']
+const mockDate = ['Templates', 'Components','Blog']
 
 const Header = () => {
   return (
