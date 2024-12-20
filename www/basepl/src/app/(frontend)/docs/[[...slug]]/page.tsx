@@ -75,14 +75,18 @@ export default async function Page(params: Args) {
   return (
     <main className="flex py-6 lg:gap-10 lg:py-8">
       <div className="mx-auto w-full min-w-0 md:pl-10">
-        <div className="text-muted-foreground mb-4 flex items-center space-x-1 text-sm leading-none">
+        <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate">Docs</div>
           <ChevronRight className="size-3.5" />
           <div className="text-foreground">{doc.title}</div>
         </div>
         <div className="space-y-2">
-          <h1 className={cn('scroll-m-20 text-3xl font-bold tracking-tight')}>{doc.title}</h1>
-          {doc.description && <p className="text-muted-foreground text-base">{doc.description}</p>}
+          <h1 className={cn('scroll-m-20 text-3xl font-bold tracking-tight')}>
+            {doc.title}
+          </h1>
+          {doc.description && (
+            <p className="text-base text-muted-foreground">{doc.description}</p>
+          )}
         </div>
         <div className="pb-12 pt-8">
           <Mdx code={doc.body.code} />
