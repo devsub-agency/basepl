@@ -2,24 +2,21 @@
 
 import { CommandPreview } from './command-preview'
 import { NotificationContainer } from './notification-container'
-import { useMDXComponent } from "next-contentlayer2/hooks"
-import { ComponentPreview } from "./component-preview"
-import { CodePreview } from "./config-preview"
-import { cn } from "@/lib/utils"
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-  } from "@/components/ui/tabs"
-import { DocsImage } from "./docs-image"
+import { useMDXComponent } from 'next-contentlayer2/hooks'
+import { ComponentPreview } from './component-preview'
+import { BlockPreview } from './block-preview'
+import { cn } from '@/lib/utils'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { DocsImage } from './docs-image'
+import { Badges } from './badges'
 
 const components = {
   NotificationContainer,
   CommandPreview,
   ComponentPreview,
-  ConfigPreview: CodePreview,
+  BlockPreview,
   DocsImage,
+  Badges,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
@@ -41,7 +38,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        'font-heading mt-8 scroll-m-20 text-xl font-medium tracking-tight',
+        'font-heading mt-8 scroll-m-20 border-t pt-8 text-xl font-medium tracking-tight',
         className,
       )}
       {...props}
@@ -106,7 +103,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm',
+        'relative rounded-md border border-accent-foreground/20 px-1.5 py-0.5 font-mono text-xs text-foreground',
         className,
       )}
       {...props}

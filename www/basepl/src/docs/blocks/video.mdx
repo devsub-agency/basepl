@@ -11,6 +11,7 @@ npx @basepl/cli add BaseplVideo
 
 Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
 Simply run
+
 ```bash
 pnpm generate:types
 ```
@@ -22,52 +23,67 @@ If not you will get an error in the BaseplVideo/Component.tsx file. Because the 
 This is the pre configured admin panel for the video block.
 You can change it to your needs in the `BaseplVideo/Config.ts` file.
 
-<DocsImage imagePath='video-admin-layout.png' alt='Video settings in the admin panel.' />
+<DocsImage
+  imagePath="video-admin-layout.png"
+  alt="Video settings in the admin panel."
+/>
 
 ## Options
 
 An overview of options you can set in the admin panel to customize the video.
 
-### Video 
+### Video
+
 - Video: Choose the video from the media collection.
 - Control panel: Check if you want to display the control panel.
 - Autoplay: Check if you want the video to start playing automatically.
-- Loop sequence: Check if you want the video to loop. 
+- Loop sequence: Check if you want the video to loop.
 - Muted audio: Check if you want the video to be muted.
 - Size: Choose the size of the video.
-    - Fill
-    - Custom: 
-        - Absolute Width 
-            - **true**: Width in px
-            - **false**: Width in % 
-        - Height in px
-        - Object Fit 
-            - Cover
-            - Contain
-            - Fill
-        - Object Position
-            - Top
-            - Bottom
-            - Left
-            - Right
-            - Center
+  - Fill
+  - Custom:
+    - Absolute Width
+      - **true**: Width in px
+      - **false**: Width in %
+    - Height in px
+    - Object Fit
+      - Cover
+      - Contain
+      - Fill
+    - Object Position
+      - Top
+      - Bottom
+      - Left
+      - Right
+      - Center
 
 ## Code
 
 This is the code, if you don't want to use the cli you could copy it from here.
 
-<ConfigPreview name='BaseplVideo' description='A basic reusable block for the media collection only handling videos.' />
+<BlockPreview
+  name="BaseplVideo"
+  description="A basic reusable block for the media collection only handling videos."
+/>
 
 ## Example
 
-### Muted video in loop 
+### Muted video in loop
 
-*Info*: Even if you set loop to true, the autoPlay must be also set to true.
+_Info_: Even if you set loop to true, the autoPlay must be also set to true.
 
-<ComponentPreview name='video-loop-silent' description='A loop that will run in a loop without tone.' />
-**Video source**: [Video by Caleb Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)
+<ComponentPreview
+  name="video-loop-silent"
+  description="A loop that will run in a loop without tone."
+/>
+**Video source**: [Video by Caleb
+Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)
 
 ### Video with control panel
 
-<ComponentPreview name='video-control-panel' description='A video with a control panel.' />
-**Video source**: [Video by Caleb Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)
+<ComponentPreview
+  name="video-control-panel"
+  description="A video with a control panel."
+/>
+**Video source**: [Video by Caleb
+Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)

@@ -8,19 +8,18 @@ import * as React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { codeToHtml } from 'shiki'
 import { getMediaUrl } from '@/lib/media-url'
-import { CopyButton } from './copy-button'
+import { SyntaxHighlighter } from './syntax-highlighter'
 
 interface ConfigPreviewProps {
   name: string
-  componentName: string; 
+  componentName: string
   imagePath: string
   className?: string
 }
 type Tabs = 'Preview' | 'Code'
 
-export function CodePreview({
+export function BlockPreview({
   name,
   className,
   imagePath,
@@ -35,23 +34,8 @@ export function CodePreview({
   useEffect(() => {
     async function loadContent() {
       if (!config) return
-      const configFile = config.file
-      if (configFile) {
-        const fileContent = await getComponentContent(configFile.path)
-        const html = await codeToHtml(fileContent, {
-          lang: 'typescript',
-          theme: 'github-dark',
-          transformers: [
-            {
-              pre(node) {
-                node.properties.style = 'background-color: transparent;'
-                return node
-              },
-            },
-          ],
-        })
-        setConfigContent(html)
-      }
+      const fileContent = await getComponentContent(config.file.path)
+      setConfigContent(fileContent)
     }
     loadContent()
   }, [name])
@@ -77,18 +61,7 @@ export function CodePreview({
           />
         )
       case 'Code':
-        return (
-          <div className="h-full w-full">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: configContent,
-              }}
-            />
-            <div className="absolute right-0 top-0 z-20 pr-5 pt-2">
-              <CopyButton textToCopy={configContent} />
-            </div>
-          </div>
-        )
+        return <SyntaxHighlighter code={configContent} />
       default:
         return <></>
     }

@@ -10,61 +10,64 @@ import * as React from 'react'
 import { SyntaxHighlighter } from './syntax-highlighter'
 
 interface ComponentPreviewProps {
-  name: string
   componentName: string
+  sampleName?: string
   className?: string
 }
-type Tabs = 'Preview' | 'Sample' | 'Code'
+type Tabs = 'Preview' | 'Config sample' | 'Code'
 
 export function ComponentPreview({
-  name,
-  className,
+  sampleName,
   componentName,
+  className,
 }: ComponentPreviewProps) {
   const [sampleCode, setSampleCode] = useState<string>('')
   const [componentContent, setComponentContent] = useState<string>('')
   const [selectedTab, setSelectedTab] = useState<Tabs>('Preview')
 
-  const packageManagers: Tabs[] = ['Preview', 'Sample', 'Code']
-  const component = Index[name]
-  const plComponent = Index[componentName]
-  const Preview = Index[name]?.file?.component
+  const tabsWithSample: Tabs[] = ['Preview', 'Code', 'Config sample']
+  const tabsWithoutSample: Tabs[] = ['Preview', 'Code']
+  const tabs = sampleName ? tabsWithSample : tabsWithoutSample
+  
+  const sampleComponent = sampleName && Index[sampleName]
+  const ComponentPreview = sampleName && Index[sampleName]?.file?.component
+  const component = Index[componentName + '-Component']
 
   useEffect(() => {
     async function loadContent() {
-      if (!component) return
-      const fileContent = await getComponentContent(component.file.path)
+      if (!sampleComponent) return
+      const fileContent = await getComponentContent(sampleComponent.file.path)
       setSampleCode(fileContent)
     }
     async function loadComponent() {
-      if (!plComponent) return
-      const fileContent = await getComponentContent(plComponent.file.path)
+      if (!component) return
+      const fileContent = await getComponentContent(component.file.path)
       setComponentContent(fileContent)
     }
     loadComponent()
     loadContent()
-  }, [name])
+  }, [])
 
   if (!component) {
     return (
       <p className="text-sm text-muted-foreground">
-        Component{' '}
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
-          {name}
-        </code>{' '}
-        not found.
+        sampleComponent not found.
       </p>
     )
   }
 
   function getTabContent(tab: Tabs) {
     switch (tab) {
-      case 'Preview':
-        return <Preview />
-      case 'Sample':
+      case 'Config sample':
         return <SyntaxHighlighter code={sampleCode} />
       case 'Code':
         return <SyntaxHighlighter code={componentContent} />
+      case 'Preview':
+        return (
+          <div className="flex h-96 w-full items-center justify-center overflow-y-auto">
+            <ComponentPreview />
+          </div>
+        )
       default:
         return <></>
     }
@@ -80,7 +83,7 @@ export function ComponentPreview({
         onValueChange={(value) => setSelectedTab(value as Tabs)}
       >
         <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
-          {packageManagers.map((manager) => (
+          {tabs.map((manager) => (
             <TabsTrigger
               key={manager}
               value={manager}
