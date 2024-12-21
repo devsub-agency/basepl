@@ -21,14 +21,16 @@ export function ComponentPreview({
   componentName,
   className,
 }: ComponentPreviewProps) {
+  const initialTab = sampleName ? 'Preview' : 'Code'
+
   const [sampleCode, setSampleCode] = useState<string>('')
   const [componentContent, setComponentContent] = useState<string>('')
-  const [selectedTab, setSelectedTab] = useState<Tabs>('Preview')
+  const [selectedTab, setSelectedTab] = useState<Tabs>(initialTab)
 
   const tabsWithSample: Tabs[] = ['Preview', 'Code', 'Config sample']
-  const tabsWithoutSample: Tabs[] = ['Preview', 'Code']
+  const tabsWithoutSample: Tabs[] = ['Code']
   const tabs = sampleName ? tabsWithSample : tabsWithoutSample
-  
+
   const sampleComponent = sampleName && Index[sampleName]
   const ComponentPreview = sampleName && Index[sampleName]?.file?.component
   const component = Index[componentName + '-Component']
@@ -65,7 +67,7 @@ export function ComponentPreview({
       case 'Preview':
         return (
           <div className="flex h-96 w-full items-center justify-center overflow-y-auto">
-            <ComponentPreview />
+            {sampleName && <ComponentPreview />}
           </div>
         )
       default:
