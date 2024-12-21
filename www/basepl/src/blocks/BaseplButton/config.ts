@@ -1,5 +1,5 @@
 import { Block, Field } from 'payload'
-import {link} from "@/fields/link";
+import { link } from '@/fields/link'
 
 const buttonVariants = [
   { label: 'Default', value: 'default' },

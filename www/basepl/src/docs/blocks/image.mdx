@@ -3,65 +3,83 @@ title: Image
 description: Basic and reusable Image block using the media collection.
 ---
 
-import React from "react";
-import { DocsImage } from "../../components/docs-image";
+import React from 'react'
+import { DocsImage } from '../../components/docs-image'
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
 
 ## Installation
 
-```bash
-npx @basepl/cli add BaseplImage
-```
+You can add the pre-configured button to your project with the command below. If you only want to install the button block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplImage'}
+  pnpmCommand={'npx @basepl/cli add BaseplImage'}
+/>
 
 Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
 Simply run
-```bash
-pnpm generate:types
-```
 
-If not you will get an error in the BaseplImage/Component.tsx file. Because the BaseplImageType is not present.
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
 
-## Admin Preview
+If not you will get an error in the `BaseplImage/Component.tsx` file. Because the BaseplImageType is not present.
 
-This is the pre configured admin panel for the button block.
-You can change it to your needs in the `BaseplButton/Config.ts` file.
+## Image block configuraton
 
-<DocsImage imagePath='image-admin-layout.png' alt='Overview of the payload admin panel with the props of an image. '/>
+Here is the result in the admin panel and the pre-configured image block itself. You can change it to your needs in the `BaseplImage/config.ts`file.
 
-## Options
+<BlockPreview name="BaseplImage" imagePath="admin-button.png" />
 
-An overview of options you can set in the admin panel to customize the image.
+## Image component configuration - optional
 
-### Image
-- Image: Choose the image from the media collection.
-- Size: Choose the size of the image.
-    - Fill
-    - Custom
-        - Absolute Width
-            - **true**: Width in px
-            - **false**: Width in %
-        - Height in px
-        - Object Fit
-            - Cover
-            - Contain
-            - Fill
-        - Object Position
-            - Top
-            - Bottom
-            - Left
-            - Right
-            - Center
-- Priority: check if you want to prevent lazy loading for this image.
+Per default the image block will be installed with prebuild and fully customizable component. To only install the image block read more here.
 
+The basepl image act as a wrapper for the nextjs image tag, to apply admin configurations. You can change it to your needs in the `BasepImage/Component.tsx`.
 
-## Code
+<ComponentPreview sampleName="image-default" componentName="BaseplImage" />
 
-This is the code, if you don't want to use the cli you could copy it from here.
+If you want to find out more about the next js image tag and configuration
+options, take a look at the documentation at [next
+image](https://nextjs.org/docs/pages/api-reference/components/image).
 
-<BlockPreview name='BaseplImage' description='A basic reusable block for the media collection only handling images.' />
+## Predefined image options
 
+If you want to include an image, you can `upload` one or choose one from the media collection. You can also choose between different image options.
 
-## Example
+### Size
 
-Simple example of the image bloc.
+You can `select` between different sizes. If you select the option "custom" you can set either absolute width and height or relative width via `input` fields.
 
-<ComponentPreview name='image-default' description='A basic reusable block for the media collection only handling images.' />
+<Badges label="Size" text="Fill,Custom" />
+<Badges label="Absolute width" text="true,false" />
+<Badges label="Width" text="absolute/relative value" />
+<Badges label="Height" text="absolute value" />
+
+### Object settings
+
+If you choose the "custom" option, you can define the object fit and position using the `select` fields.
+
+<Badges label="Object fit" text="Cover,Contain,Fill" />
+<Badges label="Object position" text="Top,Bottom,Left,Right,Center" />
+
+### Priority
+
+You can check the `checkbox` if you want to prevent lazy loading for this image.
+
+<Badges label="Priority" text="true,false" />
