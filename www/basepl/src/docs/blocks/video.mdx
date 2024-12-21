@@ -3,87 +3,82 @@ title: Video
 description: Video block is used to display a video on the page.
 ---
 
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
 ## Installation
 
-```bash
-npx @basepl/cli add BaseplVideo
-```
+You can add the pre-configured button to your project with the command below. If you only want to install the button block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplVideo'}
+  pnpmCommand={'npx @basepl/cli add BaseplVideo'}
+/>
 
 Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
 Simply run
 
-```bash
-pnpm generate:types
-```
-
-If not you will get an error in the BaseplVideo/Component.tsx file. Because the BaseplVideoType is not present.
-
-## Admin
-
-This is the pre configured admin panel for the video block.
-You can change it to your needs in the `BaseplVideo/Config.ts` file.
-
-<DocsImage
-  imagePath="video-admin-layout.png"
-  alt="Video settings in the admin panel."
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
 />
 
-## Options
+If not you will get an error in the `BaseplVideo/Component.tsx` file. Because the BaseplImageType is not present.
 
-An overview of options you can set in the admin panel to customize the video.
+## Video block configuraton
 
-### Video
+Here is the result in the admin panel and the pre-configured video block itself. You can change it to your needs in the `BaseplVideo/config.ts`file.
 
-- Video: Choose the video from the media collection.
-- Control panel: Check if you want to display the control panel.
-- Autoplay: Check if you want the video to start playing automatically.
-- Loop sequence: Check if you want the video to loop.
-- Muted audio: Check if you want the video to be muted.
-- Size: Choose the size of the video.
-  - Fill
-  - Custom:
-    - Absolute Width
-      - **true**: Width in px
-      - **false**: Width in %
-    - Height in px
-    - Object Fit
-      - Cover
-      - Contain
-      - Fill
-    - Object Position
-      - Top
-      - Bottom
-      - Left
-      - Right
-      - Center
+<BlockPreview name="BaseplVideo" imagePath="admin-button.png" />
 
-## Code
+## Video component configuration - optional
 
-This is the code, if you don't want to use the cli you could copy it from here.
+Per default the video block will be installed with prebuild and fully customizable component. To only install the video block read more here.
 
-<BlockPreview
-  name="BaseplVideo"
-  description="A basic reusable block for the media collection only handling videos."
-/>
+The basepl video act as a wrapper for the nextjs video tag, to apply admin configurations. You can change it to your needs in the `BasepImage/Component.tsx`.
 
-## Example
+<ComponentPreview sampleName="video-loop-silent" componentName="BaseplVideo" />
 
-### Muted video in loop
+If you want to find out more about the video tag and configuration
+options, take a look at the documentation at [w3schools](https://www.w3schools.com/tags/tag_video.asp).
 
-_Info_: Even if you set loop to true, the autoPlay must be also set to true.
+## Predefined video options
 
-<ComponentPreview
-  name="video-loop-silent"
-  description="A loop that will run in a loop without tone."
-/>
-**Video source**: [Video by Caleb
-Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)
+If you want to include an video, you can `upload` one or choose one from the media collection. You can also choose between different video options.
 
-### Video with control panel
+### Size
 
-<ComponentPreview
-  name="video-control-panel"
-  description="A video with a control panel."
-/>
-**Video source**: [Video by Caleb
-Minear](https://www.pexels.com/video/a-pink-flower-in-the-snow-14446908/)
+You can `select` between different sizes. If you select the option "custom" you can set either absolute width and height or relative width via `input` fields.
+
+<Badges label="Size" text="Fill,Custom" />
+<Badges label="Absolute width" text="true,false" />
+<Badges label="Width" text="absolute value,relative value" />
+<Badges label="Height" text="absolute value" />
+
+### Object settings
+
+If you choose the "custom" option, you can define the object fit and position using the `select` fields.
+
+<Badges label="Object fit" text="Cover,Contain,Fill" />
+<Badges label="Object position" text="Top,Bottom,Left,Right,Center" />
+
+### Player settings
+
+You can check the `checkbox` if you want to enable the specific player settings.
+
+<Badges label="Control panel" text="true,false" />
+<Badges label="Autoplay" text="true,false" />
+<Badges label="Loop sequence" text="true,false" />
+<Badges label="Muted audio" text="true,false" />
