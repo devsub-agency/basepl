@@ -3,34 +3,82 @@ title: Getting Started
 description: Get started with Basepl
 ---
 
-## Installation
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
 
-How to install basepl and develop your payload projects in hours not in days. 
+## Prerequisites
 
-### Requirements
+You need the following things to be present and configured.
 
-You need the following things to be present and configured. 
+<br />
+<NotificationContainer
+  context="informational"
+  children={
+    <span>
+      In addition to blocks, you can also use pre-built components. These
+      optional components act as wrappers for the shadnc/ui components. All
+      components can be installed either from the command line or by copying
+      them into your project manually.
+    </span>
+  }
+/>
 
-1. Payload in version 3.0.0 or higher. 
-2. Payload Project: It doesn't matter if you have a new project or an existing project. If you don't know to start check out the [Payload Documentation](https://payloadcms.com/docs/getting-started/installation).
-3. Tailwind CSS: Basepl is using Shadcn/ui for styling. This need Tailwind CSS. If you don't have it installed yet, check out the [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation).
+1. Payload project: It doesn't matter if you have a new project or an existing project. If you don't know to start check out the [Payload Documentation](https://payloadcms.com/docs/getting-started/installation).
+2. We recommend that you use Payload version 3.0.0 or higher and keep the default structure (collections, blocks, fields) to use the installation commands.
 
-4. **Optional** Shadcn/ui: If you don't have it installed yet, basepl will ask if you want to install it during the init process. 
+3. **Optional** - Tailwind CSS: Basepl components rely on Tailwind CSS for styling.
+   If you don't have it installed yet, check out the [Tailwind CSS
+   Documentation](https://tailwindcss.com/docs/installation).
 
-### Command
+4. **Optional** - Shadcn/ui: If you don't have it installed yet, basepl will ask if you want to install it during the init process.
 
-```bash 
-npx @basepl/cli init
-```
+## Install blocks & components
 
-## Options 
+By using this install command you get the `*/config.ts` as well as the `*/Component.tsx` files. Note that this also requires prerequisites 3 and 4. If you don't have shadcn/ui installed, basepl will ask if you want to install it.
 
-You can decide if you only want the config *.ts files or also the unstyled components. If you don't have shadcn/ui, you can only add the config files.
+<CommandPreview
+  npmCommand={'npx @basepl/cli init'}
+  pnpmCommand={'npx @basepl/cli init'}
+/>
 
-```bash
-npx @basepl/cli init --config
-```
+## Install blocks only
+
+If you want to use only the `*/config.ts` files throughout the project, add the `--config` flag to the command.
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli init --config'}
+  pnpmCommand={'npx @basepl/cli init --config'}
+/>
 
 ## Good to know
-Yet we don't provide collections. We are working on it.
-In this time check out our code or the official payload templates if you have no collections yet. The most important is the media collection for images and videos. 
+
+Yet we don't provide any templates or collections.
+In this time check out our code or the official payload templates if you have no collections yet. The most important is the media collection for images and videos.
+
+<br />
+<NotificationContainer
+  context="informational"
+  children={
+    <span>
+      IN PROGRESS - We are working on a template/starter kit, where you can get
+      started easily without thinking about any prerequisites.
+    </span>
+  }
+/>
+<br />
+
+We welcome early feedback and ideas from the [Discord
+community](https://discord.gg/b99KZMW2) to improve the library and plan the next
+steps.
