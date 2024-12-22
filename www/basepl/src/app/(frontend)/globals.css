@@ -94,6 +94,10 @@ li {
   @apply text-muted-foreground;
 }
 
+li::marker {
+  @apply text-foreground;
+}
+
 /* Table */
 
 table {

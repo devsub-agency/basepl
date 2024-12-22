@@ -27,7 +27,7 @@ export const NotificationContainer = ({
           })}
         />
         <CircleAlert
-          className={cn('text-bue-500 hidden size-5 dark:text-sky-400', {
+          className={cn('hidden size-5 text-sky-500 dark:text-sky-400', {
             block: context === 'informational',
           })}
         />

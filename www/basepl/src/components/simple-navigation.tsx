@@ -13,6 +13,7 @@ import {
   Text,
   Type,
   Link as LinkIcon,
+  LayoutPanelTop,
 } from 'lucide-react'
 
 interface DocsNavProps {
@@ -21,14 +22,15 @@ interface DocsNavProps {
 }
 
 const iconsMap = {
-  'getting-started': <Rocket className="h-5 w-5" />,
-  button: <MousePointerClickIcon className="h-5 w-5" />,
-  about: <Book className="h-5 w-5" />,
-  image: <Image className="h-5 w-5" />,
-  video: <Video className="h-5 w-5" />,
-  richtext: <Text className="h-5 w-5" />,
-  label: <Type className="h-5 w-5" />,
-  link: <LinkIcon className="h-5 w-5" />,
+  'getting-started': <Rocket className="size-5" />,
+  button: <MousePointerClickIcon className="size-5" />,
+  about: <Book className="size-5" />,
+  image: <Image className="size-5" />,
+  video: <Video className="size-5" />,
+  richtext: <Text className="size-5" />,
+  label: <Type className="size-5" />,
+  link: <LinkIcon className="size-5" />,
+  start: <LayoutPanelTop className="size-5" />,
 }
 
 export function DocsNav({ items, setIsOpen }: DocsNavProps) {
@@ -65,7 +67,9 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
                   },
                 )}
               >
-                {(iconsMap as any)[getLastPath(item.href)] || <Book />}
+                {(iconsMap as any)[getLastPath(item.href)] || (
+                  <Book className="size-5" />
+                )}
                 {firstLetterToUpperCase(item.title)}
               </Link>
             ))}
