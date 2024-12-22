@@ -1,4 +1,4 @@
-# base pl
+# basepl
 
 Platform for information, templates and components for the payload cms.
 
