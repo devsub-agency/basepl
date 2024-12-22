@@ -15,7 +15,7 @@ import { BaseplLogo } from '../Logos/BaseplLogo'
 
 interface HeaderClientProps {
   // todo: needs to be replaced with payload data
-  menuItems: string[]
+  menuItems: { title: string; href: string }[]
 }
 export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   const { theme, setTheme } = useTheme()
@@ -33,7 +33,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex w-full flex-col justify-between gap-4 bg-background md:flex-row md:rounded-lg md:bg-accent/60 md:px-4 md:py-2 md:backdrop-blur-md md:dark:bg-accent/30',
+        'flex w-full flex-col gap-4 bg-background md:flex-row md:rounded-lg md:bg-accent/60 md:px-4 md:py-2 md:backdrop-blur-md md:dark:bg-accent/30',
         { 'bg-background': showMenu },
       ])}
     >
@@ -43,16 +43,18 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
           {showMenu ? <X /> : <Menu />}
         </div>
       </div>
-      <NavigationMenu className={cn([{ 'hidden sm:flex': !showMenu }])}>
+      <NavigationMenu
+        className={cn(['md:pl-4', { 'hidden sm:flex': !showMenu }])}
+      >
         <NavigationMenuList className="flex flex-col items-start md:flex-row">
           {menuItems.map((item, index) => (
-            <NavigationMenuItem key={index}>
-              <Link href={index !== 3 ? '/' : '/posts'}>
+            <NavigationMenuItem key={index} className="!ml-0">
+              <Link href={item.href}>
                 <Button
                   variant="ghost"
                   className="text-muted-foreground hover:bg-transparent dark:hover:text-foreground"
                 >
-                  {item}
+                  {item.title}
                 </Button>
               </Link>
             </NavigationMenuItem>
@@ -61,7 +63,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
       </NavigationMenu>
       <div
         className={cn([
-          'flex items-center justify-between gap-4 p-4 md:p-0',
+          'ml-auto flex items-center justify-between gap-4 p-4 md:p-0',
           { 'hidden sm:flex': !showMenu },
         ])}
       >
@@ -70,17 +72,13 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
             <Sun className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
             <Moon className="h-[1.2rem] w-[1.2rem] dark:hidden" />
           </Button>
-          <Link
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link href="https://github.com/devsub-agency/basepl" target="_blank">
             <Button variant="ghost" size="icon">
               <GithubLogo />
             </Button>
           </Link>
         </div>
-        <Link href="/">
+        <Link href="/docs/getting-started">
           <Button variant="default" className="h-8 rounded-lg">
             {mockCta}
           </Button>
