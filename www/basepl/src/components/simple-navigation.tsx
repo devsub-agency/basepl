@@ -39,13 +39,17 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
     return parts[parts.length - 1]
   }
 
+  const firstLetterToUpperCase = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
   return (
     <div className="w-full space-y-4 pr-2">
       {items.map((group) => (
         <div key={group.title}>
-          <h4 className="pb-2 text-sm font-medium text-foreground/80">
-            {group.title}
-          </h4>
+          <span className="block pb-2 text-sm font-medium text-foreground/80">
+            {firstLetterToUpperCase(group.title)}
+          </span>
           <div className="flex flex-col pb-2">
             {group.items.map((item) => (
               <Link
@@ -62,7 +66,7 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
                 )}
               >
                 {(iconsMap as any)[getLastPath(item.href)] || <Book />}
-                {item.title}
+                {firstLetterToUpperCase(item.title)}
               </Link>
             ))}
           </div>

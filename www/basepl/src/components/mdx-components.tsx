@@ -7,11 +7,13 @@ import { ComponentPreview } from './component-preview'
 import { BlockPreview } from './block-preview'
 import { cn } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { DocsCardsContainer } from './docs-cards-container'
 import { DocsImage } from './docs-image'
 import { Badges } from './badges'
 
 const components = {
   NotificationContainer,
+  DocsCardsContainer,
   CommandPreview,
   ComponentPreview,
   BlockPreview,
