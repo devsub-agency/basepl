@@ -22,18 +22,6 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/blocks/BaseplButton/config.ts"
     }
   },
-  "BaseplImage-Component": {
-    name: "BaseplImage-Component",
-    file: {
-      path: "src/blocks/BaseplImage/Component.tsx"
-    }
-  },
-  "BaseplImage": {
-    name: "BaseplImage",
-    file: {
-      path: "src/blocks/BaseplImage/config.ts"
-    }
-  },
   "BaseplRichtext-Component": {
     name: "BaseplRichtext-Component",
     file: {
@@ -44,6 +32,18 @@ export const Index: Record<string, RegistryItem> = {
     name: "BaseplRichtext",
     file: {
       path: "src/blocks/BaseplRichtext/config.ts"
+    }
+  },
+  "BaseplImage-Component": {
+    name: "BaseplImage-Component",
+    file: {
+      path: "src/blocks/BaseplImage/Component.tsx"
+    }
+  },
+  "BaseplImage": {
+    name: "BaseplImage",
+    file: {
+      path: "src/blocks/BaseplImage/config.ts"
     }
   },
   "BaseplVideo-Component": {

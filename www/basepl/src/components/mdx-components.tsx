@@ -8,7 +8,6 @@ import { BlockPreview } from './block-preview'
 import { cn } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DocsCardsContainer } from './docs-cards-container'
-import { DocsImage } from './docs-image'
 import { Badges } from './badges'
 import Link from 'next/link'
 
@@ -18,7 +17,6 @@ const components = {
   CommandPreview,
   ComponentPreview,
   BlockPreview,
-  DocsImage,
   Badges,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
