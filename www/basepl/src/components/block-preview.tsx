@@ -1,75 +1,67 @@
 'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useEffect, useState } from 'react'
 import { Index } from '@/docs'
-
 import { getComponentContent } from '@/lib/file-reader'
 import { cn } from '@/lib/utils'
+import '@/style/mdx.css'
 import * as React from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { getMediaUrl } from '@/lib/media-url'
 import { SyntaxHighlighter } from './syntax-highlighter'
 
-interface ComponentPreviewProps {
+interface ConfigPreviewProps {
+  name: string
   componentName: string
-  sampleName?: string
+  imagePath: string
   className?: string
 }
-type Tabs = 'Preview' | 'Config sample' | 'Code'
+type Tabs = 'Preview' | 'Code'
 
-export function ComponentPreview({
-  sampleName,
-  componentName,
+export function BlockPreview({
+  name,
   className,
-}: ComponentPreviewProps) {
-  const initialTab = sampleName ? 'Preview' : 'Code'
+  imagePath,
+}: ConfigPreviewProps) {
+  const [configContent, setConfigContent] = useState<string>('')
+  const [selectedTab, setSelectedTab] = useState<Tabs>('Preview')
 
-  const [sampleCode, setSampleCode] = useState<string>('')
-  const [componentContent, setComponentContent] = useState<string>('')
-  const [selectedTab, setSelectedTab] = useState<Tabs>(initialTab)
-
-  const tabsWithSample: Tabs[] = ['Preview', 'Code', 'Config sample']
-  const tabsWithoutSample: Tabs[] = ['Code']
-  const tabs = sampleName ? tabsWithSample : tabsWithoutSample
-
-  const sampleComponent = sampleName && Index[sampleName]
-  const ComponentPreview = sampleName && Index[sampleName]?.file?.component
-  const component = Index[componentName + '-Component']
+  const packageManagers: Tabs[] = ['Preview', 'Code']
+  const finalImageUrl = getMediaUrl(imagePath)
+  const config = Index[name]
 
   useEffect(() => {
     async function loadContent() {
-      if (!sampleComponent) return
-      const fileContent = await getComponentContent(sampleComponent.file.path)
-      setSampleCode(fileContent)
+      if (!config) return
+      const fileContent = await getComponentContent(config.file.path)
+      setConfigContent(fileContent)
     }
-    async function loadComponent() {
-      if (!component) return
-      const fileContent = await getComponentContent(component.file.path)
-      setComponentContent(fileContent)
-    }
-    loadComponent()
     loadContent()
-  }, [])
+  }, [name])
 
-  if (!component) {
+  if (!config) {
     return (
       <p className="text-sm text-muted-foreground">
-        sampleComponent not found.
+        Component not found in registry.
       </p>
     )
   }
 
   function getTabContent(tab: Tabs) {
     switch (tab) {
-      case 'Config sample':
-        return <SyntaxHighlighter code={sampleCode} />
-      case 'Code':
-        return <SyntaxHighlighter code={componentContent} />
       case 'Preview':
         return (
-          <div className="flex h-96 w-full items-center justify-center overflow-y-auto">
-            {sampleName && <ComponentPreview />}
-          </div>
+          <Image
+            src={finalImageUrl}
+            alt={name}
+            className="w-full rounded-lg object-contain"
+            width={600}
+            height={600}
+          />
         )
+      case 'Code':
+        return <SyntaxHighlighter code={configContent} />
       default:
         return <></>
     }
@@ -85,7 +77,7 @@ export function ComponentPreview({
         onValueChange={(value) => setSelectedTab(value as Tabs)}
       >
         <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
-          {tabs.map((manager) => (
+          {packageManagers.map((manager) => (
             <TabsTrigger
               key={manager}
               value={manager}

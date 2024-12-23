@@ -1,9 +1,9 @@
-import {LinkType} from '@/payload-types'
-import {BaseplButton} from "@/blocks/BaseplButton/Component";
+import { LinkType } from '@/payload-types'
+import { BaseplButton } from '@/blocks/BaseplButton/Component'
 
 export default function ButtonDefault() {
   const link: LinkType = {
-    label: "Button",
+    label: 'Button',
     externalUrl: null,
     emailAddress: null,
     slug: null,
@@ -12,10 +12,15 @@ export default function ButtonDefault() {
     isOpenNewTab: false,
     hasNoReferrer: true,
     fileReference: null,
-    targetType: "page",
+    targetType: 'page',
   }
 
   return (
-    <BaseplButton link={link} variant={"default"} size={"lg"} blockType={"baseplButton"}/>
+    <BaseplButton
+      link={link}
+      variant={'default'}
+      size={'lg'}
+      blockType={'baseplButton'}
+    />
   )
 }

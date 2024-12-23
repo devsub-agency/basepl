@@ -70,24 +70,42 @@ html {
   scroll-padding-top: 12rem;
 }
 
+/* Text */
+
+p,
+a,
+span,
+ul,
+li {
+  @apply font-light;
+}
+
 h2 {
-  @apply text-2xl font-semibold mb-2;
+  @apply mb-2 text-2xl font-semibold;
 }
 
 h3 {
-  @apply text-xl font-semibold mb-2;
+  @apply mb-2 text-xl font-semibold;
 }
 
-p {
+p,
+ul,
+li {
   @apply text-muted-foreground;
 }
+
+li::marker {
+  @apply text-foreground;
+}
+
+/* Table */
 
 table {
   @apply w-full;
 }
 
 th {
-  @apply bg-foreground/5 font-semibold !border-foreground/10;
+  @apply !border-foreground/10 bg-foreground/5 font-semibold;
 }
 
 th p {
@@ -95,13 +113,19 @@ th p {
 }
 
 td {
-  @apply text-foreground !border-foreground/10;
+  @apply !border-foreground/10 text-foreground;
 }
+
+/* Anchor tags */
 
 p a {
   @apply text-primary underline decoration-emerald-500;
 }
 
-p a span{
+li a {
+  @apply text-primary underline decoration-emerald-500;
+}
+
+p a span {
   @apply text-primary underline decoration-emerald-500;
 }

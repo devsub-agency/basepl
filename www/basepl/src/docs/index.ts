@@ -4,12 +4,6 @@ import React from "react";
 import { RegistryItem } from "./schema";
 
 export const Index: Record<string, RegistryItem> = {
-  "label": {
-    name: "label",
-    file: {
-      path: "src/fields/label.ts"
-    }
-  },
   "link": {
     name: "link",
     file: {
@@ -28,18 +22,6 @@ export const Index: Record<string, RegistryItem> = {
       path: "src/blocks/BaseplButton/config.ts"
     }
   },
-  "BaseplImage-Component": {
-    name: "BaseplImage-Component",
-    file: {
-      path: "src/blocks/BaseplImage/Component.tsx"
-    }
-  },
-  "BaseplImage": {
-    name: "BaseplImage",
-    file: {
-      path: "src/blocks/BaseplImage/config.ts"
-    }
-  },
   "BaseplRichtext-Component": {
     name: "BaseplRichtext-Component",
     file: {
@@ -50,6 +32,18 @@ export const Index: Record<string, RegistryItem> = {
     name: "BaseplRichtext",
     file: {
       path: "src/blocks/BaseplRichtext/config.ts"
+    }
+  },
+  "BaseplImage-Component": {
+    name: "BaseplImage-Component",
+    file: {
+      path: "src/blocks/BaseplImage/Component.tsx"
+    }
+  },
+  "BaseplImage": {
+    name: "BaseplImage",
+    file: {
+      path: "src/blocks/BaseplImage/config.ts"
     }
   },
   "BaseplVideo-Component": {
@@ -69,62 +63,6 @@ export const Index: Record<string, RegistryItem> = {
     file: {
       path: "src/examples/blocks/button/default.tsx",
       component: React.lazy(() => import("@/examples/blocks/button/default.tsx"))
-    }
-  },
-  "button-destructive": {
-    name: "button-destructive",
-    file: {
-      path: "src/examples/blocks/button/destructive.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/destructive.tsx"))
-    }
-  },
-  "button-external": {
-    name: "button-external",
-    file: {
-      path: "src/examples/blocks/button/external.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/external.tsx"))
-    }
-  },
-  "button-ghost": {
-    name: "button-ghost",
-    file: {
-      path: "src/examples/blocks/button/ghost.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/ghost.tsx"))
-    }
-  },
-  "button-icon-end": {
-    name: "button-icon-end",
-    file: {
-      path: "src/examples/blocks/button/icon-end.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/icon-end.tsx"))
-    }
-  },
-  "button-icon-start": {
-    name: "button-icon-start",
-    file: {
-      path: "src/examples/blocks/button/icon-start.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/icon-start.tsx"))
-    }
-  },
-  "button-link": {
-    name: "button-link",
-    file: {
-      path: "src/examples/blocks/button/link.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/link.tsx"))
-    }
-  },
-  "button-outline": {
-    name: "button-outline",
-    file: {
-      path: "src/examples/blocks/button/outline.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/outline.tsx"))
-    }
-  },
-  "button-secondary": {
-    name: "button-secondary",
-    file: {
-      path: "src/examples/blocks/button/secondary.tsx",
-      component: React.lazy(() => import("@/examples/blocks/button/secondary.tsx"))
     }
   },
   "image-default": {

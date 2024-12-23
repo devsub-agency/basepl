@@ -1,63 +1,67 @@
 ---
-title: RichText Editor
+title: Richtext
 description: Powerful and versatile text editor for creating rich text content.
 ---
 
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
 ## Installation
 
-```bash
-npx @basepl/cli add BaseplRichText
-```
+You can add the pre-configured richtext elements to your project with the command below. If you only want to install the richtext block check the reference [here](/docs/getting-started).
 
-Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.\
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplRichText'}
+  pnpmCommand={'npx @basepl/cli add BaseplRichText'}
+/>
+
+Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
 Simply run
 
-```bash
-pnpm generate:types
-```
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
 
-If not you will get an error in the BaseplRichText/Component.tsx file. Because the BaseplRichTextType is not present.
+If not you will get an error in the `blocks/BaseplRichtext/Component.tsx` file. Because the BaseplImageType is not present.
 
-## Admin Preview
+## Richtext block configuraton
 
-This is the pre-configured admin panel for the rich text editor block.
-You can change it to your needs in the `BaseplRichText/Config.ts` file.
+Here is the result in the admin panel and the pre-configured richtext block itself. You can change it to your needs in the `block/BaseplRichtext/config.ts`file.
 
-<DocsImage imagePath='richtext-admin-layout1.png' alt='Layout options for the rich text editor block in the admin panel.' />
+<BlockPreview name="BaseplRichtext" imagePath="richtext-preview-dark.png" />
 
-<DocsImage imagePath='richtext-admin-layout2.png' alt='Layout options for the rich text editor block in the admin panel with opened element list.' />
+## Richtext component configuration - optional
 
-## Options 
+Per default the richtext block will be installed with prebuild and fully customizable component. To only install the richtext block read more [here](/docs/getting-started).
 
-The Rich Text Editor is a really powerful tool. If you have no experience with it check out the official [rich-text @payload](https://payloadcms.com/docs/fields/rich-text).
+The basepl richtext act as a wrapper for the richtext-lexical, to apply admin configurations. You can change it to your needs in the `blocks/BaseplRichtext/Component.tsx`.
 
-This Rich Text Editor simply extends the lexicalEditor from payload. This is the editor with the most features already included. We added the BaseplButton, BaseplImage and BaseplVideo to the editor. So you can easily add these blocks to your text.
-So you could design an entire website with this editor.
+<ComponentPreview componentName="BaseplRichtext" />
 
-We would recommend overwrite the configuration for your use case. It might be best to not include all properties. 
+If you want to find out more about the richtext and configuration
+options, take a look at the documentation at [lexical.dev](https://lexical.dev/).
 
-## Code
+## Preconfigured richtext options
 
-This is the code, if you don't want to use the cli you could copy it from here.
+You can customize or extend the richtext component and block as you wish. By default, the rich text is designed for simple blog articles.
 
-<ConfigPreview name='BaseplRichText' description='A powerful and versatile text editor for creating rich text content.' />
+### Basic features
 
-## Examples 
+These features make rich text editing easier with a fixed toolbar and an inline toolbar.
 
-Due to the complexity of the editor it we don't implemented an example as with the other blocks. 
+### Blocks
 
-But here are 2 example images. With the rendered final result and the content in the admin panel. 
-
-### Example 1
-**Admin Panel**
-<DocsImage imagePath='richtext-example-admin1.png' alt='Example of a rich text editor block in the admin panel.' />
-
-**Result**
-<DocsImage imagePath='richtext-example-result1.png' alt='Example of a rich text editor block in the admin panel.' />
-
-### Example 2
-**Admin Panel**
-<DocsImage imagePath='richtext-example-admin2.png' alt='Example of a rich text editor block in the admin panel.' />
-
-**Result**
-<DocsImage imagePath='richtext-example-result2.png' alt='Example of a rich text editor block in the admin panel.' />
+In the richtext block itself you can define features and further blocks that you want to use. You can display blocks within the component by the JSXConverter function.

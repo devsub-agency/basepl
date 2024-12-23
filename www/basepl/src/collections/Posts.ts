@@ -6,9 +6,9 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 import type { CollectionConfig } from 'payload'
 import { populateAuthors } from './hooks/populateAuthors'
-import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -129,7 +129,12 @@ export const Posts: CollectionConfig = {
                     width: '50%',
                   },
                 },
-                { type: 'number', name: 'readingTime', required: true, admin: { width: '50%' } },
+                {
+                  type: 'number',
+                  name: 'readingTime',
+                  required: true,
+                  admin: { width: '50%' },
+                },
               ],
             },
             {

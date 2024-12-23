@@ -22,7 +22,8 @@ export const BaseplVideo = (props: BaseplVideoType) => {
   const fallBackHeight = 500
   const fallBackWidth = 500
 
-  const width = (isAbsoluteWidth ? absoluteWidth : relativeWidth + '%') ?? fallBackWidth
+  const width =
+    (isAbsoluteWidth ? absoluteWidth : relativeWidth + '%') ?? fallBackWidth
   const height = absoluteHeight ?? fallBackHeight
 
   return (

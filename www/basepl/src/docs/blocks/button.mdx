@@ -1,99 +1,86 @@
 ---
 title: Button
-description: Basic and reusable Button block
+description: Basic and reusable Button block and component.
 ---
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
 
 ## Installation
 
-```bash
-npx @basepl/cli add BaseplButton
-```
+You can add the pre-configured button elements to your project with the command below. If you only want to install the button block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplButton'}
+  pnpmCommand={'npx @basepl/cli add BaseplButton'}
+/>
 
 Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
 Simply run
-```bash
-pnpm generate:types
-```
 
-If not you will get an error in the BaseplButton/Component.tsx file. Because the BaseplButtonType is not present.
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
 
-## Admin Preview
+If not you will get an error in the `blocks/BaseplButton/Component.tsx` file. Because the BaseplButtonType is not present.
 
-This is the pre configured admin panel for the button block.
-You can change it to your needs in the `BaseplButton/Config.ts` file.
+## Button block configuraton
 
-<DocsImage imagePath='button-admin-layout.png' alt='Layout options for the button block in the admin panel.' />
+Here is the result in the admin panel and the pre-configured button block itself.
+You can change it to your needs in the `blocks/BaseplButton/config.ts` file.
 
-## Options 
+<BlockPreview name="BaseplButton" imagePath="button-preview-dark.png" />
 
-An overview of options you can set in the admin panel to customize the button.
+## Button component configuraton - optional
 
-### Link 
-- Label: The text that will be displayed on the button.
-- Target Type: What type the button should be.
-    - Page: Either a page reference or the slug to a page.
-    - File Download: Link to a file download. 
-    - External URL: Link to an external website.
-        - Open in new Tab: Should be self-explanatory.
-        - No referrer: If a referral is present.
-    - Email Address: mailto: link to an email address.
-### Styling 
-- Icon: Check if you want to use an icon instead of the label text. 
-    - Icon: Choose the icon from the media collection. 
-    - Icon at Start: Choose if the icon should be placed at the start or the end of the button.
-- Variant: Choose the style of the button. [Check out the examples](#example)
-    - Default
-    - Secondary
-    - Outline
-    - Destructive
-    - Ghost
-    - Link
-- Size: Choose the size of the button.
-    - Small
-    - Medium
-    - Large
+Per default the block will be installed with prebuild and fully customizable components. To only install the button block read more [here](/docs/getting-started).
 
-## Code
+The basepl button act as a wrapper for the shadcn button component, to apply admin configurations.
+You can change it ether to your needs in the `blocks/BaseplButton/Component.tsx` file or in the `components/ui/button.tsx` file.
 
-This is the code, if you don't want to use the cli you could copy it from here.
+<ComponentPreview sampleName="button-default" componentName="BaseplButton" />
 
-<ConfigPreview name='BaseplButton' description='A basic, reusable button for different blocks and components.' />
+If you want to find out more about the button styling variants and configuration options, take a look at the documentation at [shadcn docs](https://ui.shadcn.com/docs/components/button).
 
+## Predefined button options
 
-## Example
+You can choose between different button options. Options for styling match the availabe shadcn button configurations.
 
-### Default large button
+### Icons
 
-<ComponentPreview name='button-default' description="A large button with a default style." />
+If you want to use an additional icon, you have the possibility to check the `checkbox` and do an `upload` with the icon of your choice or refer to one from the media collection.
 
-### Link large button
+<Badges label="Add icon" text="true,false" />
+<Badges label="Position" text="Start,End" />
 
-<ComponentPreview name='button-link' description="Button to be used as a link." />
+### Variants
 
-### External large button
+In the admin panel, you can choose between different variants using the `select` within the styling options.
 
-<ComponentPreview name='button-external' description="Button with external reference." />
+<Badges
+  label="Variants"
+  text="Default,Secondary,Outline,Destructive,Ghost,Link"
+/>
 
-### Secondary button
+### Sizes
 
-<ComponentPreview name='button-secondary' description="Secondary button style." />
+You can choose between different sizes via the `select` dropdown within the styling options.
 
-### Outline button
+<Badges label="Sizes" text="Default,Small,Medium,Large" />
 
-<ComponentPreview name='button-outline' description="Outline button style." />
+### Link options
 
-### Destructive button
-
-<ComponentPreview name='button-destructive' description="Destructive button style." />
-
-### Ghost button
-
-<ComponentPreview name='button-ghost' description="Ghost button style." />
-
-### Button with icon start 
-
-<ComponentPreview name='button-icon-start' description="Button with icon at the start." />
-
-### Button with icon end
-
-<ComponentPreview name='button-icon-end' description="Button with icon at the end." />
+To read more about the link field, check the options [here](/docs/fields/link).

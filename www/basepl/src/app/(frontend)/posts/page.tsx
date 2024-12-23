@@ -25,9 +25,9 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
         <Image
           src={(article.image as Media)?.url ?? ''}
           alt={(article.image as Media)?.alt ?? ''}
-          fill
           className="object-cover rounded-xl"
           priority={isFeatured}
+          fill
         />
         <div className="absolute left-4 top-4">
           <Badge variant="secondary" className="bg-white/10 text-white backdrop-blur-sm">

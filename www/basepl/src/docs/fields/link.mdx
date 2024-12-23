@@ -3,33 +3,63 @@ title: Link
 description: The Link field allows you to add a link to your content.
 ---
 
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
 ## Installation
 
-```bash
-npx @basepl/cli add link
-```
+You can add the pre-configured link block to your project with the command below.
 
-## Usage
+<CommandPreview
+  npmCommand={'npx @basepl/cli add link'}
+  pnpmCommand={'npx @basepl/cli add link'}
+/>
 
-```ts
-import { Label } from '@/fields/link';
-```
+## Link block configuraton
 
-Simply add the label to the field array of your desired configuration.
+Here is the result in the admin panel and the pre-configured link block itself. You can change it to your needs in the `fields/link.ts`file.
 
-```ts
-fields: [
-    link
-]
-```
+<BlockPreview name="link" imagePath="admin-button.png" />
 
-## Configuration
+## Predefined link options
 
-This is the default configuration file you can add to your project.
+You can set your target, a label and also choose between different link options. Per default you can `select` between 4 different targets.
 
-<ConfigPreview name='link' description='Simple but powerful Link.' />
+### Label
 
-## Usage
+You can define the label of the link through the `text` field.
 
-This field is used directly in the button block. This field is probably one of the most important fields. It can represent the entire navigation of your website.
-You can configure it as you need it. External link that opens in a new tab, internal link, link on the same page, etc.
+### Targets
+
+With the target type "Page" you can either `select` a page from the page collection or enter a custom `text `slug by checking the `checkbox` "Use slug instead".
+
+<Badges label="Page" text="id,text" />
+<br />
+
+The target type "Email" allows you to enter an email address via the `text` field. It has a simple validation for email addresses.
+
+<Badges label="Email Adress" text="text" />
+<br />
+
+The target type "External" allows you to enter an external link via the `Text` field and also to set some options for the referrer and target type via `Checkboxes`.
+
+<Badges label="External URL" text="text" />
+<Badges label="Open in new tab" text="true,false" />
+<Badges label="No referrer" text="true,false" />
+<br />
+
+"File Download" allows you to link to files. You can use `upload` or select a file from the Media collection.
+
+<Badges label="File Reference" text="upload" />

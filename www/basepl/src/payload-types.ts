@@ -267,11 +267,7 @@ export interface PostsSelect<T extends boolean = true> {
   readingTime?: T;
   headline?: T;
   image?: T;
-  content?:
-    | T
-    | {
-        content?: T;
-      };
+  content?: T | BaseplRichtextTypeSelect<T>;
   meta?:
     | T
     | {
@@ -282,6 +278,13 @@ export interface PostsSelect<T extends boolean = true> {
   publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BaseplRichtextType_select".
+ */
+export interface BaseplRichtextTypeSelect<T extends boolean = true> {
+  content?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
