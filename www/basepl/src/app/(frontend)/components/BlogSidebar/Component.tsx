@@ -122,7 +122,7 @@ export const BlogSidebar = () => {
 
   return (
     <>
-      <div className="hidden lg:block">
+      <div className="relative hidden max-w-80 lg:block">
         <div className="sticky top-32">
           {tableOfContentsHeadline}
           <TableOfContents items={tableOfContents} />
