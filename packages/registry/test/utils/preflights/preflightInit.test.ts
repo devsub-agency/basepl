@@ -72,6 +72,16 @@ describe('Project Setup Checks', () => {
       expect(result.isSupportedPayloadVersion).toBe(true)
     })
 
+    it('handles valid version', async () => {
+      vi.mocked(existsSync).mockReturnValue(true)
+      vi.mocked(fs.readJson).mockResolvedValue({
+        dependencies: { payload: '3.9.0' }
+      })
+
+      const result = await getPayloadAppDetails('/test/path')
+      expect(result.isSupportedPayloadVersion).toBe(true)
+    })
+
     it('handles invalid version format', async () => {
       vi.mocked(existsSync).mockReturnValue(true)
       vi.mocked(fs.readJson).mockResolvedValue({
