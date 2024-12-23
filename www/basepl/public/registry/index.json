@@ -32,29 +32,6 @@
     "registryDependencies": []
   },
   {
-    "name": "BaseplRichtext",
-    "type": "templates/blocks",
-    "files": [
-      {
-        "path": "BaseplRichtext/Component.tsx",
-        "type": "templates/blocks"
-      },
-      {
-        "path": "BaseplRichtext/config.ts",
-        "type": "templates/blocks"
-      },
-      {
-        "path": "BaseplRichtext/RichText.tsx",
-        "type": "templates/blocks"
-      }
-    ],
-    "registryDependencies": [
-      "BaseplImage",
-      "BaseplVideo",
-      "BaseplButton"
-    ]
-  },
-  {
     "name": "BaseplVideo",
     "type": "templates/blocks",
     "files": [
@@ -70,15 +47,23 @@
     "registryDependencies": []
   },
   {
-    "name": "label",
-    "type": "templates/fields",
+    "name": "BaseplRichtext",
+    "type": "templates/blocks",
     "files": [
       {
-        "path": "label.ts",
-        "type": "templates/fields"
+        "path": "BaseplRichtext/Component.tsx",
+        "type": "templates/blocks"
+      },
+      {
+        "path": "BaseplRichtext/config.ts",
+        "type": "templates/blocks"
       }
     ],
-    "registryDependencies": []
+    "registryDependencies": [
+      "BaseplImage",
+      "BaseplVideo",
+      "BaseplButton"
+    ]
   },
   {
     "name": "link",
