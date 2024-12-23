@@ -6,13 +6,13 @@ import React, { cache } from 'react'
 import type { Media, Post } from '@/payload-types'
 import { redirect } from 'next/navigation'
 import { generateMeta } from '@/utilities/generateMetadata'
-import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
 import { BlogHero } from '../../components/BlogHero/Component'
 import { BlogSidebar } from '../../components/BlogSidebar/Component'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { DiscordLogo } from '../../components/Logos/DiscordLogo'
+import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })

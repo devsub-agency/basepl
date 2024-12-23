@@ -24,7 +24,7 @@ const add = new Command("add")
     "the working directory. defaults to the current directory.",
     process.cwd(),
   )
-  .option("--config", "only add the config.ts without component", false)
+  .option("--config", "only add the label.ts without component", false)
   .action(async (comp, opt) => {
     try {
       const options = addOptionsSchema.parse({

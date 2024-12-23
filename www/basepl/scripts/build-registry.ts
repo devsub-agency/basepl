@@ -1,52 +1,54 @@
-import { z } from 'zod'
-import path from 'path'
-import fs from 'fs-extra'
-import glob from 'fast-glob'
-import { registryFileSchemaType } from 'templates/schema';
+import glob from 'fast-glob';
+import fs from 'fs-extra';
+import path from 'path';
 
 function parseRegistryDependencies(content: string): string[] {
-  const importRegex = /import\s*{([^}]+)}\s*from\s*['"]\.\.\/([^/'"\s]+)/g;
+  const importPatterns = [
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']@\/fields\/([^'"]+)["']/g,
+      groupIndex: 2
+    },
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']\.\.\/([^/]+)\/config["']/g,
+      groupIndex: 2
+    },
+    {
+      pattern: /import\s*{\s*([^}]+)\s*}\s*from\s*["']\.\/([^/]+)["']/g,
+      groupIndex: 2
+    }
+  ];
+  
   const deps = new Set<string>();
   
-  let match;
-  while ((match = importRegex.exec(content)) !== null) {
-    const componentPath = match[2];
-    if (componentPath) {
-      deps.add(componentPath);
+  for (const {pattern, groupIndex} of importPatterns) {
+    let match;
+    while ((match = pattern.exec(content)) !== null) {
+      const componentName = match[groupIndex];
+      if (componentName) {
+        deps.add(componentName);
+      }
     }
   }
   
   return Array.from(deps);
 }
 
-//TODO notice external dependencies automatically
-async function buildRegistry() {
-  const templatesDir = path.join(process.cwd(), 'templates')
-  const publicDir = path.join(process.cwd(), 'public/registry')
-  
-  await fs.ensureDir(publicDir)
-  
-  const files = await glob('**/*.{ts,tsx}', {
-    cwd: templatesDir
-  })
-  
-  // Group files by component name
-  const components = new Map<string, {
-    name: string;
-    type: string;
-    files: any[];
-    registryDependencies: Set<string>;
-  }>();
-  
+async function processFiles(files: string[], baseDir: string, components: Map<string, any>, publicDir: string, isBlock: boolean) {
   for (const file of files) {
-    if (file.includes('schema.ts')) continue;
-    
-    const [type, name, filename] = file.split('/')
-    const filePath = path.join(templatesDir, file)
+    if (file.includes('schema.ts') || file.includes('index.ts')) continue;
+
+    const pathParts = file.split('/')
+    const type = isBlock ? 'blocks' : 'fields'
+
+    // For blocks: first part is component name, last part is filename
+    const name = isBlock ? pathParts[0] : path.parse(file).name
+    const filename = path.parse(pathParts[pathParts.length - 1]).name
+
+    const filePath = path.join(baseDir, file)
     const content = await fs.readFile(filePath, 'utf-8')
-    const registryType = `templates/${type}` as z.infer<typeof registryFileSchemaType>
-    
-    // Get or create component group
+    const registryType = `templates/${type}`
+
+    // Rest of component handling remains the same
     let component = components.get(name);
     if (!component) {
       component = {
@@ -57,20 +59,17 @@ async function buildRegistry() {
       };
       components.set(name, component);
     }
-    
-    // Add file to component
+
     component.files.push({
       path: file,
       type: registryType
     });
-    
-    // Parse and add dependencies
+
     const deps = parseRegistryDependencies(content);
     deps.forEach(dep => component.registryDependencies.add(dep));
-    
-    // Write individual file
+
     const registryItem = {
-      name: path.parse(filename).name,
+      name: filename,
       type: registryType,
       files: {
         path: file,
@@ -78,26 +77,49 @@ async function buildRegistry() {
         content
       }
     };
-    
-    const targetPath = path.join(
-      publicDir, 
-      type,
-      name,
-      `${path.parse(filename).name}.json`
-    );
-    
+
+    const targetPath = isBlock
+      ? path.join(publicDir, type, name, `${filename}.json`)
+      : path.join(publicDir, type, `${filename}.json`);
+
     await fs.ensureDir(path.dirname(targetPath));
     await fs.writeJson(targetPath, registryItem, { spaces: 2 });
   }
-  
-  // Create index with dependencies
+}
+
+async function buildRegistry() {
+  const blocksDir = path.join(process.cwd(), 'src/blocks')
+  const fieldsDir = path.join(process.cwd(), 'src/fields')
+  const publicDir = path.join(process.cwd(), 'public/registry')
+
+  await fs.ensureDir(publicDir)
+
+  const blocks = await glob('*/*.{ts,tsx}', {
+    cwd: blocksDir
+  })
+
+  //TODO fix this
+  const fields = await glob('*.ts', {
+    cwd: fieldsDir
+  })
+
+  const components = new Map<string, {
+    name: string;
+    type: string;
+    files: any[];
+    registryDependencies: Set<string>;
+  }>();
+
+  await processFiles(blocks, blocksDir, components, publicDir, true)
+  await processFiles(fields, fieldsDir, components, publicDir, false)
+
   const registryIndex = Array.from(components.values()).map(component => ({
     name: component.name,
     type: component.type,
     files: component.files,
     registryDependencies: Array.from(component.registryDependencies)
   }));
-  
+
   await fs.writeJson(
     path.join(publicDir, 'index.json'),
     registryIndex,

@@ -41,3 +41,8 @@ next-env.d.ts
 .env
 
 /media
+
+## contentlayer
+.contentlayer
+
+.cspell

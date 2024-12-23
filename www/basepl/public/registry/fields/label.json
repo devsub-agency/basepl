@@ -1,0 +1,9 @@
+{
+  "name": "label",
+  "type": "templates/fields",
+  "files": {
+    "path": "label.ts",
+    "type": "templates/fields",
+    "content": "import { Field } from 'payload'\r\n\r\nexport const label = (maxLength = 20): Field => ({\r\n    name: 'label',\r\n    label: 'Label',\r\n    required: true,\r\n    localized: true,\r\n    type: 'text',\r\n    maxLength: maxLength,\r\n})"
+  }
+}

@@ -1,0 +1,86 @@
+---
+title: Button
+description: Basic and reusable Button block and component.
+---
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
+## Installation
+
+You can add the pre-configured button elements to your project with the command below. If you only want to install the button block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplButton'}
+  pnpmCommand={'npx @basepl/cli add BaseplButton'}
+/>
+
+Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
+Simply run
+
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
+
+If not you will get an error in the `blocks/BaseplButton/Component.tsx` file. Because the BaseplButtonType is not present.
+
+## Button block configuraton
+
+Here is the result in the admin panel and the pre-configured button block itself.
+You can change it to your needs in the `blocks/BaseplButton/config.ts` file.
+
+<BlockPreview name="BaseplButton" imagePath="button-preview-dark.png" />
+
+## Button component configuraton - optional
+
+Per default the block will be installed with prebuild and fully customizable components. To only install the button block read more [here](/docs/getting-started).
+
+The basepl button act as a wrapper for the shadcn button component, to apply admin configurations.
+You can change it ether to your needs in the `blocks/BaseplButton/Component.tsx` file or in the `components/ui/button.tsx` file.
+
+<ComponentPreview sampleName="button-default" componentName="BaseplButton" />
+
+If you want to find out more about the button styling variants and configuration options, take a look at the documentation at [shadcn docs](https://ui.shadcn.com/docs/components/button).
+
+## Predefined button options
+
+You can choose between different button options. Options for styling match the availabe shadcn button configurations.
+
+### Icons
+
+If you want to use an additional icon, you have the possibility to check the `checkbox` and do an `upload` with the icon of your choice or refer to one from the media collection.
+
+<Badges label="Add icon" text="true,false" />
+<Badges label="Position" text="Start,End" />
+
+### Variants
+
+In the admin panel, you can choose between different variants using the `select` within the styling options.
+
+<Badges
+  label="Variants"
+  text="Default,Secondary,Outline,Destructive,Ghost,Link"
+/>
+
+### Sizes
+
+You can choose between different sizes via the `select` dropdown within the styling options.
+
+<Badges label="Sizes" text="Default,Small,Medium,Large" />
+
+### Link options
+
+To read more about the link field, check the options [here](/docs/fields/link).

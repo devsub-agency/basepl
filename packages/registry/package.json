@@ -26,7 +26,7 @@
     "blocks"
   ],
   "type": "module",
- "bin": {
+  "bin": {
     "basepl": "./dist/index.js"
   },
   "exports": {

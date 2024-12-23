@@ -1,0 +1,9 @@
+{
+  "name": "Component",
+  "type": "templates/blocks",
+  "files": {
+    "path": "BaseplRichtext/Component.tsx",
+    "type": "templates/blocks",
+    "content": "import { BaseplRichtextType } from '@/payload-types'\r\nimport RichText from './RichText'\r\n\r\n\r\nexport const BaseplRichtext = (props: BaseplRichtextType) => {\r\n  const { content } = props\r\n  return <RichText content={content} />\r\n}\r\n"
+  }
+}

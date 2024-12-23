@@ -1,0 +1,65 @@
+---
+title: Link
+description: The Link field allows you to add a link to your content.
+---
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
+## Installation
+
+You can add the pre-configured link block to your project with the command below.
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add link'}
+  pnpmCommand={'npx @basepl/cli add link'}
+/>
+
+## Link block configuraton
+
+Here is the result in the admin panel and the pre-configured link block itself. You can change it to your needs in the `fields/link.ts`file.
+
+<BlockPreview name="link" imagePath="admin-button.png" />
+
+## Predefined link options
+
+You can set your target, a label and also choose between different link options. Per default you can `select` between 4 different targets.
+
+### Label
+
+You can define the label of the link through the `text` field.
+
+### Targets
+
+With the target type "Page" you can either `select` a page from the page collection or enter a custom `text `slug by checking the `checkbox` "Use slug instead".
+
+<Badges label="Page" text="id,text" />
+<br />
+
+The target type "Email" allows you to enter an email address via the `text` field. It has a simple validation for email addresses.
+
+<Badges label="Email Adress" text="text" />
+<br />
+
+The target type "External" allows you to enter an external link via the `Text` field and also to set some options for the referrer and target type via `Checkboxes`.
+
+<Badges label="External URL" text="text" />
+<Badges label="Open in new tab" text="true,false" />
+<Badges label="No referrer" text="true,false" />
+<br />
+
+"File Download" allows you to link to files. You can use `upload` or select a file from the Media collection.
+
+<Badges label="File Reference" text="upload" />
