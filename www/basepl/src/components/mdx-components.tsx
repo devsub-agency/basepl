@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DocsCardsContainer } from './docs-cards-container'
 import { DocsImage } from './docs-image'
 import { Badges } from './badges'
+import Link from 'next/link'
 
 const components = {
   NotificationContainer,
@@ -73,12 +74,27 @@ const components = {
       {...props}
     />
   ),
-  a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
-    <a
-      className={cn('font-medium underline underline-offset-4', className)}
-      {...props}
-    />
-  ),
+  a: ({
+    className,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+    const isExternal = props?.href?.startsWith('http')
+    const linkStyles = 'font-medium underline underline-offset-4'
+
+    if (isExternal) {
+      return (
+        <a target="_blank" className={cn(linkStyles, className)} {...props} />
+      )
+    }
+
+    return (
+      <Link
+        href={props.href ?? '/'}
+        className={cn(linkStyles, className)}
+        {...props}
+      />
+    )
+  },
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
       className={cn('leading-7 [&:not(:first-child)]:mt-2', className)}
