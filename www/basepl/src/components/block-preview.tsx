@@ -53,7 +53,7 @@ export function BlockPreview({
       case 'Preview':
         return (
           <Image
-            src={'/' + imagePath}
+            src={finalImageUrl}
             alt={name}
             className="w-full rounded-lg object-contain"
             width={600}
