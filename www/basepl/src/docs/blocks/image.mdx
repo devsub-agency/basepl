@@ -1,0 +1,82 @@
+---
+title: Image
+description: Basic and reusable Image block using the media collection.
+---
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
+## Installation
+
+You can add the pre-configured image elements to your project with the command below. If you only want to install the image block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplImage'}
+  pnpmCommand={'npx @basepl/cli add BaseplImage'}
+/>
+
+Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
+Simply run
+
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
+
+If not you will get an error in the `blocks/BaseplImage/Component.tsx` file. Because the BaseplImageType is not present.
+
+## Image block configuraton
+
+Here is the result in the admin panel and the pre-configured image block itself. You can change it to your needs in the `blocks/BaseplImage/config.ts`file.
+
+<BlockPreview name="BaseplImage" imagePath="image-preview-dark.png" />
+
+## Image component configuration - optional
+
+Per default the image block will be installed with prebuild and fully customizable component. To only install the image block read more [here](/docs/getting-started).
+
+The basepl image act as a wrapper for the nextjs image tag, to apply admin configurations. You can change it to your needs in the `blocks/BaseplImage/Component.tsx`.
+
+<ComponentPreview sampleName="image-default" componentName="BaseplImage" />
+
+If you want to find out more about the next js image tag and configuration
+options, take a look at the documentation at [next
+image](https://nextjs.org/docs/pages/api-reference/components/image).
+
+## Predefined image options
+
+If you want to include an image, you can `upload` one or choose one from the media collection. You can also choose between different image options.
+
+### Size
+
+You can `select` between different sizes. If you select the option "custom" you can set either absolute width and height or relative width via `input` fields.
+
+<Badges label="Size" text="Fill,Custom" />
+<Badges label="Absolute width" text="true,false" />
+<Badges label="Width" text="absolute/relative value" />
+<Badges label="Height" text="absolute value" />
+
+### Object settings
+
+If you choose the "custom" option, you can define the object fit and position using the `select` fields.
+
+<Badges label="Object fit" text="Cover,Contain,Fill" />
+<Badges label="Object position" text="Top,Bottom,Left,Right,Center" />
+
+### Priority
+
+You can check the `checkbox` if you want to prevent lazy loading for this image.
+
+<Badges label="Priority" text="true,false" />

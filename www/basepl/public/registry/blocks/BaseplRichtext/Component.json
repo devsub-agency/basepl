@@ -1,0 +1,9 @@
+{
+  "name": "Component",
+  "type": "templates/blocks",
+  "files": {
+    "path": "BaseplRichtext/Component.tsx",
+    "type": "templates/blocks",
+    "content": "import {\r\n  BaseplButtonType,\r\n  BaseplImageType,\r\n  BaseplRichtextType,\r\n  BaseplVideoType,\r\n} from '@/payload-types'\r\nimport { BaseplButton } from '../BaseplButton/Component'\r\nimport { BaseplImage } from '../BaseplImage/Component'\r\nimport { BaseplVideo } from '../BaseplVideo/Component'\r\nimport {\r\n  JSXConvertersFunction,\r\n  RichText as RichTextWithoutBlocks,\r\n} from '@payloadcms/richtext-lexical/react'\r\nimport {\r\n  DefaultNodeTypes,\r\n  SerializedBlockNode,\r\n} from '@payloadcms/richtext-lexical'\r\nimport { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'\r\nimport { cn } from '@/lib/utils'\r\n\r\ntype NodeTypes =\r\n  | DefaultNodeTypes\r\n  | SerializedBlockNode<BaseplButtonType | BaseplVideoType | BaseplImageType>\r\n\r\nconst jsxConverters: JSXConvertersFunction<NodeTypes> = ({\r\n  defaultConverters,\r\n}) => ({\r\n  ...defaultConverters,\r\n  blocks: {\r\n    baseplImage: ({ node }) => <BaseplImage {...node.fields} />,\r\n    baseplVideo: ({ node }) => <BaseplVideo {...node.fields} />,\r\n    baseplButton: ({ node }) => <BaseplButton {...node.fields} />,\r\n  },\r\n})\r\n\r\nexport const BaseplRichtext = (props: BaseplRichtextType) => {\r\n  const { content } = props\r\n\r\n  return (\r\n    <RichTextWithoutBlocks\r\n      // @ts-expect-error\r\n      converters={jsxConverters}\r\n      className={cn()}\r\n      {...{ data: content as SerializedEditorState }}\r\n    />\r\n  )\r\n}\r\n"
+  }
+}

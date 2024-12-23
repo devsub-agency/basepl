@@ -15,7 +15,7 @@ import { BaseplLogo } from '../Logos/BaseplLogo'
 
 interface HeaderClientProps {
   // todo: needs to be replaced with payload data
-  menuItems: string[]
+  menuItems: { title: string; href: string }[]
 }
 export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   const { theme, setTheme } = useTheme()
@@ -33,31 +33,28 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex flex-col justify-between w-full gap-4 backdrop-blur-md bg-accent/50 md:rounded-lg md:flex-row md:px-4 md:py-2',
+        'flex w-full flex-col gap-4 bg-background md:flex-row md:rounded-lg md:bg-accent/60 md:px-4 md:py-2 md:backdrop-blur-md md:dark:bg-accent/30',
         { 'bg-background': showMenu },
       ])}
     >
-      <div className="flex justify-between items-center w-full md:w-fit p-4 md:p-0">
+      <div className="flex w-full items-center justify-between p-4 md:w-fit md:p-0">
         <BaseplLogo />
         <div onClick={() => setShowMenu(!showMenu)} className="md:hidden">
           {showMenu ? <X /> : <Menu />}
         </div>
       </div>
-      <NavigationMenu className={cn([{ 'hidden sm:flex': !showMenu }])}>
-        <NavigationMenuList className="flex flex-col md:flex-row items-start">
+      <NavigationMenu
+        className={cn(['md:pl-4', { 'hidden sm:flex': !showMenu }])}
+      >
+        <NavigationMenuList className="flex flex-col items-start md:flex-row">
           {menuItems.map((item, index) => (
-            <NavigationMenuItem key={index}>
-              <Link href={index !== 3 ? '/' : '/posts'}>
+            <NavigationMenuItem key={index} className="!ml-0">
+              <Link href={item.href}>
                 <Button
                   variant="ghost"
-                  className="hover:bg-transparent text-muted-foreground dark:hover:text-foreground"
+                  className="text-muted-foreground hover:bg-transparent dark:hover:text-foreground"
                 >
-                  {item}
-                  {index !== 3 && (
-                    <div className="flex items-center space-x-2 rounded-full py-0.5 px-2 bg-emerald-500/20">
-                      <span className="text-xs text-emerald-500">Soon</span>
-                    </div>
-                  )}
+                  {item.title}
                 </Button>
               </Link>
             </NavigationMenuItem>
@@ -66,22 +63,22 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
       </NavigationMenu>
       <div
         className={cn([
-          'flex justify-between items-center gap-4 p-4 md:p-0',
+          'ml-auto flex items-center justify-between gap-4 p-4 md:p-0',
           { 'hidden sm:flex': !showMenu },
         ])}
       >
         <div className="flex">
           <Button variant="ghost" size="icon" onClick={onToggleTheme}>
-            <Sun className="h-[1.2rem] w-[1.2rem] hidden dark:block" />
+            <Sun className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
             <Moon className="h-[1.2rem] w-[1.2rem] dark:hidden" />
           </Button>
-          <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/devsub-agency/basepl" target="_blank">
             <Button variant="ghost" size="icon">
               <GithubLogo />
             </Button>
           </Link>
         </div>
-        <Link href="/">
+        <Link href="/docs/getting-started">
           <Button variant="default" className="h-8 rounded-lg">
             {mockCta}
           </Button>

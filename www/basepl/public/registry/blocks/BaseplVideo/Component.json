@@ -1,0 +1,9 @@
+{
+  "name": "Component",
+  "type": "templates/blocks",
+  "files": {
+    "path": "BaseplVideo/Component.tsx",
+    "type": "templates/blocks",
+    "content": "import { BaseplVideoType, Media } from '@/payload-types'\r\n\r\nexport const BaseplVideo = (props: BaseplVideoType) => {\r\n  const {\r\n    video,\r\n    showControls,\r\n    autoPlay,\r\n    loop,\r\n    muted,\r\n    isAbsoluteWidth,\r\n    absoluteWidth,\r\n    relativeWidth,\r\n    absoluteHeight,\r\n    scaleOption,\r\n    objectFit,\r\n    objectPosition,\r\n  } = props\r\n  const videoData = video as Media\r\n  const fallbackSlug = '/'\r\n  const isScale = scaleOption === 'scale'\r\n\r\n  const fallBackHeight = 500\r\n  const fallBackWidth = 500\r\n\r\n  const width =\r\n    (isAbsoluteWidth ? absoluteWidth : relativeWidth + '%') ?? fallBackWidth\r\n  const height = absoluteHeight ?? fallBackHeight\r\n\r\n  return (\r\n    <video\r\n      id={videoData.id}\r\n      className=\"relative\"\r\n      style={{\r\n        objectFit: objectFit ?? undefined,\r\n        objectPosition: objectPosition ?? undefined,\r\n        width: isScale ? '100%' : width,\r\n        height: isScale ? '100%' : height,\r\n      }}\r\n      src={videoData.url ?? fallbackSlug}\r\n      autoPlay={autoPlay ?? false}\r\n      loop={loop ?? false}\r\n      muted={muted ?? false}\r\n      controls={showControls ?? false}\r\n      playsInline\r\n    >\r\n      <p>{videoData.alt}</p>\r\n    </video>\r\n  )\r\n}\r\n"
+  }
+}

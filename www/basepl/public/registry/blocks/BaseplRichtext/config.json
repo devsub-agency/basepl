@@ -1,0 +1,9 @@
+{
+  "name": "config",
+  "type": "templates/blocks",
+  "files": {
+    "path": "BaseplRichtext/config.ts",
+    "type": "templates/blocks",
+    "content": "import { Block } from 'payload'\r\nimport {\r\n  FixedToolbarFeature,\r\n  InlineToolbarFeature,\r\n  lexicalEditor,\r\n  BlocksFeature,\r\n  EXPERIMENTAL_TableFeature,\r\n} from '@payloadcms/richtext-lexical'\r\nimport { BaseplImage } from '../BaseplImage/config'\r\nimport { BaseplVideo } from '../BaseplVideo/config'\r\nimport { BaseplButton } from '../BaseplButton/config'\r\n\r\nexport const BaseplRichtext: Block = {\r\n  slug: 'baseplRichtext',\r\n  interfaceName: 'BaseplRichtextType',\r\n  labels: {\r\n    singular: 'Richtext',\r\n    plural: 'Richtexts',\r\n  },\r\n  fields: [\r\n    {\r\n      name: 'content',\r\n      type: 'richText',\r\n      editor: lexicalEditor({\r\n        features: ({ rootFeatures }) => {\r\n          return [\r\n            ...rootFeatures,\r\n            FixedToolbarFeature(),\r\n            InlineToolbarFeature(),\r\n            EXPERIMENTAL_TableFeature(),\r\n            BlocksFeature({\r\n              blocks: [BaseplButton, BaseplImage, BaseplVideo],\r\n            }),\r\n          ]\r\n        },\r\n      }),\r\n      label: 'content',\r\n    },\r\n  ],\r\n}\r\n"
+  }
+}

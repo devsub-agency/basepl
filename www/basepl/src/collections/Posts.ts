@@ -1,5 +1,4 @@
 import { BaseplRichtext } from '@/blocks/BaseplRichtext/config'
-import type { CollectionConfig } from 'payload'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -8,6 +7,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import type { CollectionConfig } from 'payload'
 import { populateAuthors } from './hooks/populateAuthors'
 
 export const Posts: CollectionConfig = {
@@ -129,7 +129,12 @@ export const Posts: CollectionConfig = {
                     width: '50%',
                   },
                 },
-                { type: 'number', name: 'readingTime', required: true, admin: { width: '50%' } },
+                {
+                  type: 'number',
+                  name: 'readingTime',
+                  required: true,
+                  admin: { width: '50%' },
+                },
               ],
             },
             {

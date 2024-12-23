@@ -22,7 +22,9 @@ export const BaseplButton = (props: BaseplButtonType) => {
 
   const referrerPolicy = hasNoReferrer ? 'no-referrer' : undefined
   const navigationTarget =
-    (externalUrl && isOpenNewTab) || targetType === 'file' ? '_blank' : undefined
+    (externalUrl && isOpenNewTab) || targetType === 'file'
+      ? '_blank'
+      : undefined
 
   const iconUrl = (icon as Media)?.url ?? fallbackIconSlug
   const iconWidth = (icon as Media)?.width ?? 24
@@ -33,7 +35,10 @@ export const BaseplButton = (props: BaseplButtonType) => {
   const getNavigationHref = () => {
     if (targetType === 'page' && useSlug && slug) {
       return slug
-    } else if (targetType === 'page' && typeof pageReference?.value !== 'string') {
+    } else if (
+      targetType === 'page' &&
+      typeof pageReference?.value !== 'string'
+    ) {
       return pageReference?.value.slug ?? fallbackSlug
     } else if (targetType === 'external' && externalUrl) {
       return externalUrl
@@ -46,12 +51,22 @@ export const BaseplButton = (props: BaseplButtonType) => {
   }
 
   const IconComponent = (
-    <Image src={iconUrl} alt={iconAlt} width={iconWidth} height={iconHeight} className="w-4 h-4" />
+    <Image
+      src={iconUrl}
+      alt={iconAlt}
+      width={iconWidth}
+      height={iconHeight}
+      className="h-4 w-4"
+    />
   )
 
   return (
     <Button variant={variant} size={size} id={id ?? undefined} asChild>
-      <Link href={getNavigationHref()} target={navigationTarget} referrerPolicy={referrerPolicy}>
+      <Link
+        href={getNavigationHref()}
+        target={navigationTarget}
+        referrerPolicy={referrerPolicy}
+      >
         {hasIcon && isIconStart && IconComponent}
         {size !== 'icon' && label}
         {hasIcon && !isIconStart && IconComponent}

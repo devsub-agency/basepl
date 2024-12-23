@@ -1,5 +1,5 @@
-import { link } from '@/fields/link'
 import { Block, Field } from 'payload'
+import { link } from '@/fields/link'
 
 const buttonVariants = [
   { label: 'Default', value: 'default' },
@@ -39,7 +39,7 @@ const styleOptions: Field = {
           type: 'checkbox',
           label: 'Icon at start',
           admin: {
-            condition: (_, sibling) => sibling?.hasIcon === true,
+            condition: (_, sibling) => sibling?.hasIcon,
             width: '25%',
           },
         },
@@ -50,7 +50,7 @@ const styleOptions: Field = {
       type: 'upload',
       relationTo: 'media',
       admin: {
-        condition: (_, sibling) => sibling?.hasIcon === true,
+        condition: (_, sibling) => sibling?.hasIcon,
       },
     },
     {

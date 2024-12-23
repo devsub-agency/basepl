@@ -1,0 +1,67 @@
+---
+title: Richtext
+description: Powerful and versatile text editor for creating rich text content.
+---
+
+<NotificationContainer
+  context="warning"
+  children={
+    <span>
+      We are currently in early stage. Properties, structures and naming
+      conventions may differ in the near future. If you would like to provide
+      feedback, please feel free to join our new community at{' '}
+      <a href="https://discord.gg/b99KZMW2" target="_blank">
+        Discord
+      </a>
+      .
+    </span>
+  }
+/>
+
+## Installation
+
+You can add the pre-configured richtext elements to your project with the command below. If you only want to install the richtext block check the reference [here](/docs/getting-started).
+
+<CommandPreview
+  npmCommand={'npx @basepl/cli add BaseplRichText'}
+  pnpmCommand={'npx @basepl/cli add BaseplRichText'}
+/>
+
+Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
+Simply run
+
+<CommandPreview
+  npmCommand={'npm generate:types'}
+  pnpmCommand={'pnpm generate:types'}
+/>
+
+If not you will get an error in the `blocks/BaseplRichtext/Component.tsx` file. Because the BaseplImageType is not present.
+
+## Richtext block configuraton
+
+Here is the result in the admin panel and the pre-configured richtext block itself. You can change it to your needs in the `block/BaseplRichtext/config.ts`file.
+
+<BlockPreview name="BaseplRichtext" imagePath="richtext-preview-dark.png" />
+
+## Richtext component configuration - optional
+
+Per default the richtext block will be installed with prebuild and fully customizable component. To only install the richtext block read more [here](/docs/getting-started).
+
+The basepl richtext act as a wrapper for the richtext-lexical, to apply admin configurations. You can change it to your needs in the `blocks/BaseplRichtext/Component.tsx`.
+
+<ComponentPreview componentName="BaseplRichtext" />
+
+If you want to find out more about the richtext and configuration
+options, take a look at the documentation at [lexical.dev](https://lexical.dev/).
+
+## Preconfigured richtext options
+
+You can customize or extend the richtext component and block as you wish. By default, the rich text is designed for simple blog articles.
+
+### Basic features
+
+These features make rich text editing easier with a fixed toolbar and an inline toolbar.
+
+### Blocks
+
+In the richtext block itself you can define features and further blocks that you want to use. You can display blocks within the component by the JSXConverter function.

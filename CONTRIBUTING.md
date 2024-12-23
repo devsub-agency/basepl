@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to basepl.com. We're happy to have you here.
+Thanks for your interest in contributing to basepl. We're happy to have you here.
 
 Please take a moment to review this document before submitting your first pull request. We also strongly recommend that you check for open issues and pull requests to see if someone else is working on something similar.
 
@@ -32,8 +32,7 @@ packages
 
 | Path                  | Description                           |
 |-----------------------|---------------------------------------|
-| `apps/basepl/src`     | Payload CMS for the website.          |
-| `apps/www/templates`  | The registry content.                 |
+| `www/basepl/src`      | Contains fields, blocks and the website basepl.com           |
 | `packages/registry`   | The `basepl` package.                 |
 
 ## Development
@@ -45,13 +44,13 @@ You can fork this repo by clicking the fork button in the top right corner of th
 ### Clone on your local machine
 
 ```bash
-git clone https://github.com/devsub-agency/payloadbase.git
+git clone https://github.com/devsub-agency/basepl.git
 ```
 
 ### Navigate to project directory
 
 ```bash
-cd ui
+cd basepl
 ```
 
 ### Create a new Branch
@@ -82,7 +81,7 @@ or
 pnpm www:dev
 ```
 
-2. To run the `shadcn-ui` package:
+2. To run the `basepl cli` package:
 
 ```bash
 pnpm --filter=@basepl/cli dev
@@ -124,34 +123,53 @@ To run the CLI locally, you can follow the workflow:
 
 This workflow ensures that you are running the most recent version of the registry and testing the CLI properly in your local environment.
 
-### to be done!
 ## Documentation
 
 The documentation for this project is located in the `www` workspace. You can run the documentation locally by running the following command:
 
 ```bash
-pnpm --filter=www dev
+pnpm www:dev
 ```
 
-Documentation is written using [MDX](https://mdxjs.com). You can find the documentation files in the `www/basepl/content/docs` directory.
+Documentation is written using [MDX](https://mdxjs.com). You can find the documentation files in the `www/basepl/src/docs` directory.
+
+The mdx files and the examples have to be written manualy. The rest is auto generated. Run 
+
+```bash
+pnpm build:registry 
+```
+
+to build the registry file. 
+
+And run 
+```bash
+pnpm build:docs 
+```
+
+to generate the documentation index. 
+
+This will generate the index.json file for the registry in the public directory and the index.ts in the docs directory. If there are any error in the files do not change anything manual. Either way open an issue or fix the build scripts. 
 
 ## Components
 
-We use a registry system for developing components. You can find the source code for the components under `www/templates`. The components are organized by styles.
+We have the components directly integrated in our website source code. You can find the blocks and fields under src/blocks and src/fields
 
 ```bash
 www
-└── templates
-    ├── fields
-    ├── blocks
-    └── components
+└── basepl
+    └──src
+        ├── fields
+        ├── blocks
+        └── components
 ```
+
+If a field or block contains not only a config.ts place the Component.tsx in the same directory.
 
 When adding or modifying components, please ensure that:
 
-1. You make the changes for every style.
+1. You make the changes for every style. When multiple styles are present.
 2. You update the documentation.
-3. You run `pnpm build:registry` to update the registry.
+3. You run `pnpm build:registry` and `pnpm build:docs` to update the registry and docs.
 
 ## Commit Convention
 

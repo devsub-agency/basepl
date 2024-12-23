@@ -1,4 +1,4 @@
-import { addOptionsSchema } from "@/src/commands/add";
+import { addOptionsSchema } from "@/commands/add";
 import { z } from "zod";
 import { logger } from "../logging/logger";
 import { filterRequestedComponents } from "../registry/componentsFilter";
@@ -50,7 +50,11 @@ export const addComponents = async (
     ),
   );
   await addFiles(
-    { cwd: options.cwd, overwrite: options.overwrite , configOnly: options.config },
+    {
+      cwd: options.cwd,
+      overwrite: options.overwrite,
+      configOnly: options.config,
+    },
     itemsToRegister.flatMap((item) => item.files),
     config,
   );
