@@ -1,8 +1,6 @@
 import { execa } from "execa";
-import { logger } from "./logging/logger";
-import { PackageManager } from "./getPackageManager";
-import { spinner } from "./spinner";
 import handleError from "./error/handle-error";
+import { PackageManager } from "./getPackageManager";
 
 interface InitShadcnProps {
   cwd: string;

@@ -1,6 +1,6 @@
 {
   "name": "@basepl/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Add fields and blocks to your payload cms.",
   "publishConfig": {
     "access": "public"
@@ -73,6 +73,7 @@
     "tsup": "8.3.5",
     "type-fest": "^4.29.0",
     "typescript": "^5.7.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "vitest": "^2.1.8"
   }
 }
