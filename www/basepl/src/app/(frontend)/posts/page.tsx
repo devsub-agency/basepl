@@ -11,7 +11,7 @@ interface ArticleProps {
   isFeatured?: boolean
 }
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 export const revalidate = 600
 
 const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
@@ -21,16 +21,19 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
 
   return (
     <Link href={`/posts/${article.slug}`} className={containerClass}>
-      <div className="relative overflow-hidden rounded-xl aspect-[16/9]">
+      <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
         <Image
           src={(article.image as Media)?.url ?? ''}
           alt={(article.image as Media)?.alt ?? ''}
-          className="object-cover rounded-xl"
+          className="rounded-xl object-cover"
           priority={isFeatured}
           fill
         />
         <div className="absolute left-4 top-4">
-          <Badge variant="secondary" className="bg-white/10 text-white backdrop-blur-sm">
+          <Badge
+            variant="secondary"
+            className="bg-white/10 text-white backdrop-blur-sm"
+          >
             {isFeatured ? 'NEW' : article.categoryTag}
           </Badge>
         </div>
@@ -38,7 +41,9 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
       <div className="flex flex-col justify-center space-y-4">
         <div className="space-y-2">
           <div
-            className={cn('flex text-sm text-muted-foreground mb-4 gap-1', { hidden: !isFeatured })}
+            className={cn('mb-4 flex gap-1 text-sm text-muted-foreground', {
+              hidden: !isFeatured,
+            })}
           >
             <span>{new Date(article.date).toLocaleDateString()}</span>
             <span>•</span>
@@ -46,7 +51,7 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
           </div>
           <h2
             className={cn(
-              'font-medium text-2xl',
+              'text-2xl font-medium',
               { 'md:text-3xl': isFeatured },
               { 'md:text-xl': !isFeatured },
             )}
@@ -61,18 +66,28 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
             alt={(article.profilePicture as Media)?.alt ?? ''}
             width={40}
             height={40}
-            className="rounded-full h-10 w-10 object-cover"
+            className="h-10 w-10 rounded-full object-cover"
           />
-          <div className={cn('flex text-sm gap-1', { 'flex-col': isFeatured })}>
+          <div className={cn('flex gap-1 text-sm', { 'flex-col': isFeatured })}>
             <span className="text-sm font-semibold text-muted-foreground">
               {article.populatedAuthors?.name}
             </span>
-            <span className={cn('text-muted-foreground', { hidden: isFeatured })}>•</span>
-            <span className={cn('text-muted-foreground', { hidden: isFeatured })}>
+            <span
+              className={cn('text-muted-foreground', { hidden: isFeatured })}
+            >
+              •
+            </span>
+            <span
+              className={cn('text-muted-foreground', { hidden: isFeatured })}
+            >
               {new Date(article.date).toLocaleDateString()}
             </span>
-            <span className={cn('text-muted-foreground', { hidden: !isFeatured })}>
-              {article.populatedAuthors?.role === 'coFounder' ? 'Co-Founder' : 'Contributor'}
+            <span
+              className={cn('text-muted-foreground', { hidden: !isFeatured })}
+            >
+              {article.populatedAuthors?.role === 'coFounder'
+                ? 'Co-Founder'
+                : 'Contributor'}
             </span>
           </div>
         </div>
@@ -99,7 +114,7 @@ export default async function Page() {
 
   return (
     <div className="bg-background">
-      <main className="mx-auto max-w-screen-xl px-5 md:px-8 pt-20 pb-10 md:pt-40 md:pb-16">
+      <main className="mx-auto max-w-screen-xl px-5 pb-10 pt-20 md:px-8 md:pb-16 md:pt-40">
         <ArticleCard article={featuredArticle} isFeatured />
         <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
           {articles.map((article, index) => (

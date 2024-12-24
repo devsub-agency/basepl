@@ -25,26 +25,36 @@ export const BlogHero = (props: BlogHeroProps) => {
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
+            <BreadcrumbLink
+              href="/blog"
+              className="text-muted-foreground no-underline"
+            >
+              Blog
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/posts/${slug}`}>{title}</BreadcrumbLink>
+            <BreadcrumbLink
+              href={`/posts/${slug}`}
+              className="text-muted-foreground no-underline"
+            >
+              {title}
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <h1 className="text-3xl font-medium md:font-4xl md:w-3/4">{headline}</h1>
-      <div className="flex gap-4 mt-4">
-        <span className="flex items-center gap-1 text-muted-foreground text-sm">
+      <h1 className="md:font-4xl text-3xl font-medium md:w-3/4">{headline}</h1>
+      <div className="mt-4 flex gap-4">
+        <span className="flex items-center gap-1 text-sm text-muted-foreground">
           <CalendarIcon className="h-4 w-4" />
           {new Date(date).toLocaleDateString()}
         </span>
-        <span className="flex items-center gap-1 text-muted-foreground text-sm">
+        <span className="flex items-center gap-1 text-sm text-muted-foreground">
           <Clock className="h-4 w-4" />
           {readingTime + 'min read'}
         </span>
       </div>
-      <div className="relative w-full mt-8 h-48 md:h-96">
+      <div className="relative mt-8 h-48 w-full md:h-96">
         <Image
           src={imageSrc}
           alt={alt}

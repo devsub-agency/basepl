@@ -48,8 +48,8 @@ export default async function Post({ params: paramsPromise }: Args) {
   }
 
   return (
-    <div className="grid md:grid-cols-3 w-full max-w-screen-xl mx-auto px-5 md:px-8 pt-20 md:pt-36">
-      <div className="md:col-span-2" id="blogContent">
+    <main className="mx-auto flex max-w-screen-lg py-6 lg:gap-10 lg:py-8">
+      <div className="mx-auto w-full min-w-0 px-5 pt-12 md:px-10 md:pt-24">
         <BlogHero
           slug={slug}
           title={post.title}
@@ -60,17 +60,19 @@ export default async function Post({ params: paramsPromise }: Args) {
           alt={(post.image as Media).alt ?? ''}
         />
         <BaseplRichtext {...post.content} />
-        <div className="relative flex justify-between items-center w-full md:mx-auto mt-8 mb-12 md:my-16">
+        <div className="relative mb-12 mt-8 flex w-full items-center justify-between md:mx-auto md:my-16">
           <div className="flex items-center space-x-3">
             <Image
               src={(post.profilePicture as Media)?.url ?? ''}
               alt={(post.profilePicture as Media)?.alt ?? ''}
               width={40}
               height={40}
-              className="rounded-full h-10 w-10 object-cover"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <div>
-              <div className="text-sm font-semibold text-muted-foreground">Maurice</div>
+              <div className="text-sm font-semibold text-muted-foreground">
+                Maurice
+              </div>
               <div className="text-sm text-muted-foreground">Co-Founder</div>
             </div>
           </div>
@@ -82,17 +84,16 @@ export default async function Post({ params: paramsPromise }: Args) {
           </Button>
         </div>
       </div>
-
-      <div className="relative md:pl-16 md:pr-5 md:mt-12">
-        <div className="fixed">
-          <BlogSidebar />
-        </div>
+      <div className="flex lg:w-64">
+        <BlogSidebar />
       </div>
-    </div>
+    </main>
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+export async function generateMetadata({
+  params: paramsPromise,
+}: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ slug })
   return generateMeta({ doc: post })
