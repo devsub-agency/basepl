@@ -17,7 +17,7 @@ const SUPPORTED_SPECIAL_VERSIONS = ["latest"];
 //Default check for project
 export const checkProjectSetUp = async (projectDir: string) => {
   const isPayloadPresents = existsSync(
-    path.resolve(projectDir, "src/payload.label.ts"),
+    path.resolve(projectDir, "src/payload.config.ts"),
   );
   return isPayloadPresents;
 };
@@ -47,8 +47,6 @@ export const getPayloadAppDetails = async (
     /^(?:(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)|(?<special>latest|beta))$/i,
   );
 
-  console.log(versionMatch);
-
   if (!versionMatch) {
     logger.warn(`Could not determine payload version from ${payloadVersion}`);
     return createPayloadDetails(isSrcDir, false, payloadVersion);
@@ -62,7 +60,6 @@ export const getPayloadAppDetails = async (
       `Unsupported payload version ${payloadVersion}. Version must be latest or >= ${MINIMUM_MAJOR_VERSION}.0.0`,
     );
   }
-  console.log(isSrcDir, isSupported, payloadVersion);
   return createPayloadDetails(isSrcDir, isSupported, payloadVersion);
 };
 

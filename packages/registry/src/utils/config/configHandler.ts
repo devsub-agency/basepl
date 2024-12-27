@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs-extra";
 import { ConfigFile } from "./configFile";
 
-export const CONFIG_FILE = ".payloadbase.json";
+export const CONFIG_FILE = ".basepl.json";
 
 export const createConfig = async (
   cwd: string,

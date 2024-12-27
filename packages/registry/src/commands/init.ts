@@ -1,5 +1,4 @@
 import { Command } from "commander";
-import path from "path";
 import prompts from "prompts";
 import { z } from "zod";
 import {
@@ -37,14 +36,19 @@ export const init = new Command()
     "the working directory. defaults to the current directory.",
     process.cwd(),
   )
-  .option("-y, --yes", "skip confirmation prompt.", true)
-  .option("-d, --defaults,", "use default configuration.", false)
-  .option("--npm,", "use npm to install dependencies", false)
-  .option("--bun,", "use bun to install dependencies", false)
-  .option("--yarn,", "use yarn to install dependencies", false)
-  .option("--pnpm,", "use pnpm to install dependencies", false)
   .option(
-    "--config,",
+    "-y, --yes [value]",
+    "skip confirmation prompt.",
+    (value) => value !== "false",
+    true,
+  )
+  .option("-d, --defaults", "use default configuration.", false)
+  .option("--npm", "use npm to install dependencies", false)
+  .option("--bun", "use bun to install dependencies", false)
+  .option("--yarn", "use yarn to install dependencies", false)
+  .option("--pnpm", "use pnpm to install dependencies", false)
+  .option(
+    "--config",
     `initialize in config only mode, not components can be installed.`,
     false,
   )
@@ -77,24 +81,24 @@ export const init = new Command()
           isShadcnPresentInitialized = true;
           logger.info("Shadcn is already present in the project.");
         } else {
+          let proceed: any = undefined;
           logger.info("Shadcn is not present in the project.");
           if (!options.yes) {
-            const { proceed } = await prompts({
+            proceed = await prompts({
               type: "confirm",
               name: "proceed",
               message:
                 "Do you want to install shadcn/ui in the project? If not, you wont be able to install components, only config files.",
               initial: true,
             });
-
-            if (proceed) {
-              await initShadcn({ cwd: options.cwd, packageManager });
-              isShadcnPresentInitialized = true;
-            } else {
-              logger.info(
-                "Initialize in config only mode. No components will be installed.",
-              );
-            }
+          }
+          if ((!options.yes && proceed?.proceed) || options.yes) {
+            await initShadcn({ cwd: options.cwd, packageManager });
+            isShadcnPresentInitialized = true;
+          } else {
+            logger.info(
+              "Initialize in config only mode. No components will be installed.",
+            );
           }
         }
       } else {
