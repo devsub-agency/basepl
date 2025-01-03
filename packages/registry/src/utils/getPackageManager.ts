@@ -11,25 +11,28 @@ export async function getPackageManager(args: {
 }): Promise<PackageManager> {
   const { options, projectDir } = args;
 
-    try {
-      let detected: PackageManager = 'npm'
-      if (options?.pnpm || fse.existsSync(`${projectDir}/pnpm-lock.yaml`)) {
-        detected = 'pnpm'
-      } else if (options?.yarn || fse.existsSync(`${projectDir}/yarn.lock`)) {
-        detected = 'yarn'
-      } else if (options?.npm || fse.existsSync(`${projectDir}/package-lock.json`)) {
-        detected = 'npm'
-      } else if (options?.bun || fse.existsSync(`${projectDir}/bun.lockb`)) {
-        detected = 'bun'
-      } else if (await commandExists('pnpm')) {
-        // Prefer pnpm if it's installed
-        detected = 'pnpm'
-      }
-
-      return detected
-    } catch (ignore) {
-      return 'npm'
+  try {
+    let detected: PackageManager = "npm";
+    if (options?.pnpm || fse.existsSync(`${projectDir}/pnpm-lock.yaml`)) {
+      detected = "pnpm";
+    } else if (options?.yarn || fse.existsSync(`${projectDir}/yarn.lock`)) {
+      detected = "yarn";
+    } else if (
+      options?.npm ||
+      fse.existsSync(`${projectDir}/package-lock.json`)
+    ) {
+      detected = "npm";
+    } else if (options?.bun || fse.existsSync(`${projectDir}/bun.lockb`)) {
+      detected = "bun";
+    } else if (await commandExists("pnpm")) {
+      // Prefer pnpm if it's installed
+      detected = "pnpm";
     }
+
+    return detected;
+  } catch (ignore) {
+    return "npm";
+  }
 
   async function commandExists(command: string): Promise<boolean> {
     try {

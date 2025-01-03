@@ -24,7 +24,7 @@ You can add the pre-configured richtext elements to your project with the comman
 
 <CommandPreview
   npmCommand={'npx @basepl/cli add BaseplRichText'}
-  pnpmCommand={'npx @basepl/cli add BaseplRichText'}
+  pnpmCommand={'pnpm dlx @basepl/cli add BaseplRichText'}
 />
 
 Currently, basepl doesn't automatically update the payload types. So if you install the configuration and the component you have to update the types.
@@ -37,7 +37,7 @@ Simply run
 
 If not you will get an error in the `blocks/BaseplRichtext/Component.tsx` file. Because the BaseplImageType is not present.
 
-## Richtext block configuraton
+## Richtext block configuration
 
 Here is the result in the admin panel and the pre-configured richtext block itself. You can change it to your needs in the `block/BaseplRichtext/config.ts`file.
 
@@ -54,7 +54,7 @@ The basepl richtext act as a wrapper for the richtext-lexical, to apply admin co
 If you want to find out more about the richtext and configuration
 options, take a look at the documentation at [lexical.dev](https://lexical.dev/).
 
-## Preconfigured richtext options
+## Pre-Configured richtext options
 
 You can customize or extend the richtext component and block as you wish. By default, the rich text is designed for simple blog articles.
 

@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { logger, loggingColor } from "../logging/logger";
 
-
 const handleError = (error: unknown) => {
   logger.error(
     `Something went wrong. Please check the error below for more details.`,

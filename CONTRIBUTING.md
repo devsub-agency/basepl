@@ -87,42 +87,6 @@ pnpm www:dev
 pnpm --filter=@basepl/cli dev
 ```
 
-## Running the CLI Locally
-
-To run the CLI locally, you can follow the workflow:
-
-1. Start by running the registry (main site) to make sure the components are up to date:
-
-   ```bash
-   pnpm www:dev
-   ```
-
-2. Run the development script for the CLI:
-
-   ```bash
-   pnpm cli:dev
-   ```
-
-3. In another terminal tab, test the CLI by running:
-
-   ```bash
-   pnpm basepl
-   ```
-
-   To test the CLI in a specific app, use a command like:
-
-   ```bash
-   pnpm basepl <init | add | ...> -c ~/Desktop/my-app
-   ```
-
-4. To run the tests for the CLI: (to be done)
-
-   ```bash
-   pnpm --filter=basepl test
-   ```
-
-This workflow ensures that you are running the most recent version of the registry and testing the CLI properly in your local environment.
-
 ## Documentation
 
 The documentation for this project is located in the `www` workspace. You can run the documentation locally by running the following command:
@@ -133,22 +97,22 @@ pnpm www:dev
 
 Documentation is written using [MDX](https://mdxjs.com). You can find the documentation files in the `www/basepl/src/docs` directory.
 
-The mdx files and the examples have to be written manualy. The rest is auto generated. Run 
+The mdx files and the examples have to be written manually. The rest is auto generated. Run
 
 ```bash
-pnpm build:registry 
+pnpm build:registry
 ```
 
-to build the registry file. 
+to build the registry file.
 
-And run 
+And run
 ```bash
-pnpm build:docs 
+pnpm build:docs
 ```
 
-to generate the documentation index. 
+to generate the documentation index.
 
-This will generate the index.json file for the registry in the public directory and the index.ts in the docs directory. If there are any error in the files do not change anything manual. Either way open an issue or fix the build scripts. 
+This will generate the index.json file for the registry in the public directory and the index.ts in the docs directory. If there are any error in the files do not change anything manual. Either way open an issue or fix the build scripts.
 
 ## Components
 
