@@ -51,6 +51,7 @@
     "test:dev": "REGISTRY_URL=http://localhost:3000/registry vitest run"
   },
   "dependencies": {
+    "@basepl/cli": "^1.0.5",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "cosmiconfig": "^9.0.0",
@@ -70,10 +71,10 @@
     "@types/fs-extra": "^11.0.4",
     "@types/lodash.template": "^4.5.3",
     "@types/prompts": "^2.4.9",
+    "rimraf": "^6.0.1",
     "tsup": "8.3.5",
     "type-fest": "^4.29.0",
     "typescript": "^5.7.2",
-    "rimraf": "^6.0.1",
     "vitest": "^2.1.8"
   }
 }

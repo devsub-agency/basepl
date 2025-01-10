@@ -19,7 +19,7 @@ export const registryItemFileSchema = z.object({
 export const registryItemSchema = z.object({
   name: z.string(),
   type: registryFileSchemaType,
-  file: registryItemFileSchema,
+  files: registryItemFileSchema,
 });
 
 export const registryIndexFileItem = z.object({

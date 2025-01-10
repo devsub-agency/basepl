@@ -33,16 +33,15 @@ const getRegistryUrl = (path: string) => {
   if (!path.endsWith(".json")) {
     path = replaceExtensionWithJson(path);
   }
-  return `${REGISTRY_URL}/${path}`;
+  const url = `${REGISTRY_URL}/${path}`;
+  console.log(url);
+  return url;
 };
 
 const replaceExtensionWithJson = (filePath: string): string => {
   if (filePath.endsWith(".json")) return filePath;
-
-  const parsedPath = path.parse(filePath);
-  return path.format({
-    ...parsedPath,
-    base: undefined,
-    ext: ".json",
-  });
+  const path = filePath.split(".");
+  const t = path[0] + ".json";
+  console.log(t);
+  return t;
 };

@@ -15,8 +15,15 @@ import { ConfigFile } from "../config/configFile";
 const getFileContent = async (file: RegistryFile): Promise<string> => {
   try {
     logger.info(`\n Reading template: ${file.path}`);
-    const result = await fetchRegistry(file.path);
-    const content = registryItemSchema.parse(result).file.content;
+    let path
+    if (file.type === "templates/fields") {
+       path = "fields/" + file.path;
+    } else {
+      path = "blocks/" + file.path;
+    }
+    const result = await fetchRegistry(path);
+    console.log(registryItemSchema.parse(result));
+    const content = registryItemSchema.parse(result).files.content;
     if (!content) {
       logger.error(
         `This should not happen. Template ${file.path} is empty. Please check the registry and open an issue.`,
