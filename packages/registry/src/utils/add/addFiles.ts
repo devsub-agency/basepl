@@ -70,7 +70,7 @@ export const addFiles = async (
         .join(options.cwd, "src", file.path)
         .replace(fileName, "");
       const targetPath = path.join(targetDir, fileName);
-
+      console.log(targetPath);
       if (existsSync(targetPath) && !options.overwrite) {
         addFileSpinner.stop();
         const { overwrite } = await prompts({
