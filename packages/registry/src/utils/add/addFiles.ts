@@ -15,14 +15,7 @@ import { ConfigFile } from "../config/configFile";
 const getFileContent = async (file: RegistryFile): Promise<string> => {
   try {
     logger.info(`\n Reading template: ${file.path}`);
-    let path
-    if (file.type === "templates/fields") {
-       path = "fields/" + file.path;
-    } else {
-      path = "blocks/" + file.path;
-    }
-    const result = await fetchRegistry(path);
-    console.log(registryItemSchema.parse(result));
+    const result = await fetchRegistry(file.path);
     const content = registryItemSchema.parse(result).files.content;
     if (!content) {
       logger.error(
@@ -70,7 +63,6 @@ export const addFiles = async (
         .join(options.cwd, "src", file.path)
         .replace(fileName, "");
       const targetPath = path.join(targetDir, fileName);
-      console.log(targetPath);
       if (existsSync(targetPath) && !options.overwrite) {
         addFileSpinner.stop();
         const { overwrite } = await prompts({

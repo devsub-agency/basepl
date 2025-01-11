@@ -93,6 +93,9 @@ importers:
 
   packages/registry:
     dependencies:
+      '@basepl/cli':
+        specifier: ^1.0.5
+        version: 1.0.5(typescript@5.7.2)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -588,6 +591,10 @@ packages:
   '@babel/types@7.26.3':
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
+
+  '@basepl/cli@1.0.5':
+    resolution: {integrity: sha512-Y13LaaGrrd43EzVFn5HLId3Uu9dWsgNkpVe1RJEACUwh//46zFnYjLbRM1cgsORAGQ7K+Ox2eQvCCp2JPySSvw==}
+    hasBin: true
 
   '@changesets/apply-release-plan@7.0.6':
     resolution: {integrity: sha512-TKhVLtiwtQOgMAC0fCJfmv93faiViKSDqr8oMEqrnNs99gtSC1sZh/aEMS9a+dseU1ESZRCK+ofLgGY7o0fw/Q==}
@@ -7574,6 +7581,25 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@basepl/cli@1.0.5(typescript@5.7.2)':
+    dependencies:
+      chalk: 5.3.0
+      commander: 12.1.0
+      cosmiconfig: 9.0.0(typescript@5.7.2)
+      diff: 7.0.0
+      execa: 9.5.1
+      fast-glob: 3.3.2
+      fs-extra: 11.2.0
+      kleur: 4.1.5
+      node-fetch: 3.3.2
+      ora: 8.1.1
+      prompts: 2.4.2
+      ts-morph: 24.0.0
+      tsconfig-paths: 4.2.0
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - typescript
 
   '@changesets/apply-release-plan@7.0.6':
     dependencies:

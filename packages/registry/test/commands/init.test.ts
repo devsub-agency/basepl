@@ -1,11 +1,18 @@
 import prompts from "prompts";
-import {beforeEach, describe, expect, it, vi} from "vitest";
-import {init} from "../../src/commands/init";
-import {createConfig, defaultConfig,} from "../../src/utils/config/configHandler";
-import {getPackageManager} from "../../src/utils/getPackageManager";
-import {initShadcn} from "../../src/utils/initShadcn";
-import {checkProjectSetUp, checkShadcnPresents, getPayloadAppDetails,} from "../../src/utils/preflights/preflightInit";
-import {logger} from "../../src/utils/logging/logger";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { init } from "../../src/commands/init";
+import {
+  createConfig,
+  defaultConfig,
+} from "../../src/utils/config/configHandler";
+import { getPackageManager } from "../../src/utils/getPackageManager";
+import { initShadcn } from "../../src/utils/initShadcn";
+import {
+  checkProjectSetUp,
+  checkShadcnPresents,
+  getPayloadAppDetails,
+} from "../../src/utils/preflights/preflightInit";
+import { logger } from "../../src/utils/logging/logger";
 
 vi.mock("prompts");
 vi.mock("../../src/utils/config/configHandler");
@@ -35,7 +42,6 @@ vi.mock("../../src/utils/spinner", () => ({
 }));
 
 describe("init command", () => {
-
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(createConfig).mockResolvedValue(undefined);
@@ -47,7 +53,7 @@ describe("init command", () => {
       payloadVersion: "3.9.0",
     });
     vi.mocked(initShadcn).mockResolvedValue(undefined);
-    vi.mocked(prompts).mockResolvedValue({proceed: true});
+    vi.mocked(prompts).mockResolvedValue({ proceed: true });
   });
 
   it("should successfully initialize with default options", async () => {

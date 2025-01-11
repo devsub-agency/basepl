@@ -4,11 +4,11 @@
     "type": "templates/blocks",
     "files": [
       {
-        "path": "BaseplButton/Component.tsx",
+        "path": "blocks/BaseplButton/Component.tsx",
         "type": "templates/blocks"
       },
       {
-        "path": "BaseplButton/config.ts",
+        "path": "blocks/BaseplButton/config.ts",
         "type": "templates/blocks"
       }
     ],
@@ -21,11 +21,11 @@
     "type": "templates/blocks",
     "files": [
       {
-        "path": "BaseplImage/Component.tsx",
+        "path": "blocks/BaseplImage/Component.tsx",
         "type": "templates/blocks"
       },
       {
-        "path": "BaseplImage/config.ts",
+        "path": "blocks/BaseplImage/config.ts",
         "type": "templates/blocks"
       }
     ],
@@ -36,11 +36,11 @@
     "type": "templates/blocks",
     "files": [
       {
-        "path": "BaseplVideo/Component.tsx",
+        "path": "blocks/BaseplVideo/Component.tsx",
         "type": "templates/blocks"
       },
       {
-        "path": "BaseplVideo/config.ts",
+        "path": "blocks/BaseplVideo/config.ts",
         "type": "templates/blocks"
       }
     ],
@@ -51,11 +51,11 @@
     "type": "templates/blocks",
     "files": [
       {
-        "path": "BaseplRichtext/Component.tsx",
+        "path": "blocks/BaseplRichtext/Component.tsx",
         "type": "templates/blocks"
       },
       {
-        "path": "BaseplRichtext/config.ts",
+        "path": "blocks/BaseplRichtext/config.ts",
         "type": "templates/blocks"
       }
     ],
@@ -70,7 +70,7 @@
     "type": "templates/fields",
     "files": [
       {
-        "path": "link.ts",
+        "path": "fields/link.ts",
         "type": "templates/fields"
       }
     ],
