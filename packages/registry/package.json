@@ -1,6 +1,6 @@
 {
   "name": "@basepl/cli",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Add fields and blocks to your payload cms.",
   "publishConfig": {
     "access": "public"
