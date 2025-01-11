@@ -16,7 +16,7 @@ const getFileContent = async (file: RegistryFile): Promise<string> => {
   try {
     logger.info(`\n Reading template: ${file.path}`);
     const result = await fetchRegistry(file.path);
-    const content = registryItemSchema.parse(result).file.content;
+    const content = registryItemSchema.parse(result).files.content;
     if (!content) {
       logger.error(
         `This should not happen. Template ${file.path} is empty. Please check the registry and open an issue.`,
@@ -63,7 +63,6 @@ export const addFiles = async (
         .join(options.cwd, "src", file.path)
         .replace(fileName, "");
       const targetPath = path.join(targetDir, fileName);
-
       if (existsSync(targetPath) && !options.overwrite) {
         addFileSpinner.stop();
         const { overwrite } = await prompts({

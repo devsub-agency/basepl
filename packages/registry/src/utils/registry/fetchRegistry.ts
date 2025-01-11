@@ -3,7 +3,8 @@ import handleError from "../error/handle-error";
 import { logger } from "../logging/logger";
 import { registryIndexSchema } from "./schema";
 
-const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://basepl.com/registry";
+//const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://basepl.com/registry";
+const REGISTRY_URL = "http://localhost:3000/registry";
 
 export const getRegistryIndex = async () => {
   try {
@@ -34,15 +35,11 @@ const getRegistryUrl = (path: string) => {
     path = replaceExtensionWithJson(path);
   }
   return `${REGISTRY_URL}/${path}`;
+
 };
 
 const replaceExtensionWithJson = (filePath: string): string => {
   if (filePath.endsWith(".json")) return filePath;
-
-  const parsedPath = path.parse(filePath);
-  return path.format({
-    ...parsedPath,
-    base: undefined,
-    ext: ".json",
-  });
+  const path = filePath.split(".");
+  return path[0] + ".json";
 };

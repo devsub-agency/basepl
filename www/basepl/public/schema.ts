@@ -4,13 +4,13 @@ export const registryFileSchemaType = z.enum([
   'templates/fields',
   'templates/blocks',
   'templates/components',
-])
+]);
 
 export const registryItemFileSchema = z.object({
   path: z.string(),
   content: z.string().optional(),
   type: registryFileSchemaType,
-})
+});
 
 /**
  * In the index.json we list every file contained in a folder. The representation of files is always a folder in the registry.

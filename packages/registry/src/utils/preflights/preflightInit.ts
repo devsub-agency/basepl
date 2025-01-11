@@ -36,7 +36,6 @@ export const getPayloadAppDetails = async (
   const packageObj = await fs.readJson(
     path.resolve(projectDir, "package.json"),
   );
-  console.log(packageObj);
   const payloadVersion = packageObj.dependencies?.payload ?? null;
 
   if (!payloadVersion) {

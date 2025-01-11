@@ -17,9 +17,9 @@ function parseRegistryDependencies(content: string): string[] {
       groupIndex: 2
     }
   ];
-  
+
   const deps = new Set<string>();
-  
+
   for (const {pattern, groupIndex} of importPatterns) {
     let match;
     while ((match = pattern.exec(content)) !== null) {
@@ -29,7 +29,7 @@ function parseRegistryDependencies(content: string): string[] {
       }
     }
   }
-  
+
   return Array.from(deps);
 }
 
@@ -39,7 +39,6 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
 
     const pathParts = file.split('/')
     const type = isBlock ? 'blocks' : 'fields'
-
     // For blocks: first part is component name, last part is filename
     const name = isBlock ? pathParts[0] : path.parse(file).name
     const filename = path.parse(pathParts[pathParts.length - 1]).name
@@ -47,7 +46,7 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
     const filePath = path.join(baseDir, file)
     const content = await fs.readFile(filePath, 'utf-8')
     const registryType = `templates/${type}`
-
+    const projectPath = type + '/' + file;
     // Rest of component handling remains the same
     let component = components.get(name);
     if (!component) {
@@ -61,7 +60,7 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
     }
 
     component.files.push({
-      path: file,
+      path: projectPath,
       type: registryType
     });
 
@@ -72,7 +71,7 @@ async function processFiles(files: string[], baseDir: string, components: Map<st
       name: filename,
       type: registryType,
       files: {
-        path: file,
+        path: projectPath,
         type: registryType,
         content
       }
@@ -112,7 +111,6 @@ async function buildRegistry() {
 
   await processFiles(blocks, blocksDir, components, publicDir, true)
   await processFiles(fields, fieldsDir, components, publicDir, false)
-
   const registryIndex = Array.from(components.values()).map(component => ({
     name: component.name,
     type: component.type,
