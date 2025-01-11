@@ -3,8 +3,7 @@ import handleError from "../error/handle-error";
 import { logger } from "../logging/logger";
 import { registryIndexSchema } from "./schema";
 
-//const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://basepl.com/registry";
-const REGISTRY_URL = "http://localhost:3000/registry";
+const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://basepl.com/registry";
 
 export const getRegistryIndex = async () => {
   try {
