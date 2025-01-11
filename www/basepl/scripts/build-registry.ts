@@ -111,7 +111,6 @@ async function buildRegistry() {
 
   await processFiles(blocks, blocksDir, components, publicDir, true)
   await processFiles(fields, fieldsDir, components, publicDir, false)
-  console.log( Array.from(components.values()).map(component => component.files))
   const registryIndex = Array.from(components.values()).map(component => ({
     name: component.name,
     type: component.type,
