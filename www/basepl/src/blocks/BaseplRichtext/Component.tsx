@@ -27,7 +27,6 @@ export const BaseplRichtext = (props: BaseplRichtextType) => {
 
   return (
     <RichTextWithoutBlocks
-      // @ts-expect-error
       converters={jsxConverters}
       className={cn()}
       {...{data: content as SerializedEditorState}}
