@@ -33,7 +33,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
   return (
     <div
       className={cn([
-        'flex w-full flex-col gap-4 bg-background md:flex-row md:rounded-lg md:bg-accent/60 md:px-4 md:py-2 md:backdrop-blur-md md:dark:bg-accent/30',
+        'bg-background md:bg-accent/60 md:dark:bg-accent/30 flex w-full flex-col gap-4 md:flex-row md:rounded-lg md:px-4 md:py-2 md:backdrop-blur-md',
         { 'bg-background': showMenu },
       ])}
     >
@@ -52,7 +52,7 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
               <Link href={item.href}>
                 <Button
                   variant="ghost"
-                  className="text-muted-foreground hover:bg-transparent dark:hover:text-foreground"
+                  className="text-muted-foreground dark:hover:text-foreground hover:bg-transparent"
                 >
                   {item.title}
                 </Button>
@@ -69,8 +69,8 @@ export const HeaderClient = ({ menuItems }: HeaderClientProps) => {
       >
         <div className="flex">
           <Button variant="ghost" size="icon" onClick={onToggleTheme}>
-            <Sun className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
-            <Moon className="h-[1.2rem] w-[1.2rem] dark:hidden" />
+            <Sun className="hidden size-[1.2rem] dark:block" />
+            <Moon className="size-[1.2rem] dark:hidden" />
           </Button>
           <Link href="https://github.com/devsub-agency/basepl" target="_blank">
             <Button variant="ghost" size="icon">

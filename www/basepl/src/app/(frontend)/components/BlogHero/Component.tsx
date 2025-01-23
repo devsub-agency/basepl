@@ -45,12 +45,12 @@ export const BlogHero = (props: BlogHeroProps) => {
       </Breadcrumb>
       <h1 className="md:font-4xl text-3xl font-medium md:w-3/4">{headline}</h1>
       <div className="mt-4 flex gap-4">
-        <span className="flex items-center gap-1 text-sm text-muted-foreground">
-          <CalendarIcon className="h-4 w-4" />
+        <span className="text-muted-foreground flex items-center gap-1 text-sm">
+          <CalendarIcon className="size-4" />
           {new Date(date).toLocaleDateString()}
         </span>
-        <span className="flex items-center gap-1 text-sm text-muted-foreground">
-          <Clock className="h-4 w-4" />
+        <span className="text-muted-foreground flex items-center gap-1 text-sm">
+          <Clock className="size-4" />
           {readingTime + 'min read'}
         </span>
       </div>

@@ -49,7 +49,7 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
     <div className="w-full space-y-4 pr-2">
       {items.map((group) => (
         <div key={group.title}>
-          <span className="block pb-2 text-sm font-medium text-foreground/80">
+          <span className="text-foreground/80 block pb-2 text-sm font-medium">
             {firstLetterToUpperCase(group.title)}
           </span>
           <div className="flex flex-col pb-2">
@@ -59,8 +59,8 @@ export function DocsNav({ items, setIsOpen }: DocsNavProps) {
                 href={item.href}
                 onClick={() => setIsOpen?.(false)}
                 className={cn(
-                  'flex w-full items-center gap-3 px-4 py-2 text-sm text-muted-foreground',
-                  'border-l hover:bg-emerald-500/5 hover:text-foreground',
+                  'text-muted-foreground flex w-full items-center gap-3 px-4 py-2 text-sm',
+                  'hover:text-foreground border-l hover:bg-emerald-500/5',
                   {
                     'border-emerald-500 font-medium text-emerald-500 dark:text-emerald-400':
                       pathname === item.href,

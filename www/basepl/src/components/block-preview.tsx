@@ -42,7 +42,7 @@ export function BlockPreview({
 
   if (!config) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         Component not found in registry.
       </p>
     )
@@ -73,7 +73,7 @@ export function BlockPreview({
     >
       <Tabs
         defaultValue={selectedTab}
-        className="relative mb-8 mt-6 w-full rounded-lg border bg-accent/20"
+        className="bg-accent/20 relative mb-8 mt-6 w-full rounded-lg border"
         onValueChange={(value) => setSelectedTab(value as Tabs)}
       >
         <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
@@ -81,7 +81,7 @@ export function BlockPreview({
             <TabsTrigger
               key={manager}
               value={manager}
-              className="rounded-none border-b border-b-transparent !bg-transparent px-5 pb-3 pt-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
+              className="text-muted-foreground hover:text-foreground rounded-none border-b border-b-transparent !bg-transparent px-5 py-3 text-sm data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
             >
               {manager}
             </TabsTrigger>
@@ -89,7 +89,7 @@ export function BlockPreview({
         </TabsList>
         <TabsContent
           value={selectedTab}
-          className="relative flex items-center px-5 pb-5 pt-3 text-sm text-muted-foreground"
+          className="text-muted-foreground relative flex items-center px-5 pb-5 pt-3 text-sm"
         >
           <div className="item-center flex max-h-[480px] w-full justify-center overflow-auto">
             {getTabContent(selectedTab)}

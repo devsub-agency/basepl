@@ -119,7 +119,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        'relative rounded-md border border-accent-foreground/20 px-1.5 py-0.5 font-mono text-xs text-foreground',
+        'border-accent-foreground/20 text-foreground relative rounded-md border px-1.5 py-0.5 font-mono text-xs',
         className,
       )}
       {...props}
@@ -146,7 +146,7 @@ const components = {
   }: React.ComponentProps<typeof TabsTrigger>) => (
     <TabsTrigger
       className={cn(
-        'relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-medium text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none',
+        'text-muted-foreground data-[state=active]:border-b-primary data-[state=active]:text-foreground relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-medium shadow-none transition-none data-[state=active]:shadow-none',
         className,
       )}
       {...props}

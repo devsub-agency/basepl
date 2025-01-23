@@ -1,18 +1,18 @@
-import type { Metadata } from 'next'
+import type {Metadata} from 'next'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import type { Media, Post } from '@/payload-types'
-import { redirect } from 'next/navigation'
-import { generateMeta } from '@/utilities/generateMetadata'
-import { BlogHero } from '../../components/BlogHero/Component'
-import { BlogSidebar } from '../../components/BlogSidebar/Component'
+import {getPayload} from 'payload'
+import {draftMode} from 'next/headers'
+import React, {cache} from 'react'
+import type {Media} from '@/payload-types'
+import {redirect} from 'next/navigation'
+import {generateMeta} from '@/utilities/generateMetadata'
+import {BlogHero} from '../../components/BlogHero/Component'
+import {BlogSidebar} from '../../components/BlogSidebar/Component'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import {Button} from '@/components/ui/button'
 import Link from 'next/link'
-import { DiscordLogo } from '../../components/Logos/DiscordLogo'
-import { BaseplRichtext } from '@/blocks/BaseplRichtext/Component'
+import {DiscordLogo} from '../../components/Logos/DiscordLogo'
+import {BaseplRichtext} from '@/blocks/BaseplRichtext/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -27,10 +27,9 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
+  return posts.docs.map(({slug}) => {
+    return {slug}
   })
-  return params
 }
 
 type Args = {
@@ -67,13 +66,13 @@ export default async function Post({ params: paramsPromise }: Args) {
               alt={(post.profilePicture as Media)?.alt ?? ''}
               width={40}
               height={40}
-              className="h-10 w-10 rounded-full object-cover"
+              className="size-10 rounded-full object-cover"
             />
             <div>
-              <div className="text-sm font-semibold text-muted-foreground">
+              <div className="text-muted-foreground text-sm font-semibold">
                 Maurice
               </div>
-              <div className="text-sm text-muted-foreground">Co-Founder</div>
+              <div className="text-muted-foreground text-sm">Co-Founder</div>
             </div>
           </div>
           <Button type="submit" id="discord" asChild>

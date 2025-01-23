@@ -32,7 +32,7 @@ export const CommandPreview = ({
     <div className="relative">
       <Tabs
         defaultValue={selectedTab}
-        className="relative mb-8 mt-6 w-full rounded-lg border bg-accent/20"
+        className="bg-accent/20 relative mb-8 mt-6 w-full rounded-lg border"
         onValueChange={(value) => setSelectedTab(value as PackageManager)}
       >
         <TabsList className="h-auto w-full justify-start rounded-none border-b bg-transparent p-0">
@@ -40,7 +40,7 @@ export const CommandPreview = ({
             <TabsTrigger
               key={manager}
               value={manager}
-              className="rounded-none border-b border-b-transparent !bg-transparent px-5 pb-3 pt-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
+              className="text-muted-foreground hover:text-foreground rounded-none border-b border-b-transparent !bg-transparent px-5 py-3 text-sm data-[state=active]:border-b-emerald-500 data-[state=active]:text-emerald-500"
             >
               {manager}
             </TabsTrigger>
@@ -48,7 +48,7 @@ export const CommandPreview = ({
         </TabsList>
         <TabsContent
           value={selectedTab}
-          className="flex items-center px-5 pb-3 pt-1 text-sm text-muted-foreground"
+          className="text-muted-foreground flex items-center px-5 pb-3 pt-1 text-sm"
         >
           <pre data-language="bash">
             <code>{getCommandByTab(selectedTab)}</code>

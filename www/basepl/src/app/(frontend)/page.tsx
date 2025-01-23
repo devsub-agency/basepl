@@ -20,7 +20,7 @@ const Home = () => {
           <h1 className="text-4xl font-medium leading-[1.125] tracking-tight md:text-6xl">
             Build your Payload applications in minutes
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-muted-foreground text-lg">
             Awesome out-of-the-box templates, components and plugins for Payload
             CMS. Bootstrap your next project in minutes with ease.
           </p>
@@ -42,7 +42,7 @@ const Home = () => {
           alt="logo"
           width={1000}
           height={1000}
-          className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full object-cover object-bottom opacity-80 dark:opacity-20"
+          className="pointer-events-none absolute left-0 top-0 z-0 size-full object-cover object-bottom opacity-80 dark:opacity-20"
           priority
         />
       </div>
@@ -132,10 +132,10 @@ const Home = () => {
             minSize={0.4}
             maxSize={1}
             particleDensity={1200}
-            className="h-full w-full bg-transparent"
+            className="size-full bg-transparent"
             particleColor="#34d399"
           />
-          <div className="absolute inset-0 h-full w-full bg-background [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+          <div className="bg-background absolute inset-0 size-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
         </div>
       </div>
       <div className="hidden h-32 md:block" />

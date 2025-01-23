@@ -47,7 +47,7 @@ const TableOfContents = ({ items, className }: TableOfContentsProps) => {
   }, [])
 
   const getLinkClassName = (href: string) => {
-    return cn('text-sm text-muted-foreground hover:text-foreground py-2', {
+    return cn('text-muted-foreground hover:text-foreground py-2 text-sm', {
       'text-emerald-500 font-medium': activeId === href.replace('#', ''),
     })
   }
@@ -113,8 +113,8 @@ export const BlogSidebar = () => {
 
   const tableOfContentsHeadline = (
     <div className="mb-4 flex items-center gap-2">
-      <TableOfContentsIcon className="h-5 w-5" />
-      <span className="font-semibold text-foreground/80">
+      <TableOfContentsIcon className="size-5" />
+      <span className="text-foreground/80 font-semibold">
         Table of contents
       </span>
     </div>
@@ -133,9 +133,9 @@ export const BlogSidebar = () => {
           <SheetTrigger asChild>
             <Button
               size="icon"
-              className="h-12 w-12 rounded-full bg-emerald-500"
+              className="size-12 rounded-full bg-emerald-500"
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="size-6" />
             </Button>
           </SheetTrigger>
           <SheetContent>

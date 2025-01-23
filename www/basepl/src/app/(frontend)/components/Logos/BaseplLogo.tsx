@@ -2,14 +2,14 @@ import Link from 'next/link'
 
 export const BaseplLogo = () => {
   return (
-    <Link href={'/'} className="w-fit h-fit cursor-pointer" aria-label="basepl">
+    <Link href={'/'} className="size-fit cursor-pointer" aria-label="basepl">
       <svg
         width="655"
         height="173"
         viewBox="0 0 655 173"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-[1.5rem] w-[6rem]"
+        className="h-6 w-24"
       >
         <path
           fillRule="evenodd"

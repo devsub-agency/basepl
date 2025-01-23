@@ -42,7 +42,7 @@ export const SyntaxHighlighter = ({ code }: SyntaxHighlighterProps) => {
   }, [code])
 
   return (
-    <div className="realtive h-full w-full">
+    <div className="realtive size-full">
       <div
         className="block dark:hidden"
         dangerouslySetInnerHTML={{
@@ -55,7 +55,7 @@ export const SyntaxHighlighter = ({ code }: SyntaxHighlighterProps) => {
           __html: highlightedCodeDark,
         }}
       />
-      <div className="absolute right-3 top-1 rounded-lg bg-accent md:bg-transparent">
+      <div className="bg-accent absolute right-3 top-1 rounded-lg md:bg-transparent">
         <CopyButton textToCopy={code} />
       </div>
     </div>

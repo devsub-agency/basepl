@@ -1,11 +1,12 @@
-import { getPayload, User } from 'payload'
+import {getPayload} from 'payload'
 import configPromise from '@payload-config'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Media, Post } from '@/payload-types'
-import { Metadata } from 'next'
-import { cn } from '@/lib/utils'
+import {Badge} from '@/components/ui/badge'
+import {Media, Post} from '@/payload-types'
+import {Metadata} from 'next'
+import {cn} from '@/lib/utils'
+
 interface ArticleProps {
   article: Post
   isFeatured?: boolean
@@ -41,7 +42,7 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
       <div className="flex flex-col justify-center space-y-4">
         <div className="space-y-2">
           <div
-            className={cn('mb-4 flex gap-1 text-sm text-muted-foreground', {
+            className={cn('text-muted-foreground mb-4 flex gap-1 text-sm', {
               hidden: !isFeatured,
             })}
           >
@@ -66,10 +67,10 @@ const ArticleCard = ({ article, isFeatured = false }: ArticleProps) => {
             alt={(article.profilePicture as Media)?.alt ?? ''}
             width={40}
             height={40}
-            className="h-10 w-10 rounded-full object-cover"
+            className="size-10 rounded-full object-cover"
           />
           <div className={cn('flex gap-1 text-sm', { 'flex-col': isFeatured })}>
-            <span className="text-sm font-semibold text-muted-foreground">
+            <span className="text-muted-foreground text-sm font-semibold">
               {article.populatedAuthors?.name}
             </span>
             <span
@@ -116,7 +117,7 @@ export default async function Page() {
     <div className="bg-background">
       <main className="mx-auto max-w-screen-xl px-5 pb-10 pt-20 md:px-8 md:pb-16 md:pt-40">
         <ArticleCard article={featuredArticle} isFeatured />
-        <div className="grid gap-8 md:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-3">
           {articles.map((article, index) => (
             <ArticleCard key={index} article={article} />
           ))}

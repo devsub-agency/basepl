@@ -14,7 +14,7 @@ interface FooterProps extends React.HTMLAttributes<HTMLElement> {}
 export function Footer({ className, ...props }: FooterProps) {
   return (
     <footer
-      className={cn('z-0 w-full border-t bg-background', className)}
+      className={cn('bg-background z-0 w-full border-t', className)}
       {...props}
     >
       <div className="mx-auto max-w-screen-xl md:px-5">
@@ -57,7 +57,7 @@ export function Footer({ className, ...props }: FooterProps) {
           <div className="hidden md:block" />
           <div className="flex flex-col space-y-4">
             <span className="text-sm font-medium">Pages</span>
-            <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
+            <nav className="text-muted-foreground flex flex-col space-y-3 text-sm">
               <Link href="/">Home</Link>
               <Link href="/docs/getting-started">Documentation</Link>
               <Link href="/posts">Blog</Link>
@@ -65,7 +65,7 @@ export function Footer({ className, ...props }: FooterProps) {
           </div>
           <div className="flex flex-col space-y-4">
             <span className="text-sm font-medium">Resources</span>
-            <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
+            <nav className="text-muted-foreground flex flex-col space-y-3 text-sm">
               <Link href="/docs/blocks/button">Blocks</Link>
               <Link href="/docs/fields/link">Fields</Link>
               <Link href="/docs/templates/start">Templates</Link>
@@ -73,7 +73,7 @@ export function Footer({ className, ...props }: FooterProps) {
           </div>
           <div className="flex flex-col space-y-4">
             <span className="text-sm font-medium">Legal</span>
-            <nav className="flex flex-col space-y-3 text-sm text-muted-foreground">
+            <nav className="text-muted-foreground flex flex-col space-y-3 text-sm">
               <Link href="/">Privacy policy</Link>
               <Link href="https://devsub.de" target="_blank">
                 devsub company
@@ -81,10 +81,10 @@ export function Footer({ className, ...props }: FooterProps) {
             </nav>
           </div>
 
-          <div className="col-span-2 mt-12 flex items-center justify-between space-x-4 text-sm text-muted-foreground opacity-75 md:col-span-5">
+          <div className="text-muted-foreground col-span-2 mt-12 flex items-center justify-between space-x-4 text-sm opacity-75 md:col-span-5">
             <div className="flex items-center space-x-2 rounded-full border px-3 py-1">
-              <div className="relative h-[0.5rem] w-[0.5rem] rounded-full bg-emerald-500">
-                <span className="absolute inline-flex h-full w-full animate-ping-slow rounded-full bg-emerald-400 opacity-75" />
+              <div className="relative size-2 rounded-full bg-emerald-500">
+                <span className="animate-ping-slow absolute inline-flex size-full rounded-full bg-emerald-400 opacity-75" />
               </div>
               <span>In progress</span>
             </div>

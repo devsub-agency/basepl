@@ -25,7 +25,7 @@ export const CopyButton = ({ textToCopy }: CopyButtonProps) => {
     >
       <Check className={cn('size-4 text-emerald-500', { hidden: !isCopied })} />
       <Copy
-        className={cn('size-4 text-muted-foreground', { hidden: isCopied })}
+        className={cn('text-muted-foreground size-4', { hidden: isCopied })}
       />
     </Button>
   )

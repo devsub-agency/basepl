@@ -14,7 +14,7 @@ export const Badges = ({ text, label }: BadgesProps) => {
         {textBlocks.map((block, index) => (
           <span
             key={index}
-            className="inline rounded-md bg-accent-foreground/10 px-2 py-0.5 font-mono text-xs text-foreground/90"
+            className="bg-accent-foreground/10 text-foreground/90 inline rounded-md px-2 py-0.5 font-mono text-xs"
           >
             {block}
           </span>
